@@ -1,15 +1,15 @@
 // src/stopRecordService.js
 import axios from 'axios'
 
-const fetchRecordingData = async () => {
-  try {
-    const response = await axios.get('/recordingData.json')
-    return response.data
-  } catch (error) {
-    console.error('Error fetching recording data', error)
-    throw error
-  }
-}
+// const fetchRecordingData = async () => {
+//   try {
+//     const response = await axios.get('/recordingData.json')
+//     return response.data
+//   } catch (error) {
+//     console.error('Error fetching recording data', error)
+//     throw error
+//   }
+// }
 
 export const stopRecording = async () => {
   try {

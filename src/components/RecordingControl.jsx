@@ -1,15 +1,15 @@
-// src/components/RecordingControl.js
+// src/components/RecordingControl.jsx
 import React, { useState } from 'react'
-import { startRecording } from '../services/startRecordService.js'
-import { stopRecording } from '../services/stopRecordService.js'
+import { startRecording } from '../services/startRecordService'
+import { stopRecording } from '../services/stopRecordService'
 
-const RecordingControl = () => {
+const RecordingControl = ({ config }) => {
   const [response, setResponse] = useState(null)
   const [error, setError] = useState(null)
 
   const handleStartRecording = async () => {
     try {
-      const result = await startRecording()
+      const result = await startRecording(config)
       setResponse(result)
       setError(null)
     } catch (error) {
@@ -24,7 +24,7 @@ const RecordingControl = () => {
 
   const handleStopRecording = async () => {
     try {
-      const result = await stopRecording()
+      const result = await stopRecording(config)
       setResponse(result)
       setError(null)
     } catch (error) {

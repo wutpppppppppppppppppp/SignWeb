@@ -1,13 +1,13 @@
-// src/App.jsx
+// src/App.js
 import React from 'react'
-import RecordingControl from './components/RecordingControl'
+import FormRokoko from './components/FormRokoko'
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Me mememe</h1>
-        <RecordingControl />
+        <h1>Recording Control</h1>
+        <FormRokoko />
       </header>
     </div>
   )

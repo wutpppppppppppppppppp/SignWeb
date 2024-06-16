@@ -1,30 +1,25 @@
 // src/components/FormRokoko.jsx
-import React, { useState } from 'react'
-import RecordingControl from './Setup/RecordingControl'
-import CalibrateControl from './Setup/CalibrateControl'
+import React from 'react'
+import useFormInput from '../hooks/useFormInput'
+import useFormSubmit from '../hooks/useFormSubmit'
+import RecordingControl from './setup/RecordingControl'
+
 const FormRokoko = () => {
-  const [config, setConfig] = useState({
+  const { values: config, handleChange } = useFormInput({
     ip_address: '',
     port: '',
     api_key: '',
-    frame_rate: '60',
-    back_to_live: false,
+    // frame_rate: '60',
+    // back_to_live: false,
   })
-  const [isConfigSet, setIsConfigSet] = useState(false)
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setConfig({ ...config, [name]: value })
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setIsConfigSet(true)
-  }
+  const { isSubmitted, handleSubmit } = useFormSubmit(() => {
+    console.log('Form submitted with config:', config)
+  })
 
   return (
     <div>
-      {!isConfigSet ? (
+      {!isSubmitted ? (
         <form onSubmit={handleSubmit}>
           <div>
             <label>IP Address:</label>
@@ -38,27 +33,23 @@ const FormRokoko = () => {
             <label>API Key:</label>
             <input type="text" name="api_key" value={config.api_key} onChange={handleChange} required />
           </div>
-          <div>
+          {/* <div>
             <label>Frame Rate:</label>
             <input type="text" name="frame_rate" value={config.frame_rate} onChange={handleChange} />
-          </div>
+          </div> */}
           {/* <div>
             <label>Back to Live:</label>
             <input
               type="checkbox"
               name="back_to_live"
               checked={config.back_to_live}
-              onChange={(e) => setConfig({ ...config, back_to_live: e.target.checked })}
+              onChange={(e) => handleChange({ target: { name: 'back_to_live', value: e.target.checked } })}
             />
           </div> */}
           <button type="submit">Set Configuration</button>
         </form>
       ) : (
-        <>
-          <CalibrateControl />
-          <RecordingControl config={config} />
-        </>
-        // if isConfigSet is true,
+        <RecordingControl config={config} />
       )}
     </div>
   )

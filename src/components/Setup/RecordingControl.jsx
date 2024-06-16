@@ -1,4 +1,4 @@
-// src/components/RecordingControl.jsx
+// src\components\Setup\RecordingControl.jsx
 import React, { useState } from 'react'
 import { startRecording } from '../../services/startRecordService'
 import { stopRecording } from '../../services/stopRecordService'

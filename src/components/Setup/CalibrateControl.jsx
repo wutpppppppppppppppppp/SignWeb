@@ -1,4 +1,4 @@
-// src/components/RecordingControl.js
+// src\components\Setup\CalibrateControl.jsx
 import React, { useState } from 'react'
 import { calibrate } from '../../services/calibrateService.js'
 

@@ -12,6 +12,7 @@ const useFormInput = (initialValues) => {
   return {
     values,
     handleChange,
+    setValues,
   }
 }
 

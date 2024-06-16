@@ -1,7 +1,7 @@
 // src/components/RecordingControl.jsx
 import React, { useState } from 'react'
-import { startRecording } from '../services/startRecordService'
-import { stopRecording } from '../services/stopRecordService'
+import { startRecording } from '../../services/startRecordService'
+import { stopRecording } from '../../services/stopRecordService'
 
 const RecordingControl = ({ config }) => {
   const [response, setResponse] = useState(null)
@@ -45,6 +45,7 @@ const RecordingControl = ({ config }) => {
         <div>
           <h3>Response</h3>
           <pre>{JSON.stringify(response, null, 2)}</pre>
+          {/* https://stackoverflow.com/questions/37847885/formatting-code-with-pre-tag-in-react-and-jsx */}
         </div>
       )}
       {error && (

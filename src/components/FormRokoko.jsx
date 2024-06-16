@@ -1,13 +1,13 @@
 // src/components/FormRokoko.jsx
 import React, { useState } from 'react'
-import RecordingControl from './RecordingControl'
-
+import RecordingControl from './Setup/RecordingControl'
+import CalibrateControl from './Setup/CalibrateControl'
 const FormRokoko = () => {
   const [config, setConfig] = useState({
     ip_address: '',
     port: '',
     api_key: '',
-    frame_rate: '30',
+    frame_rate: '60',
     back_to_live: false,
   })
   const [isConfigSet, setIsConfigSet] = useState(false)
@@ -42,7 +42,7 @@ const FormRokoko = () => {
             <label>Frame Rate:</label>
             <input type="text" name="frame_rate" value={config.frame_rate} onChange={handleChange} />
           </div>
-          <div>
+          {/* <div>
             <label>Back to Live:</label>
             <input
               type="checkbox"
@@ -50,11 +50,15 @@ const FormRokoko = () => {
               checked={config.back_to_live}
               onChange={(e) => setConfig({ ...config, back_to_live: e.target.checked })}
             />
-          </div>
+          </div> */}
           <button type="submit">Set Configuration</button>
         </form>
       ) : (
-        <RecordingControl config={config} />
+        <>
+          <CalibrateControl />
+          <RecordingControl config={config} />
+        </>
+        // if isConfigSet is true,
       )}
     </div>
   )

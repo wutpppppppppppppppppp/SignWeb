@@ -1,6 +1,6 @@
 // src/components/RecordingControl.js
 import React, { useState } from 'react'
-import { calibrate } from '../services/calibrateService.js'
+import { calibrate } from '../../services/calibrateService.js'
 
 const CalibrateControl = () => {
   const [response, setResponse] = useState(null)

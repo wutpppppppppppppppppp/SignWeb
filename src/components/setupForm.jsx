@@ -1,10 +1,10 @@
-// src/components/FormRokoko.jsx
+// src/components/setupForm.jsx
 import React from 'react'
 import useFormInput from '../hooks/useFormInput'
 import useFormSubmit from '../hooks/useFormSubmit'
 import RecordingControl from './setup/RecordingControl'
 
-const FormRokoko = () => {
+const SetupForm = () => {
   const { values: config, handleChange } = useFormInput({
     ip_address: '',
     port: '',
@@ -55,4 +55,4 @@ const FormRokoko = () => {
   )
 }
 
-export default FormRokoko
+export default SetupForm

@@ -1,19 +1,17 @@
-// src/hooks/useFormSubmit.js
-import { useState } from 'react'
+import { useState } from "react";
 
 const useFormSubmit = (callback) => {
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setIsSubmitted(true)
-    callback()
-  }
+  const handleSubmit = () => {
+    setIsSubmitted(true);
+    callback();
+  };
 
   return {
     isSubmitted,
     handleSubmit,
-  }
-}
+  };
+};
 
-export default useFormSubmit
+export default useFormSubmit;

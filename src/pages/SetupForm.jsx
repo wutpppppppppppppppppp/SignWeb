@@ -1,28 +1,28 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import useFormInput from "../hooks/useFormInput";
-import useFormSubmit from "../hooks/useFormSubmit";
+import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import useFormInput from "../hooks/useFormInput"
+import useFormSubmit from "../hooks/useFormSubmit"
 
 const SetupForm = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const [initialConfig] = useState({
     ip_address: "192.168.1.35",
     port: "14053",
     api_key: "1234",
-  });
+  })
 
-  const { values: config, handleChange } = useFormInput(initialConfig);
+  const { values: config, handleChange } = useFormInput(initialConfig)
 
   const { isSubmitted, handleSubmit } = useFormSubmit(() => {
-    console.log("Form submitted with config:", config);
-    navigate("/control-buttons", { state: { config } });
-  });
+    console.log("Form submitted with config:", config)
+    navigate("/control-buttons", { state: { config } })
+  })
 
   const handleFormSubmit = (event) => {
-    event.preventDefault();
-    handleSubmit();
-  };
+    event.preventDefault()
+    handleSubmit()
+  }
 
   return (
     <div>
@@ -62,7 +62,7 @@ const SetupForm = () => {
         </form>
       ) : null}
     </div>
-  );
-};
+  )
+}
 
-export default SetupForm;
+export default SetupForm

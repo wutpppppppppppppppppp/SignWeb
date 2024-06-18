@@ -1,25 +1,25 @@
 // src/pages/ControlButtons.jsx
-import React from "react";
-import { useLocation } from "react-router-dom";
-import ControlButton from "../components/ServiceButton";
-import { startRecording } from "../services/startRecordService";
-import { stopRecording } from "../services/stopRecordService";
-import { calibrate } from "../services/calibrateService";
-import { infoRequest } from "../services/infoService";
-import { liveStream } from "../services/livestreamService";
-import { changePlaybackState } from "../services/playbackService";
-import { pose } from "../services/poseService";
-import { resetActor } from "../services/resetActorService";
-import { tracker } from "../services/trackerService";
+import React from "react"
+import { useLocation } from "react-router-dom"
+import ControlButton from "../components/ServiceButton"
+import { startRecording } from "../services/startRecordService"
+import { stopRecording } from "../services/stopRecordService"
+import { calibrate } from "../services/calibrateService"
+import { infoRequest } from "../services/infoService"
+import { liveStream } from "../services/livestreamService"
+import { changePlaybackState } from "../services/playbackService"
+import { pose } from "../services/poseService"
+import { resetActor } from "../services/resetActorService"
+import { tracker } from "../services/trackerService"
 
 const ControlButtons = () => {
-  const location = useLocation();
-  const { config } = location.state || {};
+  const location = useLocation()
+  const { config } = location.state || {}
 
-  const [activeId, setActiveId] = React.useState(null);
+  const [activeId, setActiveId] = React.useState(null)
 
   if (!config) {
-    return <div>No configuration found. Please go back to the setup form.</div>;
+    return <div>No configuration found. Please go back to the setup form.</div>
   }
 
   return (
@@ -98,7 +98,7 @@ const ControlButtons = () => {
         setActiveId={setActiveId}
       />
     </div>
-  );
-};
+  )
+}
 
-export default ControlButtons;
+export default ControlButtons

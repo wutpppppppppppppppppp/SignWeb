@@ -8,7 +8,7 @@ const SetupForm = () => {
 
   const [initialConfig] = useState({
     ip_address: "192.168.1.35",
-    port: "14051",
+    port: "14053",
     api_key: "1234",
   });
 

@@ -1,7 +1,7 @@
 // src/pages/ControlButtons.jsx
 import React from "react";
 import { useLocation } from "react-router-dom";
-import ControlButton from "../components/ControlButton";
+import ControlButton from "../components/ServiceButton";
 import { startRecording } from "../services/startRecordService";
 import { stopRecording } from "../services/stopRecordService";
 import { calibrate } from "../services/calibrateService";
@@ -24,6 +24,7 @@ const ControlButtons = () => {
 
   return (
     <div>
+      <pre>{JSON.stringify(config, null, 0)}</pre>
       <ControlButton
         id="startRecording"
         service={startRecording}

@@ -1,41 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useFormInput from "../hooks/useFormInput";
 import useFormSubmit from "../hooks/useFormSubmit";
-import { fetchJson } from "../utils/fetchJson";
 
 const SetupForm = () => {
   const navigate = useNavigate();
-  const [initialConfig, setInitialConfig] = useState({
-    ip_address: "123.456.78.9",
+
+  const [initialConfig] = useState({
+    ip_address: "192.168.1.35",
     port: "14051",
     api_key: "1234",
   });
 
-  const {
-    values: config,
-    handleChange,
-    setValues,
-  } = useFormInput(initialConfig);
+  const { values: config, handleChange } = useFormInput(initialConfig);
 
   const { isSubmitted, handleSubmit } = useFormSubmit(() => {
     console.log("Form submitted with config:", config);
-    navigate("/control-buttons", { state: { config } }); // react-router-dom navigation to /control-buttons path
+    navigate("/control-buttons", { state: { config } });
   });
-
-  useEffect(() => {
-    const loadConfig = async () => {
-      try {
-        const configData = await fetchJson("/config/ipconfig.json");
-        setInitialConfig(configData);
-        setValues(configData);
-      } catch (error) {
-        console.error("Error loading initial config:", error);
-      }
-    };
-
-    loadConfig();
-  }, [setValues]);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();

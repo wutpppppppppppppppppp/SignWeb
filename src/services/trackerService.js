@@ -1,11 +1,11 @@
 // src/services/trackerService.js
-import axios from "axios";
+import axios from "axios"
 
 export const tracker = async (config) => {
   try {
-    const { ip_address, port, api_key } = config;
+    const { ip_address, port, api_key } = config
 
-    console.log(`http://${ip_address}:${port}/v2/${api_key}/tracker`);
+    console.log(`http://${ip_address}:${port}/v2/${api_key}/tracker`)
     const response = await axios.get(
       `http://${ip_address}:${port}/v2/${api_key}/tracker`,
       {
@@ -15,11 +15,11 @@ export const tracker = async (config) => {
         rotation: { X: 1.0, Y: 1.0, Z: 1.0 },
         timeout: 2.0,
         is_query_only: true,
-      },
-    );
-    return response.data;
+      }
+    )
+    return response.data
   } catch (error) {
-    console.log(error);
-    return error;
+    console.log(error)
+    return error
   }
-};
+}

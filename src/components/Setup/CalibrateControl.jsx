@@ -1,25 +1,25 @@
 // src\components\Setup\CalibrateControl.jsx
-import React, { useState } from "react";
-import { calibrate } from "../../services/calibrateService.js";
+import React, { useState } from "react"
+import { calibrate } from "../../services/calibrateService.js"
 
 const CalibrateControl = () => {
-  const [response, setResponse] = useState(null);
-  const [error, setError] = useState(null);
+  const [response, setResponse] = useState(null)
+  const [error, setError] = useState(null)
 
   const handleCalibrate = async () => {
     try {
-      const result = await calibrate();
-      setResponse(result);
-      setError(null);
+      const result = await calibrate()
+      setResponse(result)
+      setError(null)
     } catch (error) {
-      setResponse(null);
+      setResponse(null)
       setError({
         message: error.message,
         status: error.response ? error.response.status : "N/A",
         data: error.response ? error.response.data : "No response data",
-      });
+      })
     }
-  };
+  }
 
   return (
     <div>
@@ -39,7 +39,7 @@ const CalibrateControl = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default CalibrateControl;
+export default CalibrateControl

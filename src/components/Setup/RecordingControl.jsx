@@ -1,41 +1,41 @@
 // src\components\Setup\RecordingControl.jsx
-import React, { useState } from "react";
-import { startRecording } from "../../services/startRecordService";
-import { stopRecording } from "../../services/stopRecordService";
+import React, { useState } from "react"
+import { startRecording } from "../../services/startRecordService"
+import { stopRecording } from "../../services/stopRecordService"
 
 const RecordingControl = ({ config }) => {
-  const [response, setResponse] = useState(null);
-  const [error, setError] = useState(null);
+  const [response, setResponse] = useState(null)
+  const [error, setError] = useState(null)
 
   const handleStartRecording = async () => {
     try {
-      const result = await startRecording(config);
-      setResponse(result);
-      setError(null);
+      const result = await startRecording(config)
+      setResponse(result)
+      setError(null)
     } catch (error) {
-      setResponse(null);
+      setResponse(null)
       setError({
         message: error.message,
         status: error.response ? error.response.status : "N/A",
         data: error.response ? error.response.data : "No response data",
-      });
+      })
     }
-  };
+  }
 
   const handleStopRecording = async () => {
     try {
-      const result = await stopRecording(config);
-      setResponse(result);
-      setError(null);
+      const result = await stopRecording(config)
+      setResponse(result)
+      setError(null)
     } catch (error) {
-      setResponse(null);
+      setResponse(null)
       setError({
         message: error.message,
         status: error.response ? error.response.status : "N/A",
         data: error.response ? error.response.data : "No response data",
-      });
+      })
     }
-  };
+  }
 
   return (
     <div>
@@ -57,7 +57,7 @@ const RecordingControl = ({ config }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default RecordingControl;
+export default RecordingControl

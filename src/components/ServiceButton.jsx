@@ -6,12 +6,14 @@ const ControlButton = ({ service, config, buttonText }) => {
   const [error, setError] = useState(null);
 
   const handleClick = async () => {
+    // Clear previous response and error
+    setResponse(null);
+    setError(null);
+
     try {
       const result = await service(config);
       setResponse(result);
-      setError(null);
     } catch (error) {
-      setResponse(null);
       setError({
         message: error.message,
         status: error.response ? error.response.status : "N/A",

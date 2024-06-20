@@ -1,5 +1,7 @@
 // src\servers\server.js
 import dgram from "node:dgram"
+import * as fs from "node:fs"
+
 // import LiveData from "./LiveData"
 
 // Create a new socket
@@ -24,20 +26,22 @@ server.on("listening", () => {
 
 // Listening for incoming messages
 server.on("message", (msg, rinfo) => {
+  // console.log(`\n${msg}\nfrom ${rinfo.address}:${rinfo.port}\n`)
+  fs.writeFile("data_saved.json", msg, function (err) {
+    if (err) {
+      console.log(`error is ${err}`)
+    }
+  })
+  const data_raw = JSON.parse(msg)
   console.log(
-    `START\nserver got: ${msg} from ${rinfo.address}:${rinfo.port}\nSTOP\n`
+    `msg is ${data_raw.version}\n` +
+      `fps is ${data_raw.fps}\n` +
+      `timestamp is ${data_raw.scene.timestamp}\n` +
+      `actor is ${JSON.stringify(data_raw.scene.actors)}\n` +
+      `props are ${data_raw.scene.props}\n` +
+      `characters are ${data_raw.scene.characters}\n` +
+      `info are ${rinfo.address}:${rinfo.port}\n`
   )
-  // const msgJSON = JSON.parse(msg)
-  // const sceneJSON = msgJSON.scene
-  // console.log(
-  //   `msg is ${msgJSON.version}\n` +
-  //     `fps is ${msgJSON.fps}\n` +
-  //     `timestamp is ${sceneJSON.timestamp}\n` +
-  //     `actor is ${JSON.stringify(sceneJSON.actors)}\n` +
-  //     `props are ${sceneJSON.props}\n` +
-  //     `characters are ${sceneJSON.characters}\n` +
-  //     `info are ${rinfo.address}:${rinfo.port}\n`
-  // )
 })
 
 // Error handling

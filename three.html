@@ -1,0 +1,111 @@
+<!-- <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Three.js Skeleton Animation</title>
+    <style>
+      body {
+        margin: 0;
+      }
+      canvas {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import * as THREE from 'https://cdn.skypack.dev/three@0.128.0';
+      import { OrbitControls } from 'https://cdn.skypack.dev/three@0.128.0/examples/jsm/controls/OrbitControls.js';
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+
+      const light = new THREE.DirectionalLight(0xffffff, 1);
+      light.position.set(5, 5, 5).normalize();
+      scene.add(light);
+
+      const jsonData = /* Your JSON data here */;
+
+      // Create bones from JSON data
+      function createBones(data) {
+          const bones = [];
+          for (const [key, value] of Object.entries(data)) {
+              const bone = new THREE.Bone();
+              bone.position.set(value.position.x, value.position.y, value.position.z);
+              bone.quaternion.set(value.rotation.x, value.rotation.y, value.rotation.z, value.rotation.w);
+              bones.push({ name: key, bone: bone });
+          }
+          return bones;
+      }
+
+      // Build skeleton hierarchy
+      function buildSkeleton(bones) {
+          const boneMap = {};
+          bones.forEach(({ name, bone }) => {
+              boneMap[name] = bone;
+          });
+
+          const rootBone = boneMap.hip;
+          rootBone.add(boneMap.spine);
+          boneMap.spine.add(boneMap.chest);
+          boneMap.chest.add(boneMap.neck);
+          boneMap.neck.add(boneMap.head);
+
+          boneMap.spine.add(boneMap.leftShoulder);
+          boneMap.leftShoulder.add(boneMap.leftUpperArm);
+          boneMap.leftUpperArm.add(boneMap.leftLowerArm);
+          boneMap.leftLowerArm.add(boneMap.leftHand);
+
+          boneMap.spine.add(boneMap.rightShoulder);
+          boneMap.rightShoulder.add(boneMap.rightUpperArm);
+          boneMap.rightUpperArm.add(boneMap.rightLowerArm);
+          boneMap.rightLowerArm.add(boneMap.rightHand);
+
+          boneMap.hip.add(boneMap.leftUpLeg);
+          boneMap.leftUpLeg.add(boneMap.leftLeg);
+          boneMap.leftLeg.add(boneMap.leftFoot);
+          boneMap.leftFoot.add(boneMap.leftToe);
+
+          boneMap.hip.add(boneMap.rightUpLeg);
+          boneMap.rightUpLeg.add(boneMap.rightLeg);
+          boneMap.rightLeg.add(boneMap.rightFoot);
+          boneMap.rightFoot.add(boneMap.rightToe);
+
+          return rootBone;
+      }
+
+      const bonesData = jsonData.scene.actors[0].body;
+      const bones = createBones(bonesData);
+      const rootBone = buildSkeleton(bones);
+
+      // Create a simple skinned mesh to visualize the skeleton
+      const geometry = new THREE.BoxGeometry(0.1, 0.1, 0.1);
+      const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+      const skinnedMesh = new THREE.SkinnedMesh(geometry, material);
+      skinnedMesh.add(rootBone);
+
+      const skeleton = new THREE.Skeleton(bones.map(b => b.bone));
+      skinnedMesh.bind(skeleton);
+
+      const skeletonHelper = new THREE.SkeletonHelper(skinnedMesh);
+      scene.add(skeletonHelper);
+      scene.add(skinnedMesh);
+
+      camera.position.z = 2;
+
+      function animate() {
+          requestAnimationFrame(animate);
+          controls.update();
+          renderer.render(scene, camera);
+      }
+
+      animate();
+    </script>
+  </body>
+</html> -->

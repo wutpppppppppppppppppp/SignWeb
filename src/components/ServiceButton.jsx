@@ -1,24 +1,26 @@
 // src/components/ControlButton.jsx
-import React, { useState } from "react";
+import React, { useState } from "react"
 
 const ControlButton = ({ service, config, buttonText }) => {
-  const [response, setResponse] = useState(null);
-  const [error, setError] = useState(null);
+  const [response, setResponse] = useState(null)
+  const [error, setError] = useState(null)
 
   const handleClick = async () => {
+    // Clear previous response and error
+    setResponse(null)
+    setError(null)
+
     try {
-      const result = await service(config);
-      setResponse(result);
-      setError(null);
+      const result = await service(config)
+      setResponse(result)
     } catch (error) {
-      setResponse(null);
       setError({
         message: error.message,
         status: error.response ? error.response.status : "N/A",
         data: error.response ? error.response.data : "No response data",
-      });
+      })
     }
-  };
+  }
 
   return (
     <div>
@@ -26,15 +28,15 @@ const ControlButton = ({ service, config, buttonText }) => {
       {response && <ResponseDisplay response={response} />}
       {error && <ErrorDisplay error={error} />}
     </div>
-  );
-};
+  )
+}
 
 const ResponseDisplay = ({ response }) => (
   <div>
     <h3>Response</h3>
     <pre>{JSON.stringify(response, null, 2)}</pre>
   </div>
-);
+)
 
 const ErrorDisplay = ({ error }) => (
   <div>
@@ -43,6 +45,6 @@ const ErrorDisplay = ({ error }) => (
     <p>Status: {error.status}</p>
     <p>Data: {JSON.stringify(error.data, null, 2)}</p>
   </div>
-);
+)
 
-export default ControlButton;
+export default ControlButton

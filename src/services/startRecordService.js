@@ -1,26 +1,32 @@
-// src/services/startRecordService.js
-import axios from "axios"
-
 export const startRecording = async (config) => {
   try {
-    const { ip_address, port, api_key, CLIP_NAME,TIME_CODE,FRAME_RATE } = config
+    const { ip_address, port, api_key } = config;
 
-    console.log(`http://${ip_address}:${port}/v1/${api_key}/recording/start`)
+    const url = `http://${ip_address}:${port}/v1/${api_key}/recording/start`;
+    console.log(url);
 
-    const response = await axios.post(
-      `http://${ip_address}:${port}/v1/${api_key}/recording/start`,
-      {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
         filename: CLIP_NAME,
         time: TIME_CODE,
         frame_rate: FRAME_RATE
-      }
-    )
+      })
+    });
 
-    console.log(`response: ${response}`)
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
-    return response.data
+    const responseData = await response.json();
+    console.log(`response: ${JSON.stringify(responseData)}`);
+
+    return responseData;
   } catch (error) {
-    console.error("Error making API request", error)
-    throw error
+    console.error("Error making API request", error);
+    throw error;
   }
 }

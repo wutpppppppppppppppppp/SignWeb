@@ -5,12 +5,12 @@ import ControlButton from "../components/ServiceButton"
 import { startRecording } from "../services/startRecordService"
 import { stopRecording } from "../services/stopRecordService"
 import { calibrate } from "../services/calibrateService"
-import { infoRequest } from "../services/infoService"
-import { liveStream } from "../services/livestreamService"
-import { changePlaybackState } from "../services/playbackService"
-import { pose } from "../services/poseService"
-import { resetActor } from "../services/resetActorService"
-import { tracker } from "../services/trackerService"
+// import { infoRequest } from "../services/infoService"
+// import { liveStream } from "../services/livestreamService"
+// import { changePlaybackState } from "../services/playbackService"
+// import { pose } from "../services/poseService"
+// import { resetActor } from "../services/resetActorService"
+// import { tracker } from "../services/trackerService"
 
 const ControlButtons = () => {
   const location = useLocation()
@@ -49,7 +49,7 @@ const ControlButtons = () => {
         activeId={activeId}
         setActiveId={setActiveId}
       />
-      <ControlButton
+      {/* <ControlButton
         id="infoRequest"
         service={infoRequest}
         config={config}
@@ -96,7 +96,7 @@ const ControlButtons = () => {
         buttonText="Tracker"
         activeId={activeId}
         setActiveId={setActiveId}
-      />
+      /> */}
     </div>
   )
 }

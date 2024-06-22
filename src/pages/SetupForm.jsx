@@ -24,6 +24,9 @@ const SetupForm = () => {
     handleSubmit()
   }
 
+  const handleNewPageNavigation = () => {
+    navigate("/Three-Scene")
+  }
   return (
     <div>
       {!isSubmitted ? (
@@ -61,6 +64,7 @@ const SetupForm = () => {
           <button type="submit">Set Configuration</button>
         </form>
       ) : null}
+      <button onClick={handleNewPageNavigation}>Go to New Page</button>
     </div>
   )
 }

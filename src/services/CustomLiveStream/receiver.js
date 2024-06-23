@@ -1,5 +1,5 @@
 import dgram from "node:dgram"
-import * as fs from "node:fs"
+// import * as fs from "node:fs"
 import { WebSocketServer } from "ws"
 
 // Create a new socket

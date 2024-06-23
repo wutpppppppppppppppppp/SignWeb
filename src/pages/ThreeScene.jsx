@@ -1,13 +1,14 @@
 import React, { useEffect, useRef } from "react"
 import * as THREE from "three"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js"
 
 const ThreeScene = () => {
   const mountRef = useRef(null)
   // const bodyParts = useRef(new Map())
   const wsRef = useRef(null)
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   useEffect(() => {
     const scene = new THREE.Scene()
@@ -22,6 +23,31 @@ const ThreeScene = () => {
 
     mountRef.current.appendChild(renderer.domElement)
 
+    const loader = new GLTFLoader()
+    let model
+    loader.load(
+      "src/models/rokoko/test.gltf",
+      (gltf) => {
+        model = gltf.scene
+        model.position.set(0, 0, 0)
+        scene.add(model)
+        if (model) {
+          model.traverse((node) => {
+            if (node.isBone) {
+              console.log(
+                `Bone: ${node.name}`
+                // \nPosition:${JSON.stringify(node.position)}\nRotation:${JSON.stringify(node.rotation)}`
+              )
+            }
+          })
+        }
+      },
+      undefined,
+      (err) => {
+        console.log(err)
+      }
+    )
+
     const controls = new OrbitControls(camera, renderer.domElement)
     controls.enableDamping = true
 
@@ -31,7 +57,7 @@ const ThreeScene = () => {
     const ambientLight = new THREE.AmbientLight(0xffffff, 1)
     scene.add(ambientLight)
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 10)
     directionalLight.position.set(5, 10, 7.5)
     scene.add(directionalLight)
 
@@ -58,6 +84,7 @@ const ThreeScene = () => {
         .then((text) => {
           try {
             let jsonData = JSON.parse(text)
+            // console.log(jsonData.actor)
             // Process the received JSON data
             /*  */
           } catch (error) {

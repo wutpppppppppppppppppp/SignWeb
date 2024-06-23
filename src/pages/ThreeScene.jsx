@@ -12,6 +12,7 @@ const ThreeScene = () => {
 
   useEffect(() => {
     const scene = new THREE.Scene()
+    const group = new THREE.Group()
     const camera = new THREE.PerspectiveCamera(
       75,
       window.innerWidth / window.innerHeight,
@@ -73,7 +74,7 @@ const ThreeScene = () => {
     const animate = () => {
       requestAnimationFrame(animate)
       controls.update()
-      renderer.render(scene, camera)
+      renderer.render(scene, camera,group)
     }
     animate()
 

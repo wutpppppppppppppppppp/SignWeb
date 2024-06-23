@@ -3,9 +3,9 @@ import * as fs from "node:fs"
 import { WebSocketServer } from "ws"
 
 // Create a new socket
-const server = dgram.createSocket({
-  type: "udp4",
-  recvBufferSize: 81920,
+const server = dgram.createSocket({ //for listen on internet
+  type: "udp4", //use ip d4
+  recvBufferSize: 81920,  // 800kb
   reuseAddr: true,
 })
 
@@ -15,10 +15,10 @@ server.bind({
 })
 
 // Log when the socket is bound and ready to receive messages
-server.on("listening", () => {
+server.on("listening", () => { 
   const address = server.address()
   console.log(
-    `Rokoko Studio Live started listening on ${address.address}:${address.port}`
+    `Rokoko Studio Live started listening on ${address.address}:${address.port}` //
   )
 })
 
@@ -29,8 +29,8 @@ wss.on("connection", (ws) => {
 })
 
 // Listening for incoming messages
-server.on("message", (msg, rinfo) => {
-  console.log(`msg sent`)
+server.on("message", (msg, rinfo) => { 
+  console.log(`msg sent`) //if write msg ; json file
 
   // Broadcast message to all WebSocket clients
   wss.clients.forEach((client) => {

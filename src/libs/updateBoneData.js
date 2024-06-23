@@ -1,26 +1,57 @@
 import { mappedPart } from "./mappedPart"
 
 export function updateBoneData(jsonData, model) {
-  // console.log(jsonData, model)
+  console.log("It's working")
+    model.traverse((node) => {
+      if (node.isBone) {
+        console.log("Access node traverse")
+          let jsonName = mappedPart(node.name);
 
-  model.traverse((node) => {
-    if (node.isBone) {
-      let jsonName = mappedPart(node.name)
+          if (jsonData.scene.actors[0].body[jsonName]) {
+              const pos = jsonData.scene.actors[0].body[jsonName].position;
+              const rot = jsonData.scene.actors[0].body[jsonName].rotation;
 
-      if (jsonData.scene.actors[0].body[jsonName]) {
-        let pos = jsonData.scene.actors[0].body[jsonName].position
-        let rot = jsonData.scene.actors[0].body[jsonName].rotation
+              if (pos) {
+                  node.position.set(pos.x, pos.y, pos.z);
+              }
 
-        if (pos) {
-          node.position.set(pos.x, pos.y, pos.z)
-        }
+              if (rot) {
+                  node.quaternion.set(rot.x, rot.y, rot.z, rot.w);
+                  node.quaternion.normalize();
+              }
 
-        if (rot) {
-          node.quaternion.set(rot.x, rot.y, rot.z, rot.w)
-        }
-      } else {
-        console.warn(`No data found for bone: ${jsonName}`)
+              // Ensure bone transforms are updated
+              node.updateMatrix();
+              node.updateMatrixWorld(true);
+          } else {
+              console.warn(`No data found for bone: ${jsonName}`);
+          }
+      } else if (node.isObject3D) {
+          // Handle regular Object3D
+          let jsonName = mappedPart(node.name);
+
+          if (jsonData.scene.actors[0].body[jsonName]) {
+              const pos = jsonData.scene.actors[0].body[jsonName].position;
+              const rot = jsonData.scene.actors[0].body[jsonName].rotation;
+
+              if (pos) {
+                  node.position.set(pos.x, pos.y, pos.z);
+              }
+
+              if (rot) {
+                  node.quaternion.set(rot.x, rot.y, rot.z, rot.w);
+                  node.quaternion.normalize();
+              }
+
+              // Update matrix and matrix world
+              node.updateMatrix();
+              node.updateMatrixWorld(true);
+
+              // Assuming 'group' is defined as a THREE.Group somewhere in your code
+              group.add(node); // Add node to the group
+          } else {
+              console.warn(`No data found for Object3D: ${jsonName}`);
+          }
       }
-    }
-  })
+  });
 }

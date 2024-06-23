@@ -1,11 +1,11 @@
 import { mappedPart } from "./mappedPart"
-
+//import { blobToJson } from "../utils/blobToJson"
 export function updateBoneData(jsonData, model) {
   console.log("Test log - If you see this, logging works!")
 
   model.traverse((node) => {
     console.log(`node right now: ${node.name}`)
-    if (node.isBone) {
+    if (node.isObject3D) {
       let jsonName = mappedPart(node.name)
       console.log(`Bone: ${node.name}, Mapped Part: ${jsonName}`)
 
@@ -35,11 +35,18 @@ export function updateBoneData(jsonData, model) {
         // console.log(
         //   `After update - Position: ${node.position.toArray()}, Rotation: ${node.quaternion.toArray()}`
         // )
-      } else if (!node.isBone) {
-        // if (node.isGroup) {
-        console.log(`it is ${JSON.parse(node.Object3D.isMesh)}`)
-        // }
       }
+      // else {
+      //   // if (node.isGroup) {
+      //   const blobData = new Blob([JSON.stringify({ name: node })], {
+      //     type: "application/json",
+      //   })
+
+      //   // blobToJson(blobData).then((jsonData) => {
+      //   //   console.warn(`Blob data as JSON: ${JSON.stringify(jsonData)}`)
+      //   // })
+      //   // }
+      // }
     }
   })
 }

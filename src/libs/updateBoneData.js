@@ -1,52 +1,47 @@
 import { mappedPart } from "./mappedPart"
-//import { blobToJson } from "../utils/blobToJson"
+import { nodeTraverse } from "./nodeTraverse"
+
 export function updateBoneData(jsonData, model) {
-  console.log("Test log - If you see this, logging works!")
+  // Find the starting node, "Hips"
+  model = nodeTraverse(model, "Hips")
 
+  // List of bone names to update
+  const boneNamesToUpdate = [
+    "RightShoulder",
+    "RightArm",
+    "RightForeArm",
+    "RightHand",
+  ]
+
+  // Traverse the model and update only the specified bones
   model.traverse((node) => {
-    console.log(`node right now: ${node.name}`)
-    if (node.isObject3D) {
+    if (node.isBone && boneNamesToUpdate.includes(node.name)) {
       let jsonName = mappedPart(node.name)
-      console.log(`Bone: ${node.name}, Mapped Part: ${jsonName}`)
-
       if (jsonName && jsonData.scene.actors[0].body[jsonName]) {
-        let pos = jsonData.scene.actors[0].body[jsonName].position
-        let rot = jsonData.scene.actors[0].body[jsonName].rotation
-
-        // console.log(
-        //   `Before update - Position: ${node.position.toArray()}, Rotation: ${node.quaternion.toArray()}`
+        const boneData = jsonData.scene.actors[0].body[jsonName]
+        console.log(node.quaternion, boneData.rotation)
+        // node.position.set(
+        //   boneData.position.x,
+        //   boneData.position.y,
+        //   boneData.position.z
+        //
+        // node.quaternion.identity()
+        node.quaternion.set(
+          -boneData.rotation.x,
+          -boneData.rotation.y,
+          -boneData.rotation.z,
+          boneData.rotation.w
+        )
+        // node.rotation.set(
+        //   boneData.rotation.x,
+        //   boneData.rotation.y,
+        //   boneData.rotation.z
         // )
-        // console.log(`Setting position for ${node.name}:`, pos)
-        // console.log(`Setting rotation for ${node.name}:`, rot)
-
-        if (pos) {
-          node.position.set(pos.x, pos.y, pos.z)
-        }
-
-        if (rot) {
-          node.quaternion.set(rot.x, rot.y, rot.z, rot.w)
-          node.quaternion.normalize()
-        }
-
-        node.matrixAutoUpdate = true
-        node.updateMatrix()
-        node.updateMatrixWorld(true)
-
-        // console.log(
-        //   `After update - Position: ${node.position.toArray()}, Rotation: ${node.quaternion.toArray()}`
-        // )
+      } else {
+        console.error(`No data found for bone: ${node.name}`)
       }
-      // else {
-      //   // if (node.isGroup) {
-      //   const blobData = new Blob([JSON.stringify({ name: node })], {
-      //     type: "application/json",
-      //   })
-
-      //   // blobToJson(blobData).then((jsonData) => {
-      //   //   console.warn(`Blob data as JSON: ${JSON.stringify(jsonData)}`)
-      //   // })
-      //   // }
-      // }
     }
   })
+
+  // console.log("Finished updating specified bones")
 }

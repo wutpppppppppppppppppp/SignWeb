@@ -41,7 +41,6 @@ const ThreeScene = () => {
             .then((text) => {
               try {
                 let jsonData = JSON.parse(text)
-                // console.log(jsonData)
                 updateBoneData(jsonData, model)
               } catch (error) {
                 console.error("Error parsing JSON from Blob:", error)

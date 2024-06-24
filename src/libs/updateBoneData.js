@@ -1,57 +1,61 @@
 import { mappedPart } from "./mappedPart"
+import { nodeTraverse } from "./nodeTraverse"
 
 export function updateBoneData(jsonData, model) {
-  console.log("It's working")
-    model.traverse((node) => {
-      if (node.isBone) {
-       
-          let jsonName = mappedPart(node.name);
-          console.log(`${node.name}: Node is Bone`);
-          if (jsonData.scene.actors[0].body[jsonName]) {
-              const pos = jsonData.scene.actors[0].body[jsonName].position;
-              const rot = jsonData.scene.actors[0].body[jsonName].rotation;
+  // Find the starting node, "Hips"
+  model = nodeTraverse(model, "Hips")
 
-              if (pos) {
-                  node.position.set(pos.x, pos.y, pos.z);
-              }
-
-              if (rot) {
-                  node.quaternion.set(rot.x, rot.y, rot.z, rot.w);
-                  node.quaternion.normalize();
-              }
-
-              // Ensure bone transforms are updated
-              node.updateMatrix();
-              node.updateMatrixWorld(true);
-          } else {
-              console.warn(`No data found for bone: ${jsonName}`);
-          }
-      } else if (!node.isBone) {
-        console.log("Node is notBone")
-          let jsonName = mappedPart(node.name);
-          console.log(`${node.name}: Node is Bone`);
-          if (jsonData.scene.actors[0].body[jsonName]) {
-              const pos = jsonData.scene.actors[0].body[jsonName].position;
-              const rot = jsonData.scene.actors[0].body[jsonName].rotation;
-
-              if (pos) {
-                  node.position.set(pos.x, pos.y, pos.z);
-              }
-
-              if (rot) {
-                  node.quaternion.set(rot.x, rot.y, rot.z, rot.w);
-                  node.quaternion.normalize();
-              }
-
-              // Update matrix and matrix world
-              node.updateMatrix();
-              node.updateMatrixWorld(true);
-
-              // Assuming 'group' is defined as a THREE.Group somewhere in your code
-              group.add(node); // Add node to the group
-          } else {
-              console.warn(`No data found for Object3D: ${jsonName}`);
-          }
+  // List of bone names to update
+  const boneNamesToUpdate = [
+    "RightShoulder",
+    "RightArm",
+    "RightForeArm",
+    "RightHand",
+    "RightFinger"
+  ]
+  // const initialPosition = new THREE.Vector3(0, 0, 0); // Example initial position
+  // const initialRotation = new THREE.Quaternion(); // Example initial rotation (identity quaternion)
+  // function resetNodeToInitial(node) {
+  //   // Reset position
+  //   node.position.copy(initialPosition);
+  
+  //   // Reset rotation
+  //   node.quaternion.copy(initialRotation);
+  
+  //   // Update matrix to apply changes
+  //   node.updateMatrix();
+  // }
+  // Traverse the model and update only the specified bones
+  model.traverse((node) => {
+    if (node.isBone && boneNamesToUpdate.includes(node.name)) {
+      let jsonName = mappedPart(node.name)
+      
+      if (jsonName && jsonData.scene.actors[0].body[jsonName]) {
+        const boneData = jsonData.scene.actors[0].body[jsonName]
+        console.log(node.quaternion, boneData.rotation)
+        // node.position.set(
+        //   boneData.position.x,
+        //   boneData.position.y,
+        //   boneData.position.z
+        // )
+        // node.quaternion.identity()
+        node.quaternion.copy(
+          -boneData.rotation.x,
+          -boneData.rotation.y,
+          -boneData.rotation.z,
+          boneData.rotation.w
+        )
+        // node.rotation.set(
+        //   boneData.rotation.x,
+        //   boneData.rotation.y,
+        //   boneData.rotation.z
+        // )
+        node.updateMatrix();
+      } else {
+        console.error(`No data found for bone: ${node.name}`)
       }
-  });
+    }
+  })
+
+  // console.log("Finished updating specified bones")
 }

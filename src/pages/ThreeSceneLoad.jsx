@@ -22,8 +22,6 @@ const ThreeScene = () => {
 
     const controls = new OrbitControls(camera, renderer.domElement)
     controls.enableDamping = true
-
-    camera.position.set(0, 1, 3)
     controls.update()
 
     // Add lighting
@@ -31,7 +29,7 @@ const ThreeScene = () => {
     scene.add(ambientLight)
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
-    directionalLight.position.set(5, 10, 7.5)
+    //directionalLight.position.set(5, 10, 7.5)
     scene.add(directionalLight)
 
     // Load 3D model

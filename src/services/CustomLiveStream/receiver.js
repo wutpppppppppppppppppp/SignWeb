@@ -30,7 +30,7 @@ wss.on("connection", (ws) => {
 
 // Listening for incoming messages
 server.on("message", (msg, rinfo) => {
-  console.log(`msg sent`)
+  // console.log(`msg sent`)
 
   // Broadcast message to all WebSocket clients
   wss.clients.forEach((client) => {

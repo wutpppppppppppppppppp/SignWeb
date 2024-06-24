@@ -4,9 +4,9 @@ export function updateBoneData(jsonData, model) {
   console.log("It's working")
     model.traverse((node) => {
       if (node.isBone) {
-        console.log("Access node traverse")
+       
           let jsonName = mappedPart(node.name);
-
+          console.log(`${node.name}: Node is Bone`);
           if (jsonData.scene.actors[0].body[jsonName]) {
               const pos = jsonData.scene.actors[0].body[jsonName].position;
               const rot = jsonData.scene.actors[0].body[jsonName].rotation;
@@ -26,10 +26,10 @@ export function updateBoneData(jsonData, model) {
           } else {
               console.warn(`No data found for bone: ${jsonName}`);
           }
-      } else if (node.isObject3D) {
-          // Handle regular Object3D
+      } else if (!node.isBone) {
+        console.log("Node is notBone")
           let jsonName = mappedPart(node.name);
-
+          console.log(`${node.name}: Node is Bone`);
           if (jsonData.scene.actors[0].body[jsonName]) {
               const pos = jsonData.scene.actors[0].body[jsonName].position;
               const rot = jsonData.scene.actors[0].body[jsonName].rotation;

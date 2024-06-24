@@ -2,10 +2,8 @@ import { mappedPart } from "./mappedPart"
 import { nodeTraverse } from "./nodeTraverse"
 
 export function updateBoneData(jsonData, model) {
-  // Find the starting node, "Hips"
   model = nodeTraverse(model, "Hips")
 
-  // List of bone names to update
   const boneNamesToUpdate = [
     "RightShoulder",
     "RightArm",

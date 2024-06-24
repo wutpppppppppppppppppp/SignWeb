@@ -1,10 +1,11 @@
 export function mappedPart(nodeName) {
+  // THREE -> JSON
   const boneMapping = {
     Hips: "hip",
     Spine1: "spine",
-    // Spine2: "spine2",
-    // Spine3: "spine3",
-    // Spine4: "spine4",
+    Spine2: "spine",
+    Spine3: "spine",
+    Spine4: "spine",
     Neck: "neck",
     Head: "head",
     RightShoulder: "rightShoulder",

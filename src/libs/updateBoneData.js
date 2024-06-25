@@ -13,7 +13,7 @@ export function updateBoneData(jsonData, model) {
     "LeftShoulder",
     "LeftArm",
     "LeftForeArm",
-    "LeftHand",
+    "LeftHand",:
   ]
 
   // Traverse the model and update only the specified bones

@@ -19,12 +19,14 @@ export const calibrate = async (config) => {
       // headers: {
       //   "Content-Type": "application/json",
       // },
-      // body: JSON.stringify({
-      //   filename: CLIP_NAME,
-      //   time: TIME_CODE,
-      //   frame_rate: FRAME_RATE,
-      //   back_to_live: BACK_TO_LIVE,
-      // }),
+      body: JSON.stringify({
+        use_custom_pose: true,
+        pose: "tpose",
+        //   filename: CLIP_NAME,
+        //   time: TIME_CODE,
+        //   frame_rate: FRAME_RATE,
+        //   back_to_live: BACK_TO_LIVE,
+      }),
     })
 
     console.log(`response: ${response}`)

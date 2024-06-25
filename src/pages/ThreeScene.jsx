@@ -3,7 +3,7 @@ import * as THREE from "three"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js"
 import { useNavigate } from "react-router-dom"
-import { updateBoneData } from "../libs/updateBoneData"
+import { updateBoneData } from "../libs/updateBoneDataLoadTew"
 
 const ThreeScene = () => {
   const mountRef = useRef(null)
@@ -24,10 +24,9 @@ const ThreeScene = () => {
     mountRef.current.appendChild(renderer.domElement)
 
     const loader = new GLTFLoader()
-    let model
+    let model = new THREE.Object3D()
     loader.load(
-      // "src/models/rokoko/test.gltf",
-      "src/models/rokoko_straight/untitled.glb",
+      "src/models/rokoko/test.gltf",
       (gltf) => {
         model = gltf.scene
         model.position.set(0, 0, 0)
@@ -41,7 +40,7 @@ const ThreeScene = () => {
             .then((text) => {
               try {
                 let jsonData = JSON.parse(text)
-                updateBoneData(jsonData, model) // Update bone data dynamically
+                updateBoneData(jsonData, model)
               } catch (error) {
                 console.error("Error parsing JSON from Blob:", error)
               }

@@ -40,7 +40,7 @@ const ThreeScene = () => {
             .then((text) => {
               try {
                 let jsonData = JSON.parse(text)
-                updateBoneData(jsonData, model)
+                updateBoneData(scene, jsonData, model)
               } catch (error) {
                 console.error("Error parsing JSON from Blob:", error)
               }

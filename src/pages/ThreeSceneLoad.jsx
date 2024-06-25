@@ -1,11 +1,13 @@
-// src/pages/ThreeScene.jsx
 import React, { useEffect, useRef } from "react"
 import * as THREE from "three"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
+import { updateBoneData } from "../libs/updateBoneDataLoad"
 
-const ThreeScene = () => {
+const ThreeSceneLoad = () => {
   const mountRef = useRef(null)
+  const wsRef = useRef(null)
+  const modelRef = useRef(null)
 
   useEffect(() => {
     const scene = new THREE.Scene()
@@ -17,8 +19,44 @@ const ThreeScene = () => {
     )
     const renderer = new THREE.WebGLRenderer({ antialias: true })
     renderer.setSize(window.innerWidth, window.innerHeight)
-
     mountRef.current.appendChild(renderer.domElement)
+
+    const loader = new GLTFLoader()
+    loader.load(
+      "src/models/rokoko/test.gltf",
+      (gltf) => {
+        const model = gltf.scene
+        model.position.set(0, 0, 0)
+        scene.add(model)
+        modelRef.current = model
+
+        // WebSocket connection setup
+        wsRef.current = new WebSocket("ws://localhost:8080")
+        wsRef.current.onmessage = (event) => {
+          event.data
+            .text()
+            .then((text) => {
+              try {
+                let jsonData = JSON.parse(text)
+                if (modelRef.current) {
+                  updateBoneData(jsonData, modelRef.current, scene)
+                } else {
+                  console.error("Model not loaded yet.")
+                }
+              } catch (error) {
+                console.error("Error parsing JSON from Blob:", error)
+              }
+            })
+            .catch((err) => {
+              console.error("Error reading Blob as text:", err)
+            })
+        }
+      },
+      undefined,
+      (err) => {
+        console.log(err)
+      }
+    )
 
     const controls = new OrbitControls(camera, renderer.domElement)
     controls.enableDamping = true
@@ -26,33 +64,12 @@ const ThreeScene = () => {
     camera.position.set(0, 1, 3)
     controls.update()
 
-    // Add lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 1)
     scene.add(ambientLight)
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 10)
     directionalLight.position.set(5, 10, 7.5)
     scene.add(directionalLight)
-
-    // Load 3D model
-    const loader = new GLTFLoader()
-    loader.load(
-      "src/models/mixamo/mixamo.gltf",
-      (gltf) => {
-        // onLoad
-        scene.add(gltf.scene)
-        console.log(gltf.scene)
-      },
-      (xhr) => {
-        // onProgress
-        console.log(`${(xhr.loaded / xhr.total) * 100}% loaded`)
-      },
-      undefined,
-      (error) => {
-        // onError
-        console.error("An error happened", error)
-      }
-    )
 
     const animate = () => {
       requestAnimationFrame(animate)
@@ -73,10 +90,17 @@ const ThreeScene = () => {
       window.removeEventListener("resize", handleResize)
       controls.dispose()
       renderer.dispose()
+      if (wsRef.current) {
+        wsRef.current.close()
+      }
     }
   }, [])
 
-  return <div ref={mountRef} />
+  return (
+    <div>
+      <div ref={mountRef} />
+    </div>
+  )
 }
 
-export default ThreeScene
+export default ThreeSceneLoad

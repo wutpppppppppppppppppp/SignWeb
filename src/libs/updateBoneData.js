@@ -13,44 +13,106 @@ export function updateBoneData(jsonData, model) {
     "LeftShoulder",
     "LeftArm",
     "LeftForeArm",
-    "LeftHand",:
+    "LeftHand",
   ]
+
+  // Optionally, add the node back to the scene or a new parent
+  // scene.add(node);
 
   // Traverse the model and update only the specified bones
   model.traverse((node) => {
     if (node instanceof THREE.Bone && boneNamesToUpdate.includes(node.name)) {
       let mappedName = mappedPart(node.name)
       if (mappedName && jsonData.scene.actors[0].body[mappedName]) {
-        const boneData = jsonData.scene.actors[0].body[mappedName]
-        console.log(
-          `x,y,z: ${boneData.position.x}, ${boneData.position.y}, ${boneData.position.z}`
-        )
-        // console.log(${boneData.getWorldDirection})
         // Adding AxesHelper to the bone (only once)
         if (!node.getObjectByName("axesHelper")) {
           const axesHelper = new THREE.AxesHelper(10)
           axesHelper.name = "axesHelper"
           node.add(axesHelper)
         }
+        const boneData = jsonData.scene.actors[0].body[mappedName]
+        node.position.set(
+          boneData.position.x,
+          boneData.position.y,
+          boneData.position.z
+        )
+        node.quaternion.set(
+          boneData.rotation.x,
+          boneData.rotation.y,
+          boneData.rotation.z,
+          boneData.rotation.w
+        )
+        // // Example position and rotation values
+        // const position = new THREE.Vector3(
+        //   boneData.position.x,
+        //   boneData.position.y,
+        //   boneData.position.z
+        // )
+        // const quaternion = new THREE.Quaternion(
+        //   boneData.rotation.x,
+        //   boneData.rotation.y,
+        //   boneData.rotation.z,
+        //   boneData.rotation.w
+        // )
 
-        // Update bone transformation
+        // // Default scale
+        // const scale = new THREE.Vector3(1, 1, 1)
+
+        // // Create the transformation matrix
+        // const matrix = new THREE.Matrix4()
+        // matrix.compose(position, quaternion, scale)
+        // node.applyMatrix4(matrix)
+        // // Now you can use this matrix to transform objects or apply it to bones
+
+        // // let translation = new THREE.Vector3(),
+        // //   rotation = new THREE.Quaternion(),
+        // //   scale = new THREE.Vector3()
+        // // console.log(node.matrix.decompose(translation, rotation, scale))
+        // console.log(node)
         // node.position.set(
         //   boneData.position.x,
         //   boneData.position.y,
         //   boneData.position.z
         // )
-
-        node.quaternion.set(
-          -boneData.rotation.x,
-          -boneData.rotation.y,
-          -boneData.rotation.z,
-          boneData.rotation.w
-        )
-
-        // Log the updated position and rotation for debugging
-        /*         console.log(
-          `Updated bone: ${node.name}, Position: ${node.position}, Rotation: ${node.quaternion}`
-        ) */
+        // node.quaternion.set(
+        //   boneData.rotation.x,
+        //   boneData.rotation.y,
+        //   boneData.rotation.z,
+        //   boneData.rotation.w
+        // )
+        // const matx = new THREE.Matrix4()
+        // const vect = new THREE.Vector3(
+        //   boneData.position.x,
+        //   boneData.position.y,
+        //   boneData.position.z
+        // )
+        // const quat = new THREE.Quaternion(
+        //   boneData.rotation.x,
+        //   boneData.rotation.y,
+        //   boneData.rotation.z,
+        //   boneData.rotation.w
+        // )
+        // const scal = new THREE.Vector3(1, 1, 1)
+        // matx.compose(vect, quat, scal)
+        // node.applyMatrix4(matx)
+        // node.position
+        // const euler = new THREE.Euler(
+        //   boneData.rotation.x,
+        //   boneData.rotation.y,
+        //   boneData.rotation.z,
+        //   "ZYX"
+        // )
+        // node.quaternion.setFromEuler(euler)
+        // node.updateMatrixWorld()
+        // node.applyMatrix4(node)
+        // node.geometry.translate(
+        //   boneData.position.x,
+        //   boneData.position.y,
+        //   boneData.position.z
+        // )
+        // node.quaternion.translateX(boneData.rotation.x)
+        // node.quaternion.translateY(boneData.rotation.y)
+        // node.quaternion.translateZ(boneData.rotation.z)
       } else {
         console.error(`No data found for bone: ${node.name}`)
       }

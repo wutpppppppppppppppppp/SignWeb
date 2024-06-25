@@ -26,7 +26,8 @@ const ThreeScene = () => {
     const loader = new GLTFLoader()
     let model
     loader.load(
-      "src/models/rokoko/test.gltf",
+      // "src/models/rokoko/test.gltf",
+      "src/models/rokoko_straight/untitled.glb",
       (gltf) => {
         model = gltf.scene
         model.position.set(0, 0, 0)
@@ -40,7 +41,7 @@ const ThreeScene = () => {
             .then((text) => {
               try {
                 let jsonData = JSON.parse(text)
-                updateBoneData(scene, jsonData, model)
+                updateBoneData(jsonData, model) // Update bone data dynamically
               } catch (error) {
                 console.error("Error parsing JSON from Blob:", error)
               }

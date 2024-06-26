@@ -32,7 +32,7 @@ const SetupForm = () => {
       {!isSubmitted ? (
         <form onSubmit={handleFormSubmit}>
           <div>
-            <label>IP Address:</label>
+            <label>เลขที่อยู่ IP (IP address): </label>
             <input
               type="text"
               name="ip_address"
@@ -42,7 +42,7 @@ const SetupForm = () => {
             />
           </div>
           <div>
-            <label>Port:</label>
+            <label>หมายเลขช่องทาง (Port):</label>
             <input
               type="text"
               name="port"
@@ -52,7 +52,7 @@ const SetupForm = () => {
             />
           </div>
           <div>
-            <label>API Key:</label>
+            <label>กุญแจ API (API key):</label>
             <input
               type="text"
               name="api_key"
@@ -61,10 +61,10 @@ const SetupForm = () => {
               required
             />
           </div>
-          <button type="submit">Set Configuration</button>
+          <button type="submit">ตั้งค่าสำเร็จ</button>
         </form>
       ) : null}
-      <button onClick={handleNewPageNavigation}>Go to New Page</button>
+      <button onClick={handleNewPageNavigation}>หน้าแสดงสามมิติ</button>
     </div>
   )
 }

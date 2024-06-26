@@ -16,10 +16,6 @@ export function updateBoneData(jsonData, model) {
     "LeftHand",
   ]
 
-  // Optionally, add the node back to the scene or a new parent
-  // scene.add(node);
-
-  // Traverse the model and update only the specified bones
   model.traverse((node) => {
     if (node instanceof THREE.Bone && boneNamesToUpdate.includes(node.name)) {
       let mappedName = mappedPart(node.name)
@@ -41,7 +37,7 @@ export function updateBoneData(jsonData, model) {
           boneData.rotation.y,
           boneData.rotation.z,
           boneData.rotation.w
-        )
+        )d
         // // Example position and rotation values
         // const position = new THREE.Vector3(
         //   boneData.position.x,

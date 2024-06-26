@@ -15,6 +15,7 @@ export function updateBoneData(jsonData, model) {
     "LeftForeArm",
     "LeftHand",
   ]
+
   model.traverse((node) => {
     if (node instanceof THREE.Bone && boneNamesToUpdate.includes(node.name)) {
       let mappedName = mappedPart(node.name)

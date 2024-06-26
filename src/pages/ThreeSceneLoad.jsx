@@ -1,13 +1,29 @@
-// src/pages/ThreeScene.jsx
+/* eslint-disable react/no-unknown-property */
+// ThreeScene.jsx
 import React, { useEffect, useRef } from "react"
-import * as THREE from "three"
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
+import { Canvas, useFrame } from "@react-three/fiber"
+import { OrbitControls } from "@react-three/drei"
+import { updateBoneData } from "../libs/updateBoneDataLoad"
+import { Model } from "../models/rokoko_straight/Untitled"
 
-const ThreeScene = () => {
-  const mountRef = useRef(null)
+const ModelWithUpdates = ({ innerRef }) => {
+  console.log(JSON.stringify(innerRef))
+  const modelRef = useRef()
+  useFrame(() => {
+    if (modelRef.current && innerRef.current) {
+      console.log(`Updating Bone Data`)
+      updateBoneData(innerRef.current, modelRef.current)
+    }
+  })
+  return <Model ref={modelRef} />
+}
+
+const ThreeSceneLoad = () => {
+  const wsRef = useRef(null)
+  const jsonDataRef = useRef(null)
 
   useEffect(() => {
+<<<<<<< HEAD
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(
       75,
@@ -56,25 +72,40 @@ const ThreeScene = () => {
       requestAnimationFrame(animate)
       controls.update()
       renderer.render(scene, camera)
+=======
+    wsRef.current = new WebSocket("ws://localhost:8080")
+    wsRef.current.onmessage = (event) => {
+      event.data
+        .text()
+        .then((text) => {
+          try {
+            let jsonData = JSON.parse(text)
+            jsonDataRef.current = jsonData
+            // console.log(jsonData)
+          } catch (error) {
+            console.error("Error parsing JSON from Blob:", error)
+          }
+        })
+        .catch((err) => {
+          console.error("Error reading Blob as text:", err)
+        })
+>>>>>>> 15d71de372740fec828986dcccfe3f79c62fb5aa
     }
-    animate()
-
-    const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight
-      camera.updateProjectionMatrix()
-      renderer.setSize(window.innerWidth, window.innerHeight)
-    }
-    window.addEventListener("resize", handleResize)
-
     return () => {
-      mountRef.current.removeChild(renderer.domElement)
-      window.removeEventListener("resize", handleResize)
-      controls.dispose()
-      renderer.dispose()
+      if (wsRef.current) {
+        wsRef.current.close()
+      }
     }
   }, [])
 
-  return <div ref={mountRef} />
+  return (
+    <Canvas camera={{ position: [0, 2, 4], fov: 45 }}>
+      <ambientLight intensity={1} />
+      <directionalLight position={[5, 10, 7.5]} intensity={1} />
+      <OrbitControls enableDamping />
+      <ModelWithUpdates innerRef={jsonDataRef} />
+    </Canvas>
+  )
 }
 
-export default ThreeScene
+export default ThreeSceneLoad

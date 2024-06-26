@@ -1,19 +1,20 @@
+/* eslint-disable react/no-unknown-property */
 // ThreeScene.jsx
 import React, { useEffect, useRef } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
 import { updateBoneData } from "../libs/updateBoneDataLoad"
-import { Model } from "../models/rokoko_straight/Untitled" // Adjust this import to match your file structure
+import { Model } from "../models/rokoko_straight/Untitled"
 
-const ModelWithUpdates = ({ jsonDataRef }) => {
+const ModelWithUpdates = ({ innerRef }) => {
+  console.log(JSON.stringify(innerRef))
   const modelRef = useRef()
-
   useFrame(() => {
-    if (modelRef.current && jsonDataRef.current) {
-      updateBoneData(jsonDataRef.current, modelRef.current)
+    if (modelRef.current && innerRef.current) {
+      console.log(`Updating Bone Data`)
+      updateBoneData(innerRef.current, modelRef.current)
     }
   })
-
   return <Model ref={modelRef} />
 }
 
@@ -22,37 +23,23 @@ const ThreeSceneLoad = () => {
   const jsonDataRef = useRef(null)
 
   useEffect(() => {
-    // WebSocket connection setup
     wsRef.current = new WebSocket("ws://localhost:8080")
-
     wsRef.current.onmessage = (event) => {
-      // If the event data is a Blob, convert it to text
-      if (event.data instanceof Blob) {
-        event.data
-          .text()
-          .then((text) => {
-            try {
-              let jsonData = JSON.parse(text)
-              jsonDataRef.current = jsonData
-            } catch (error) {
-              console.error("Error parsing JSON from Blob:", error)
-            }
-          })
-          .catch((err) => {
-            console.error("Error reading Blob as text:", err)
-          })
-      } else {
-        // If the event data is already text
-        try {
-          let jsonData = JSON.parse(event.data)
-          jsonDataRef.current = jsonData
-        } catch (error) {
-          console.error("Error parsing JSON:", error)
-        }
-      }
+      event.data
+        .text()
+        .then((text) => {
+          try {
+            let jsonData = JSON.parse(text)
+            jsonDataRef.current = jsonData
+            // console.log(jsonData)
+          } catch (error) {
+            console.error("Error parsing JSON from Blob:", error)
+          }
+        })
+        .catch((err) => {
+          console.error("Error reading Blob as text:", err)
+        })
     }
-
-    // Cleanup WebSocket connection on component unmount
     return () => {
       if (wsRef.current) {
         wsRef.current.close()
@@ -61,11 +48,11 @@ const ThreeSceneLoad = () => {
   }, [])
 
   return (
-    <Canvas camera={{ position: [0, 1, 3], fov: 75 }}>
+    <Canvas camera={{ position: [0, 2, 4], fov: 45 }}>
       <ambientLight intensity={1} />
       <directionalLight position={[5, 10, 7.5]} intensity={1} />
       <OrbitControls enableDamping />
-      <ModelWithUpdates jsonDataRef={jsonDataRef} />
+      <ModelWithUpdates innerRef={jsonDataRef} />
     </Canvas>
   )
 }

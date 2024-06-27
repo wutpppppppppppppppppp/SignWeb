@@ -1,11 +1,21 @@
-import * as THREE from "three"
+export function nodeTraverse(node, string) {
+  let result = null
 
-export function nodeTraverse(model, name) {
-  let node = model
-  model.traverse((child) => {
-    if (child.name === name && child instanceof THREE.Bone) {
-      node = child
+  function traverse(currentNode) {
+    if (currentNode.name === string) {
+      result = currentNode
+      return
     }
-  })
-  return node
+
+    if (currentNode.children && currentNode.children.length > 0) {
+      for (let i = 0; i < currentNode.children.length; i++) {
+        traverse(currentNode.children[i])
+        if (result) return // If result is found, exit the loop early
+      }
+    }
+  }
+
+  traverse(node)
+
+  return result
 }

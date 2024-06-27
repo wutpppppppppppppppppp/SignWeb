@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom"
 import SetupForm from "../pages/SetupForm"
 import ControlButtons from "../pages/ControlButtons"
-import ThreeScene from "../pages/ThreeSceneLoad"
+import ThreeScene from "../pages/ThreeScene"
 
 const router = createBrowserRouter([
   {

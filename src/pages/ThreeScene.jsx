@@ -3,7 +3,7 @@ import * as THREE from "three"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js"
 import { useNavigate } from "react-router-dom"
-import { updateBoneData } from "../libs/updateBoneDataLoadTew"
+import { updateBoneData } from "../libs/updateBoneData"
 
 const ThreeScene = () => {
   const mountRef = useRef(null)

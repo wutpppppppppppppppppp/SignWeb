@@ -6,14 +6,14 @@ export function updateBoneData(jsonData, model) {
   model = nodeTraverse(model, "Hips")
 
   const boneNamesToUpdate = [
-    "RightShoulder",
+    // "RightShoulder",
     "RightArm",
-    "RightForeArm",
-    "RightHand",
-    "LeftShoulder",
-    "LeftArm",
-    "LeftForeArm",
-    "LeftHand",
+    // "RightForeArm",
+    // "RightHand",
+    // "LeftShoulder",
+    // "LeftArm",
+    // "LeftForeArm",
+    // "LeftHand",
   ]
   // Traverse the model and update only the specified bones
   model.traverse((node) => {
@@ -28,9 +28,9 @@ export function updateBoneData(jsonData, model) {
           node.add(axesHelper)
         }
         const boneData = jsonData.scene.actors[0].body[mappedName]
-        // console.log(
-        //   `desired:${boneData.position.x},${boneData.position.y},${boneData.position.z}`
-        // )
+        console.log(
+          `${mappedName} position: ${boneData.position.x}, ${boneData.position.y}, ${boneData.position.z}\nrotation: ${boneData.rotation.x}, ${boneData.rotation.y}, ${boneData.rotation.z}`
+        )
         // console.log(
         //   `current:${node.position.x}, ${node.position.y}, ${node.position.z}`
         // )

@@ -6,20 +6,19 @@ export function updateBoneData(jsonData, model) {
   model = nodeTraverse(model, "Hips")
 
   const boneNamesToUpdate = [
-    // "RightShoulder",
+    "RightShoulder",
     "RightArm",
-    // "RightForeArm",
-    // "RightHand",
-    // "LeftShoulder",
-    // "LeftArm",
-    // "LeftForeArm",
-    // "LeftHand",
+    "RightForeArm",
+    "RightHand",
+    "LeftShoulder",
+    "LeftArm",
+    "LeftForeArm",
+    "LeftHand",
   ]
-  // Traverse the model and update only the specified bones
+
   model.traverse((node) => {
     if (node instanceof THREE.Bone && boneNamesToUpdate.includes(node.name)) {
       let mappedName = mappedPart(node.name)
-      // console.log(jsonData.scene.actors[0].body, mappedName)
       if (mappedName && jsonData.scene.actors[0].body[mappedName]) {
         // Adding AxesHelper to the bone (only once)
         if (!node.getObjectByName("axesHelper")) {
@@ -28,29 +27,18 @@ export function updateBoneData(jsonData, model) {
           node.add(axesHelper)
         }
         const boneData = jsonData.scene.actors[0].body[mappedName]
-        console.log(
-          `${mappedName} position: ${boneData.position.x}, ${boneData.position.y}, ${boneData.position.z}\nrotation: ${boneData.rotation.x}, ${boneData.rotation.y}, ${boneData.rotation.z}`
-        )
-        // console.log(
-        //   `current:${node.position.x}, ${node.position.y}, ${node.position.z}`
-        // )
         node.position.set(
           boneData.position.x,
           boneData.position.y,
           boneData.position.z
         )
-        // console.log(
-        //   `new:${node.position.x}, ${node.position.y}, ${node.position.z}`
-        // )
-        node.updateMatrixWorld()
         node.quaternion.set(
           boneData.rotation.x,
           boneData.rotation.y,
           boneData.rotation.z,
           boneData.rotation.w
-        )
-        node.updateMatrixWorld()
-        // Example position and rotation values
+        )d
+        // // Example position and rotation values
         // const position = new THREE.Vector3(
         //   boneData.position.x,
         //   boneData.position.y,

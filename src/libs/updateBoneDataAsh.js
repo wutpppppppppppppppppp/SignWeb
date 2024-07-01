@@ -44,48 +44,19 @@ export function updateBoneData(jsonData, model) {
       node.quaternion.copy(desiredLocalQuaternion)
       node.updateMatrixWorld(true)
     } else if (mappedName == null) {
-      // if (node.parent) {
-      //   node.position.copy(node.parent.position)
-      //   node.quaternion.copy(node.parent.quaternion)
-      //   node.updateMatrixWorld(true)
-      // }
-      // There is no such bone in the JSON
-      // const desiredWorldPosition = new THREE.Vector3(
-      //   node.position.x,
-      //   node.position.y,
-      //   node.position.z
-      // )
-      // node.parent.updateMatrixWorld(true)
-      // const parentWorldMatrix = new THREE.Matrix4()
-      // parentWorldMatrix.copy(node.parent.matrixWorld)
-      // const inverseParentWorldMatrix = new THREE.Matrix4()
-      //   .copy(parentWorldMatrix)
-      //   .invert()
-      // // multiply 3D vector with inverse parent world matrix
-      // const desiredLocalPosition = desiredWorldPosition.applyMatrix4(
-      //   inverseParentWorldMatrix
-      // )
-      // node.position.copy(desiredLocalPosition)
-      // const desiredWorldQuaternion = new THREE.Quaternion(
-      //   node.rotation.x,
-      //   node.rotation.y,
-      //   node.rotation.z,
-      //   node.rotation.w
-      // )
-      // const parentWorldQuaternion = new THREE.Quaternion()
-      // node.parent.updateMatrixWorld(true)
-      // parentWorldQuaternion.copy(node.parent.quaternion)
-      // const inverseParentWorldQuaternion = parentWorldQuaternion
-      //   .clone()
-      //   .invert()
-      // const desiredLocalQuaternion = desiredWorldQuaternion.premultiply(
-      //   inverseParentWorldQuaternion
-      // )
-      // node.quaternion.copy(desiredLocalQuaternion)
-      // node.updateMatrixWorld(true)
+      // If the bone is not in JSON, inherit position and rotation from parent
+      if (node.parent) {
+        node.position.copy(node.parent.position)
+        node.quaternion.copy(node.parent.quaternion)
+        node.updateMatrixWorld(true)
+      }
     } else {
-      console.error(`Unsupported bone: ${node.name}`)
+      // For unsupported bone or missing data from JSON
+      if (previousFrameData[node.name]) {
+        node.position.copy(previousFrameData[node.name].position)
+        node.quaternion.copy(previousFrameData[node.name].quaternion)
+        node.updateMatrixWorld(true)
+      }
     }
-    // }
   })
 }

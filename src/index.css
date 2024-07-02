@@ -7,6 +7,8 @@ html {
   font-family: "Noto Sans Thai", sans-serif;
   font-weight: 400; /* Default weight */
   font-size: 1rem; /* Tailwind class `text-base` */
+  height:100;
+  margin: 0;
 }
 
 *, *::before, *::after {
@@ -14,7 +16,7 @@ html {
 }
 
 body {
-  @apply flex items-center justify-center min-w-[320px] min-h-screen m-0 bg-base-100 font-noto font-400;
+  @apply flex flex-col items-center justify-center min-w-[320px] min-h-screen m-0 bg-base-100 font-noto font-400;
 }
 
 #root {

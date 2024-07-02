@@ -1,23 +1,33 @@
-// src/services/calibrateService.js
-import axios from "axios"
-
+// src/services/startRecordServiceReplacment.js
 export const calibrate = async (config) => {
   try {
-    const { ip_address, port, api_key, SMARTSUIT_NAME } = config
+    const {
+      ip_address,
+      port,
+      api_key,
+      // CLIP_NAME,
+      // TIME_CODE,
+      // FRAME_RATE,
+      // BACK_TO_LIVE,
+    } = config
 
-    console.log(`http://${ip_address}:${port}/v1/${api_key}/calibrate`)
+    const url = `http://${ip_address}:${port}/v1/${api_key}/calibrate`
+    console.log(url)
 
-    const response = await axios.post(
-      `http://${ip_address}:${port}/v1/${api_key}/calibrate`,
-      {
-        device_id: SMARTSUIT_NAME,
-        countdown_delay: 30,
-        skip_suit: true,
-        skip_gloves: true,
-        use_custom_pose: false,
-        pose: "straight-arms-down",
-      }
-    )
+    const response = await fetch(url, {
+      method: "POST",
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },
+      body: JSON.stringify({
+        use_custom_pose: true,
+        pose: "tpose",
+        //   filename: CLIP_NAME,
+        //   time: TIME_CODE,
+        //   frame_rate: FRAME_RATE,
+        //   back_to_live: BACK_TO_LIVE,
+      }),
+    })
 
     console.log(`response: ${response}`)
 

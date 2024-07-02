@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from "react"
 import * as THREE from "three"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js"
 import { useNavigate } from "react-router-dom"
+import { updateBoneData } from "../libs/updateBoneData"
 
 const ThreeScene = () => {
   const mountRef = useRef(null)
-  // const bodyParts = useRef(new Map())
   const wsRef = useRef(null)
   const navigate = useNavigate()
 
@@ -22,6 +23,39 @@ const ThreeScene = () => {
 
     mountRef.current.appendChild(renderer.domElement)
 
+    const loader = new GLTFLoader()
+    let model = new THREE.Object3D()
+    loader.load(
+      "src/models/rokoko/test.gltf",
+      (gltf) => {
+        model = gltf.scene
+        model.position.set(0, 0, 0)
+        scene.add(model)
+
+        // WebSocket connection setup
+        wsRef.current = new WebSocket("ws://localhost:8080")
+        wsRef.current.onmessage = (event) => {
+          event.data
+            .text()
+            .then((text) => {
+              try {
+                let jsonData = JSON.parse(text)
+                updateBoneData(jsonData, model)
+              } catch (error) {
+                console.error("Error parsing JSON from Blob:", error)
+              }
+            })
+            .catch((err) => {
+              console.error("Error reading Blob as text:", err)
+            })
+        }
+      },
+      undefined,
+      (err) => {
+        console.log(err)
+      }
+    )
+
     const controls = new OrbitControls(camera, renderer.domElement)
     controls.enableDamping = true
 
@@ -31,7 +65,7 @@ const ThreeScene = () => {
     const ambientLight = new THREE.AmbientLight(0xffffff, 1)
     scene.add(ambientLight)
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 10)
     directionalLight.position.set(5, 10, 7.5)
     scene.add(directionalLight)
 
@@ -48,26 +82,6 @@ const ThreeScene = () => {
       renderer.setSize(window.innerWidth, window.innerHeight)
     }
     window.addEventListener("resize", handleResize)
-
-    // WebSocket connection setup
-    wsRef.current = new WebSocket("ws://localhost:8080")
-    wsRef.current.onmessage = (event) => {
-      // Convert Blob to text and then parse as JSON
-      event.data
-        .text()
-        .then((text) => {
-          try {
-            let jsonData = JSON.parse(text)
-            // Process the received JSON data
-            /*  */
-          } catch (error) {
-            console.error("Error parsing JSON from Blob:", error)
-          }
-        })
-        .catch((err) => {
-          console.error("Error reading Blob as text:", err)
-        })
-    }
 
     return () => {
       mountRef.current.removeChild(renderer.domElement)

@@ -6,7 +6,7 @@ const PathConstants = {
   SIGN_IN: "/sign-in",
 
   // Pages requiring login
-  CATEGORY: "/categoryฝ๕",
+  CATEGORY: "/category",
   VOCABULARY: "/vocabulary",
   DISPLAY_VOCAB: "/display-vocab",
 

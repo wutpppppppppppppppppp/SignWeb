@@ -17,7 +17,7 @@ function Navbar({ title }) {
         <span className="text-xl font-bold">{title}</span>
       </div>
       <div className="navbar-end">
-        <SearchBox />
+        <SearchBox placeholder={"ค้นหา..."}/>
         <Drawer />
       </div>
     </div>

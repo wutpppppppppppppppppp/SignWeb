@@ -1,31 +1,29 @@
+// src/services/startRecordServiceReplacment.js
 export const stopRecording = async (config) => {
   try {
-    const { ip_address, port, api_key, CLIP_NAME, TIME_CODE, FRAME_RATE, BACK_TO_LIVE } = config;
+    const { ip_address, port, api_key } = config
 
-    const url = `http://${ip_address}:${port}/v2/${api_key}/recording/stop`;
-    console.log(url);
-
+    const url = `http://${ip_address}:${port}/v1/${api_key}/recording/stop`
+    console.log(url)
+    console.log(config)
     const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        filename: CLIP_NAME,
-        time: TIME_CODE,
-        frame_rate: FRAME_RATE,
-        back_to_live: BACK_TO_LIVE
-      })
-    });
+      method: "POST",
+    })
+
+    console.log(`response: ${response}`)
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorData = await response.json()
+      throw {
+        message: `Error: ${response.statusText}`,
+        response: {
+          status: response.status,
+          data: errorData,
+        },
+      }
     }
 
-    const responseData = await response.json();
-    console.log(`response: ${JSON.stringify(responseData)}`);
-
-    return responseData;
+    return await response.json()
   } catch (error) {
     console.error("Error making API request", error);
     throw error;

@@ -2,11 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
+html{
   box-sizing: border-box;
-  font-family: "Noto Sans Thai", sans-serif;
-  font-weight: 400; /* Default weight */
-  font-size: 1rem; /* Tailwind class `text-base` */
   height:100;
   margin: 0;
 }
@@ -16,11 +13,11 @@ html {
 }
 
 body {
-  @apply flex flex-col items-center justify-center min-w-[320px] min-h-screen m-0 bg-base-100 font-noto font-400;
+  @apply bg-base-100 font-noto font-400;
 }
 
 #root {
-  @apply min-h-screen flex flex-col justify-center items-center w-full h-full max-w-screen-xl mx-auto my-0;
+  @apply flex flex-col justify-center items-center w-full h-full max-w-screen-xl mx-auto my-0;
 }
 
 h1 {

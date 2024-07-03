@@ -37,7 +37,7 @@ export function updateBoneData(jsonData, model) {
           boneData.rotation.y,
           boneData.rotation.z,
           boneData.rotation.w
-        )d
+        )
         // // Example position and rotation values
         // const position = new THREE.Vector3(
         //   boneData.position.x,

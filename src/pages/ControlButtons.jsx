@@ -1,6 +1,6 @@
 import React from "react"
 import { useLocation } from "react-router-dom"
-import ControlButton from "../components/serviceBtn"
+import ControlButton from "../components/ServiceBtn"
 import { startRecording } from "../services/startRecordService"
 import { stopRecording } from "../services/stopRecordService"
 import { calibrate } from "../services/calibrateService"

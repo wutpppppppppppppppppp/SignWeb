@@ -1,8 +1,6 @@
-// src\servers\server.js
 import dgram from "node:dgram"
-import * as fs from "node:fs"
-
-// import LiveData from "./LiveData"
+// import * as fs from "node:fs"
+import { WebSocketServer } from "ws"
 
 // Create a new socket
 const server = dgram.createSocket({
@@ -16,7 +14,6 @@ server.bind({
   port: 14053,
 })
 
-// Log when the socket is bound and ready to receive messages
 server.on("listening", () => {
   const address = server.address()
   console.log(
@@ -24,24 +21,21 @@ server.on("listening", () => {
   )
 })
 
+const wss = new WebSocketServer({ port: 8080 })
+wss.on("connection", (ws) => {
+  console.log("WebSocket client connected")
+})
+
 // Listening for incoming messages
 server.on("message", (msg, rinfo) => {
-  // console.log(`\n${msg}\nfrom ${rinfo.address}:${rinfo.port}\n`)
-  fs.writeFile("data_saved.json", msg, function (err) {
-    if (err) {
-      console.log(`error is ${err}`)
+  // console.log(`msg sent`)
+
+  // Broadcast message to all WebSocket clients
+  wss.clients.forEach((client) => {
+    if (client.readyState === client.OPEN) {
+      client.send(msg)
     }
   })
-  const data_raw = JSON.parse(msg)
-  console.log(
-    `msg is ${data_raw.version}\n` +
-      `fps is ${data_raw.fps}\n` +
-      `timestamp is ${data_raw.scene.timestamp}\n` +
-      `actor is ${JSON.stringify(data_raw.scene.actors)}\n` +
-      `props are ${data_raw.scene.props}\n` +
-      `characters are ${data_raw.scene.characters}\n` +
-      `info are ${rinfo.address}:${rinfo.port}\n`
-  )
 })
 
 // Error handling

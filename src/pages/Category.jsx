@@ -1,33 +1,64 @@
-// src/pages/Category.jsx
-import { Outlet, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import CatCard from "../components/CatCard";
+import Pagination from "../components/Pagination";
 import Navbar from "../components/Navbar";
-import ImgCard from "../components/ImgCard";
 import placeHolder from "../assets/placeholder.png";
 
-const categories = [
-  { name: "food", image: placeHolder },
-  { name: "animals", image: placeHolder },
-  { name: "colors", image: placeHolder },
-  // Add more categories as needed
+const allCategories = [
+  { name: "อาหาร", image: placeHolder },
+  { name: "สัตว์", image: placeHolder },
+  { name: "สี", image: placeHolder },
+  { name: "ประเภทที่4", image: placeHolder },
+  { name: "ประเภทที่5", image: placeHolder },
+  { name: "ประเภทที่6", image: placeHolder },
+  { name: "ประเภทที่7", image: placeHolder },
+  { name: "ประเภทที่8", image: placeHolder },
+  { name: "ประเภทที่9", image: placeHolder },
+  { name: "ประเภทที่10", image: placeHolder },
+  { name: "ประเภทที่11", image: placeHolder },
+  { name: "ประเภทที่12", image: placeHolder },
+  { name: "ประเภทที่13", image: placeHolder },
+  { name: "ประเภทที่14", image: placeHolder },
+  { name: "ประเภทที่15", image: placeHolder },
+  { name: "ประเภทที่16", image: placeHolder },
+  { name: "ประเภทที่17", image: placeHolder },
+  { name: "ประเภทที่18", image: placeHolder },
 ];
 
-const totalCards = 15;
-const filledCategories = categories.slice(0, totalCards);
-
+const itemsPerPage = 15; 
 const Category = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentCategories = allCategories.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
-    <div className="flex flex-col w-screen gap-y-2.5">
+    <div className="w-screen h-screen flex flex-col justify-between">
       <Navbar title="ประเภท" />
-      <div className="grid grid-cols-5 gap-4">
-        {filledCategories.map((category, index) => (
+      <div className="flex-grow grid grid-cols-5 gap-4 py-4">
+        {currentCategories.map((category, index) => (
           <div key={index} className="flex flex-col items-center">
             <Link to={`/category/${category.name}`}>
-              <ImgCard image={category.image} title={category.name} isPlaceholder={false} />
+              <CatCard image={category.image} title={category.name} />
             </Link>
           </div>
         ))}
       </div>
-      <Outlet />
+      <div className="pb-4 self-center">
+        <Pagination
+          totalItems={allCategories.length}
+          itemsPerPage={itemsPerPage}
+          onPageChange={handlePageChange}
+          currentPage={currentPage}
+        />
+      </div>
     </div>
   );
 };

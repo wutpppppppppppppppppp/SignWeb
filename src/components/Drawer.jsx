@@ -3,7 +3,7 @@ import { VscThreeBars } from "react-icons/vsc";
 
 const Drawer = () => {
   return (
-    <div className="drawer drawer-end w-fit">
+    <div className="drawer drawer-end w-fit relative z-50">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         <label htmlFor="my-drawer" className="btn btn-primary drawer-button">

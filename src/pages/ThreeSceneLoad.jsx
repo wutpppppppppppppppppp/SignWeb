@@ -1,20 +1,29 @@
 /* eslint-disable react/no-unknown-property */
-// ThreeScene.jsx
+// ThreeSceneLoad.jsx
 import React, { useEffect, useRef } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
+import Model from "../models/rokoko_straight/Untitled"
 import { updateBoneData } from "../libs/updateBoneDataLoad"
-import { Model } from "../models/rokoko_straight/Untitled"
 
 const ModelWithUpdates = ({ innerRef }) => {
-  console.log(JSON.stringify(innerRef))
   const modelRef = useRef()
+
   useFrame(() => {
     if (modelRef.current && innerRef.current) {
-      console.log(`Updating Bone Data`)
+      // console.log("jsonDataRef:", innerRef.current)
+      // console.log("modelRef:", modelRef.current)
       updateBoneData(innerRef.current, modelRef.current)
+    } else {
+      if (!modelRef.current) {
+        console.log("modelRef is not set")
+      }
+      if (!innerRef.current) {
+        console.log("jsonDataRef is not set")
+      }
     }
   })
+
   return <Model ref={modelRef} />
 }
 
@@ -81,7 +90,7 @@ const ThreeSceneLoad = () => {
           try {
             let jsonData = JSON.parse(text)
             jsonDataRef.current = jsonData
-            // console.log(jsonData)
+            // console.log("Received JSON Data:", jsonData)
           } catch (error) {
             console.error("Error parsing JSON from Blob:", error)
           }
@@ -91,6 +100,7 @@ const ThreeSceneLoad = () => {
         })
 >>>>>>> 15d71de372740fec828986dcccfe3f79c62fb5aa
     }
+
     return () => {
       if (wsRef.current) {
         wsRef.current.close()

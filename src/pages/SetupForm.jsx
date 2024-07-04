@@ -7,7 +7,7 @@ const SetupForm = () => {
   const navigate = useNavigate()
 
   const [initialConfig] = useState({
-    ip_address: "192.168.1.35",
+    ip_address: "255.255.255.255",
     port: "14053",
     api_key: "1234",
   })

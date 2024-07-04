@@ -29,11 +29,12 @@ export const calibrate = async (config) => {
       }),
     })
 
-    console.log(`response: ${response}`)
+    const responseData = await response.json();
+    console.log(`response: ${JSON.stringify(responseData)}`);
 
-    return response.data
+    return responseData;
   } catch (error) {
-    console.error("Error making API request", error)
-    throw error
+    console.error("Error making API request", error);
+    throw error;
   }
-}
+};

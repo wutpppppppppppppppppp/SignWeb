@@ -10,11 +10,20 @@ const LandingPage = () => {
 
       <div className="navbar self-start">
         <div className="flex-1">
-          <Link to={PathConstants.INFO_POLICY} className="btn btn-ghost text-xl">บลูมบีท</Link>
+          <Link
+            to={PathConstants.INFO_POLICY}
+            className="btn btn-ghost text-xl"
+          >
+            บลูมบีท
+          </Link>
         </div>
         <div className="flex-none">
-          <Link to={PathConstants.LOGIN} className="btn btn-outline btn-ghost text-primary">
-            <FaUser />เข้าสู่ระบบ
+          <Link
+            to={PathConstants.LOGIN}
+            className="btn btn-outline btn-ghost text-primary"
+          >
+            <FaUser />
+            เข้าสู่ระบบ
           </Link>
         </div>
       </div>
@@ -87,4 +96,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage;
+export default LandingPage

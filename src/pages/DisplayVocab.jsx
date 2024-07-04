@@ -1,6 +1,6 @@
 // src/pages/DisplayVocab.jsx
 import { useParams } from "react-router-dom";
-import Navbar from "../components/navbar";
+import Navbar from "../components/Navbar";
 
 const DisplayVocab = () => {
   const { categoryName, vocabName } = useParams();

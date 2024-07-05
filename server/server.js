@@ -7,7 +7,7 @@ import rokokoRoutes from './routes/rokokoRoutes';
 const app = express();
 
 app.use(express.json());
-
+// app level middleware
 app.use('/api', userRoutes);
 app.use('/api', rokokoRoutes);
 

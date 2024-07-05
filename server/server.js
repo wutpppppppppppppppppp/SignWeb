@@ -1,26 +1,25 @@
-import { MongoClient, ServerApiVersion } from 'mongodb';
-import 'dotenv/config'
-const uri = process.env.CONNECTION_STRING
+import express from 'express';
+import mongoose from 'mongoose';
+import 'dotenv/config';
+import userRoutes from './routes/userRoutes';
+import rokokoRoutes from './routes/rokokoRoutes';
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
+const app = express();
 
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-run().catch(console.dir);
+app.use(express.json());
+
+app.use('/api', userRoutes);
+app.use('/api', rokokoRoutes);
+
+const PORT = process.env.PORT || 5000;
+const MONGO_URI = process.env.MONGO_URI;
+
+mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch(error => {
+    console.error('Connection error', error.message);
+  });

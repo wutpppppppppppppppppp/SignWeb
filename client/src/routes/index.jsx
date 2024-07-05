@@ -6,7 +6,7 @@ const SetupForm = React.lazy(() => import("../pages/SetupForm"));
 const ControlButtons = React.lazy(() => import("../pages/ControlButtons"));
 const ThreeScene = React.lazy(() => import("../pages/ThreeScene"));
 const LandingPage = React.lazy(() => import("../pages/LandingPage"));
-const InfoPolicy = React.lazy(() => import("../pages/InfoPolicy"));
+// const InfoPolicy = React.lazy(() => import("../pages/InfoPolicy"));
 const Login = React.lazy(() => import("../pages/Login"));
 const SignIn = React.lazy(() => import("../pages/SignIn"));
 const Category = React.lazy(() => import("../pages/Category"));
@@ -23,14 +23,14 @@ const routes = createBrowserRouter([
       </React.Suspense>
     ),
   },
-  {
-    path: PathConstants.INFO_POLICY,
-    element: (
-      <React.Suspense fallback={<div>Loading...</div>}>
-        <InfoPolicy />
-      </React.Suspense>
-    ),
-  },
+  // {
+  //   path: PathConstants.INFO_POLICY,
+  //   element: (
+  //     <React.Suspense fallback={<div>Loading...</div>}>
+  //       <InfoPolicy />
+  //     </React.Suspense>
+  //   ),
+  // },
   {
     path: PathConstants.LOGIN,
     element: (

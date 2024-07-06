@@ -6,9 +6,10 @@ const Login = () => {
 
   const [password, setPassword] = useState("");
   return (
-    <div className="w-screen h-screen flex flex-col justify-between">
+    <div className="w-screen h-screen flex flex-col justify-between ">
       <Navbar2 title="เข้าสู่ระบบ" />
-    
+
+      <div className="flex-grow flex items-center justify-center">
       <div className="p-4 place-self-center">
         <label className="input input-bordered flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="h-4 w-4 opacity-70">
@@ -23,8 +24,13 @@ const Login = () => {
           </svg>
           <input type="password" className="grow" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
         </label>
+        
+        <button className="btn btn-wide">เข้าสู่ระบบ</button>
+        <button className="btn btn-wide">สร้างบัญชี</button>
+
+        </div>
+        </div>
       </div>
-    </div>
   );
 };
 

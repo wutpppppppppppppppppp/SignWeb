@@ -1,7 +1,9 @@
 # SignWeb
+
 SignWeb is a website that collects motion capture from Rokoko API.
 
 ## Installation
+
 Clone the repository.
 
 ```bash

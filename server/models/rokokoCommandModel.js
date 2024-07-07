@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const rokokoCommandSchema = new mongoose.Schema({
   commandType: { type: String, required: true },
@@ -8,6 +8,6 @@ const rokokoCommandSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
 });
 
-const RokokoCommand = mongoose.model('RokokoCommand', rokokoCommandSchema);
+const RokokoCommand = mongoose.model("RokokoCommand", rokokoCommandSchema);
 
 export default RokokoCommand;

@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "baseUrl": "client/src",
+    "jsx": "react"
+  },
+  "include": ["client/src/**/*.js", "client/src/**/*.jsx"],
+  "exclude": ["node_modules"]
+}

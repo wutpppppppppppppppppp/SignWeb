@@ -1,10 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Navbar2 from "../components/Navbar2";
 
 const SignIn = () => {
   return (
   
-  <div>
+    <div className="w-screen h-screen flex flex-col justify-between ">
+      <Navbar2 title="สร้างบัญชี" />
+    
     <label className="input input-bordered flex items-center gap-2">
         Firstname
       <input type="text" className="grow" placeholder="Daisy" />

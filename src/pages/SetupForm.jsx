@@ -1,7 +1,7 @@
-import React, { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import useFormInput from "../hooks/useFormInput"
-import useFormSubmit from "../hooks/useFormSubmit"
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useFormInput from "../hooks/useFormInput";
+import useFormSubmit from "../hooks/useFormSubmit";
 
 const SetupForm = () => {
   const navigate = useNavigate()

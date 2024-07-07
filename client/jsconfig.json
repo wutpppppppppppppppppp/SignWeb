@@ -1,8 +1,11 @@
 {
   "compilerOptions": {
-    "baseUrl": "client/src",
-    "jsx": "react"
+    "module": "CommonJS",
+    "target": "ES6",
+    "baseUrl": "./client/src",
+    "jsx": "react",
+    "allowJs": true
   },
-  "include": ["client/src/**/*.js", "client/src/**/*.jsx"],
+  "include": ["./client/src/**/*"],
   "exclude": ["node_modules"]
 }

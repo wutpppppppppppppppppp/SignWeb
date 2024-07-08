@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+client/src/models/rokoko/test.bin
+client/src/models/rokoko/test.gltf
+client/src/models/rokoko_straight/test_data.bin
+client/src/models/rokoko_straight/test.gltf

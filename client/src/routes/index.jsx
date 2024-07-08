@@ -7,7 +7,7 @@ const ControlButtons = React.lazy(() => import("../pages/ControlButtons"))
 const ThreeScene = React.lazy(() => import("../pages/ThreeScene"))
 const LandingPage = React.lazy(() => import("../pages/LandingPage"))
 // const InfoPolicy = React.lazy(() => import("../pages/InfoPolicy"));
-const Login = React.lazy(() => import("../pages/Login"))
+const Login = React.lazy(() => import("../pages/LoginForm"))
 const SignIn = React.lazy(() => import("../pages/SignInForm"))
 const Category = React.lazy(() => import("../pages/Category"))
 const Vocab = React.lazy(() => import("../pages/Vocabulary"))

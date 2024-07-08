@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar2 from "../components/Navbar2";
 
 const Login = () => {
-
+  
   const [password, setPassword] = useState("");
   
   return (

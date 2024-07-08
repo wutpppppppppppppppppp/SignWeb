@@ -78,11 +78,17 @@ const ThreeScene2 = () => {
     // Clean up on unmount
     return () => {
       window.removeEventListener('resize', handleResize);
-      mountRef.current.removeChild(renderer.domElement);
+      // mountRef.current.removeChild(renderer.domElement);
     };
   }, []);
 
-  return <div ref={mountRef} style={{ width: '100%', height: '100%' }} />;
+  // return <div ref={mountRef} style={{ width: '100%', height: '100%' }} />;
+  return (
+    <div>
+      {/* <button onClick={() => navigate("/")}>Go Back</button> */}
+      <div ref={mountRef} />
+    </div>
+  );
 };
 
 export default ThreeScene2;

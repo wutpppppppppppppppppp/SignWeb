@@ -12,7 +12,9 @@ const SignIn = React.lazy(() => import("../pages/SignInForm"))
 const Category = React.lazy(() => import("../pages/Category"))
 const Vocab = React.lazy(() => import("../pages/Vocabulary"))
 const DisplayVocab = React.lazy(() => import("../pages/DisplayVocab"))
-const Record = React.lazy(() => import("../pages/Record"))
+const Record = React.lazy(() => import("../pages/Record1"))
+// const Record2 = React.lazy(() => import("../pages/Record2"))
+const DoneRecord = React.lazy(() => import("../pages/DoneRecord"))
 
 const routes = createBrowserRouter([
   {

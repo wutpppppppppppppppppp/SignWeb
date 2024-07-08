@@ -9,6 +9,7 @@ import routes from "./our-first-route.js";
 const fastify = Fastify({
   logger: true,
 });
+
 fastify.register(dbConnector);
 fastify.register(routes);
 

@@ -1,6 +1,6 @@
 // src/pages/Vocabulary.jsx
 import { useParams, Link } from "react-router-dom"
-import Navbar from "../components/Navbar"
+import Navbar3 from "../components/Navbar3"
 import SearchBox from "../components/SearchBox"
 const Vocab = () => {
   const { categoryName } = useParams()
@@ -11,7 +11,7 @@ const Vocab = () => {
 
   return (
     <div className="w-screen">
-      <Navbar title={`คำศัพท์${categoryName}`} />
+      <Navbar3 title={`คำศัพท์${categoryName}`} />
       <div
         className="hero w-screen bg-[url('https://as1.ftcdn.net/v2/jpg/01/92/00/78/1000_F_192007831_OGdxh37OAqmJpoMuWfgbKKYaQgpa9SJN.jpg')]"
       >

@@ -1,18 +1,18 @@
-import * as React from "react";
-import { createBrowserRouter } from "react-router-dom";
-import PathConstants from "./pathConstants";
+import * as React from "react"
+import { createBrowserRouter } from "react-router-dom"
+import PathConstants from "./pathConstants"
 
-const SetupForm = React.lazy(() => import("../pages/SetupForm"));
-const ControlButtons = React.lazy(() => import("../pages/ControlButtons"));
-const ThreeScene = React.lazy(() => import("../pages/ThreeScene"));
-const LandingPage = React.lazy(() => import("../pages/LandingPage"));
+const SetupForm = React.lazy(() => import("../pages/SetupForm"))
+const ControlButtons = React.lazy(() => import("../pages/ControlButtons"))
+const ThreeScene = React.lazy(() => import("../pages/ThreeScene"))
+const LandingPage = React.lazy(() => import("../pages/LandingPage"))
 // const InfoPolicy = React.lazy(() => import("../pages/InfoPolicy"));
-const Login = React.lazy(() => import("../pages/LogIn"));
-const SignIn = React.lazy(() => import("../pages/SignIn"));
-const Category = React.lazy(() => import("../pages/Category"));
-const Vocab = React.lazy(() => import("../pages/Vocabulary"));
-const DisplayVocab = React.lazy(() => import("../pages/DisplayVocab"));
-const Record = React.lazy(() => import("../pages/Record"));
+const Login = React.lazy(() => import("../pages/LoginForm"))
+const SignIn = React.lazy(() => import("../pages/SignInForm"))
+const Category = React.lazy(() => import("../pages/Category"))
+const Vocab = React.lazy(() => import("../pages/Vocabulary"))
+const DisplayVocab = React.lazy(() => import("../pages/DisplayVocab"))
+const Record = React.lazy(() => import("../pages/Record"))
 
 const routes = createBrowserRouter([
   {
@@ -107,6 +107,6 @@ const routes = createBrowserRouter([
     path: "*",
     element: <h1>404</h1>,
   },
-]);
+])
 
-export default routes;
+export default routes

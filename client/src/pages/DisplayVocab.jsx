@@ -1,6 +1,6 @@
 // src/pages/DisplayVocab.jsx
 import { useParams } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import Navbar3 from "../components/Navbar3";
 import ThreeScene2 from "../pages/ThreeScene2";
 
 const DisplayVocab = () => {
@@ -8,7 +8,7 @@ const DisplayVocab = () => {
 
   return (
     <div className="w-screen h-screen flex flex-col relative">
-      <Navbar title={`วิดีโอภาษามือ : ${vocabName}`} />
+      <Navbar3 title={`วิดีโอภาษามือ : ${vocabName}`} />
       <div className="p-4 flex justify-center items-center flex-grow">
         <div className="flex justify-center items-center w-full h-full">
           <div className="card lg:card-side bg-base-100 shadow-xl w-full h-full">

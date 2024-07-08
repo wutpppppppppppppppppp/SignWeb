@@ -7,11 +7,11 @@ const DisplayVocab = () => {
   const { categoryName, vocabName } = useParams();
 
   return (
-    <div className="w-screen h-screen flex flex-col relative overflow-hidden">
+    <div className="w-screen h-screen flex flex-col relative">
       <Navbar title={`วิดีโอภาษามือ : ${vocabName}`} />
-      <div className="p-4 flex justify-center items-center flex-grow overflow-auto">
-        <div className="flex flex-col lg:flex-row justify-center items-center w-full max-h-full">
-          <div className="card lg:card-side bg-base-100 shadow-xl w-full lg:max-h-full overflow-hidden">
+      <div className="p-4 flex justify-center items-center flex-grow">
+        <div className="flex justify-center items-center w-full h-full">
+          <div className="card lg:card-side bg-base-100 shadow-xl w-full h-full">
             <figure className="flex justify-center w-2/4">
               <ThreeScene2 />
             </figure>

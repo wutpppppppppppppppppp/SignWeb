@@ -13,7 +13,7 @@ const Vocab = () => {
     <div className="w-screen">
       <Navbar title={`คำศัพท์${categoryName}`} />
       <div
-        className="hero w-screen bg-[url('/src/assets/placeholder.png')]"
+        className="hero w-screen bg-[url('https://as1.ftcdn.net/v2/jpg/01/92/00/78/1000_F_192007831_OGdxh37OAqmJpoMuWfgbKKYaQgpa9SJN.jpg')]"
       >
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-neutral-content text-center">

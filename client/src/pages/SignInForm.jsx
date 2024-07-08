@@ -95,7 +95,7 @@ const SignIn = () => {
 
       {/* Section 5 */}
       <button className="btn btn-wide">
-        <Link to="/Category" className="btn btn-wide btn-lg btn-primary text-primary-content">
+        <Link to="/login"  className="btn btn-wide btn-lg btn-primary text-primary-content">
             สร้างบัญชี
         </Link>
       </button>

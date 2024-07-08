@@ -30,7 +30,7 @@ const Login = () => {
 
         {/*login*/}
         <button className="btn btn-wide">
-        <Link to="/category" className="btn btn-wide btn-lg btn-primary text-primary-content">
+        <Link to="/setup-form" className="btn btn-wide btn-lg btn-primary text-primary-content">
             เข้าสู่ระบบ
         </Link>
         </button>
@@ -39,7 +39,7 @@ const Login = () => {
 
         {/*signin*/}
         <button className="btn btn-wide">
-        <Link to="/sign-in" className="btn btn-wide btn-lg btn-primary text-primary-content">
+        <Link to="/sign-in" className="btn btn-wide btn-lg btn-primary text-primary-content ">
             สร้างบัญชี
         </Link>
         </button>

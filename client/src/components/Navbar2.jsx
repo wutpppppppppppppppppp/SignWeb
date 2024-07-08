@@ -9,7 +9,7 @@ function Navbar({ title }) {
 
       <div className="navbar-start">
         <Link to="/" className="btn btn-ghost">
-          <IoIosArrowBack className="size-6" title="กลับไปหน้าก่อน"ห/>
+          <IoIosArrowBack className="size-6" title="กลับไปหน้าก่อน"/>
         </Link>
       </div>
 

@@ -16,7 +16,7 @@ const DisplayVocab = () => {
               <ThreeScene2 />
             </figure>
             <div className="card-body relative">
-              <h3 className="card-title font-bold text-2xl">แอปเปิ้ล</h3>
+              <h3 className="card-title font-bold text-2xl">{vocabName}</h3>
               <img src="https://static.libertyprim.com/files/familles/pomme-large.jpg?1569271834" alt="Apple" className="flex mx-auto w-2/4" />
               <a className="category text-xl">ประเภทคำ : {vocabName}</a>
               <a className="explanation text-xl">คำอธิบาย : ลูกกลม มีสีแดง เขียว รสเปรี้ยว</a>

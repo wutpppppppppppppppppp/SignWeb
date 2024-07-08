@@ -1,6 +1,6 @@
 // src/pages/Vocabulary.jsx
 import { useParams, Link } from "react-router-dom"
-import Navbar3 from "../components/Navbar3"
+import Navbar from "../components/Navbar"
 import SearchBox from "../components/SearchBox"
 const Vocab = () => {
   const { categoryName } = useParams()
@@ -11,7 +11,7 @@ const Vocab = () => {
 
   return (
     <div className="w-screen">
-      <Navbar3 title={`คำศัพท์${categoryName}`} />
+      <Navbar title={`คำศัพท์${categoryName}`} />
       <div
         className="hero w-screen bg-[url('https://as1.ftcdn.net/v2/jpg/01/92/00/78/1000_F_192007831_OGdxh37OAqmJpoMuWfgbKKYaQgpa9SJN.jpg')]"
       >
@@ -25,7 +25,7 @@ const Vocab = () => {
       </div>
       
       <div className="p-4">
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-4 gap-4">
           {vocabularies.map((vocab, index) => (
             <Link key={index} to={`/category/${categoryName}/${vocab}`}>
               <div className="border p-4">{vocab}</div>

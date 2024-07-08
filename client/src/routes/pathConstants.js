@@ -12,7 +12,9 @@ const PathConstants = {
   SETUP_FORM: '/setup-form',
   CONTROL_BUTTONS: '/control-buttons',
   THREE_SCENE: '/three-scene',
-  RECORD: '/record',
+  RECORD1: '/record1',
+  // RECORD2: '/record2',
+  DONE:'/donerecord'
 };
 
 export default PathConstants;

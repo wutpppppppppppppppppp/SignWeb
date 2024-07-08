@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import CatCard from "../components/CatCard";
-import Pagination from "../components/Pagination";
-import Navbar from "../components/Navbar";
-import placeHolder from "../assets/placeholder.png";
+import React, { useState } from "react"
+import { Link } from "react-router-dom"
+import CatCard from "../components/CatCard"
+import Pagination from "../components/Pagination"
+import Navbar from "../components/Navbar"
+import placeHolder from "../assets/placeholder.png"
 
 const allCategories = [
   { name: "อาหาร", image: placeHolder },
@@ -24,20 +24,34 @@ const allCategories = [
   { name: "ประเภทที่16", image: placeHolder },
   { name: "ประเภทที่17", image: placeHolder },
   { name: "ประเภทที่18", image: placeHolder },
-];
+]
 
-const itemsPerPage = 15; 
+const itemsPerPage = 15
 const Category = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1)
 
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentCategories = allCategories.slice(indexOfFirstItem, indexOfLastItem);
+  const indexOfLastItem = currentPage * itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const currentCategories = allCategories.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  )
 
   const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+    setCurrentPage(pageNumber)
+  }
+
+  // const temp = useMemo(() => {
+
+  //   return ""
+
+  // }, [currentPage])
+
+  // init load page
+  // useEffect(() => {
+  // res =  axios.get(localhost:5000/login)
+  // setState(res)
+  // }, [])
 
   return (
     <div className="w-screen h-screen flex flex-col justify-between">
@@ -60,7 +74,7 @@ const Category = () => {
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Category;
+export default Category

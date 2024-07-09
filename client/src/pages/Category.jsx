@@ -49,7 +49,7 @@ const Category = () => {
 
   // init load page
   // useEffect(() => {
-  // res =  axios.get(localhost:5000/login)
+  // res =  axios.get(localhost:3000/login)
   // setState(res)
   // }, [])
 

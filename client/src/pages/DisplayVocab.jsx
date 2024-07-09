@@ -5,7 +5,6 @@ import ThreeScene2 from "../pages/ThreeScene2";
 
 const DisplayVocab = () => {
   const { categoryName, vocabName } = useParams();
-
   return (
     <div className="w-screen h-screen flex flex-col relative">
       <Navbar3 title={`วิดีโอภาษามือ : ${vocabName}`} />

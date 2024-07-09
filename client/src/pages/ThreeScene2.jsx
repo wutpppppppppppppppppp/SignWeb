@@ -192,7 +192,7 @@
 // export default ThreeScene2;
 
 
-
+// This is three-fiber codefor 3d display
 
 import React, { useEffect, useRef } from "react"
 import { Canvas, useFrame, useLoader } from '@react-three/fiber';
@@ -222,12 +222,12 @@ const Model = () => {
 
 const ThreeScene2 = () => {
   return (
-    <Canvas camera={{ position: [0, 2, 2], fov: 45 }}>
+    <Canvas camera={{ position: [0, 2, 4], fov: 45 }}>
       <ambientLight intensity={1} />
       <directionalLight position={[5, 10, 7.5]} intensity={1} />
       <color attach="background" args={['#fffff']} />
       <Model />
-      <OrbitControls enableDamping />
+      <OrbitControls enableDamping /> //This is for camera movement
     </Canvas>
   )
 };

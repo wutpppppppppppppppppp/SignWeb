@@ -1,31 +1,17 @@
 import * as React from "react";
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import PathConstants from "../routes/pathConstants";
+// Rokoko API
 import { startRecording } from "../services/startRecordService";
 import { stopRecording } from "../services/stopRecordService";
 import { calibrate } from "../services/calibrateService";
-import { Link } from "react-router-dom";
-import PathConstants from "../routes/pathConstants";
-import CameraComponent from "../components/Camera";
 
 const ControlButtons = () => {
+
   const location = useLocation();
   const { config } = location.state || {};
-
-  const [activeId, setActiveId] = React.useState(null);
-  const videoRef = React.useRef(null);
-  const canvasRef = React.useRef(null);
-
-  React.useEffect(() => {
-    if (videoRef.current) {
-      navigator.mediaDevices.getUserMedia({ video: true })
-        .then(stream => {
-          videoRef.current.srcObject = stream;
-        })
-        .catch(err => {
-          console.error("Error accessing webcam:", err);
-        });
-    }
-  }, []);
+  const [activeId, setActiveId] = React.useState(null)
 
   if (!config) {
     return <div>No configuration found. Please go back to the setup form.</div>;
@@ -34,10 +20,7 @@ const ControlButtons = () => {
   return (
     <div>
       <pre>{JSON.stringify(config, null, 2)}</pre>
-      <div className="App">
-        <h1>มองหน้าตรงที่กล้อง</h1>
-        <CameraComponent />
-      </div>
+      <div className="App"><h1>มองหน้าตรงที่กล้อง</h1></div>
 
       <button
         className="btn btn-active"

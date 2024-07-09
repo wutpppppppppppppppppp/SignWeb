@@ -15,7 +15,7 @@ const PathConstants = {
   SETUP_FORM: '/setup-form',
   CONTROL_BUTTONS: '/control-buttons',
   THREE_SCENE: '/three-scene',
-  RECORD1: `/category/:categoryName/:vocabName/:recordName`,
+  RECORD1: `/record/:categoryName/:vocabName`,
   // RECORD2: '/record2',
   DONE:'/donerecord'
 };

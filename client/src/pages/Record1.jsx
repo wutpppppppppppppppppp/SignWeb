@@ -1,52 +1,50 @@
 import * as React from "react";
-import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
-import PathConstants from "../routes/pathConstants";
-// Rokoko API
-import { startRecording } from "../services/startRecordService";
-import { stopRecording } from "../services/stopRecordService";
-import { calibrate } from "../services/calibrateService";
+import { useParams, useLocation } from "react-router-dom";
+import Navbar3 from "../components/Navbar3";
+import { startRecording, stopRecording, calibrate } from "../services/recordServices"; // Assuming these services are already defined
 
-const ControlButtons = () => {
+const Record = () => {
+  const { categoryName, vocabName } = useParams();
+  const [isRecording, setIsRecording] = React.useState(false);
 
-  const location = useLocation();
-  const { config } = location.state || {};
-  const [activeId, setActiveId] = React.useState(null)
+  const handleCalibrate = () => {
+    calibrate();
+  };
 
-  if (!config) {
-    return <div>No configuration found. Please go back to the setup form.</div>;
-  }
+  const handleStartRecording = () => {
+    setIsRecording(true);
+    startRecording();
+  };
+
+  const handleStopRecording = () => {
+    setIsRecording(false);
+    stopRecording();
+  };
 
   return (
-    <div>
-      <pre>{JSON.stringify(config, null, 2)}</pre>
-      <div className="App"><h1>มองหน้าตรงที่กล้อง</h1></div>
+    <div className="w-screen h-screen flex flex-col justify-between">
+      <Navbar3 title={`บันทึกท่าคำศัพท์: ${vocabName}`} />
 
-      <button
-        className="btn btn-active"
-        id="startRecording"
-        onClick={() => startRecording(config)}>
-        <Link to={PathConstants.INFO_POLICY} className="btn btn-ghost text-xl"></Link>
-        เริ่มการบันทึก
-      </button>
+      <div className="flex flex-col items-center justify-center flex-grow">
+        <h1 className="text-2xl mb-4">มองหน้าตรงที่กล้อง</h1>
+        <div className="space-y-4">
 
-      <button
-        className="btn btn-active btn-neutral"
-        id="stopRecording"
-        onClick={() => stopRecording(config)}>
-        <Link to={PathConstants.INFO_POLICY} className="btn btn-ghost text-xl"></Link>
-        สิ้นสุดการบันทึก
-      </button>
-
-      <button
-        className="btn btn-active btn-primary"
-        id="calibrate"
-        onClick={() => calibrate(config)}>
-        <Link to={PathConstants.INFO_POLICY} className="btn btn-ghost text-xl"></Link>
-        ปรับท่า
-      </button>
+          <button className="btn btn-active btn-primary" onClick={handleCalibrate}>
+            ปรับท่า
+          </button>
+          {!isRecording ? (
+            <button className="btn btn-active btn-primary" onClick={handleStartRecording}>
+              เริ่มการบันทึก
+            </button>
+          ) : (
+            <button className="btn btn-active btn-neutral" onClick={handleStopRecording}>
+              สิ้นสุดการบันทึก
+            </button>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
 
-export default ControlButtons;
+export default Record;

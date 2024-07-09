@@ -35,7 +35,7 @@ const Vocab = () => {
           {vocabularies.map((vocab, index) => (
             <Link key={index} to={`/category/${categoryName}/${vocab}`}>
               <div className="border p-4">{vocab}</div>
-              <img src={} alt="Apple" />
+              {/* <img src={} alt="Apple" /> */}
             </Link>
           ))}
         </div>

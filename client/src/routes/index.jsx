@@ -9,9 +9,14 @@ const LandingPage = React.lazy(() => import("../pages/LandingPage"))
 // const InfoPolicy = React.lazy(() => import("../pages/InfoPolicy"));
 const Login = React.lazy(() => import("../pages/LoginForm"))
 const SignIn = React.lazy(() => import("../pages/SignInForm"))
+
 const Category = React.lazy(() => import("../pages/Category"))
+const CategoryAdmin = React.lazy(() => import("../pages/CategoryAdmin"))
 const Vocab = React.lazy(() => import("../pages/Vocabulary"))
+const VocabAdmin = React.lazy(() => import("../pages/VocabularyAdmin"))
 const DisplayVocab = React.lazy(() => import("../pages/DisplayVocab"))
+const DisplayVocabAdmin = React.lazy(() => import("../pages/DisplayVocabAdmin"))
+
 const Record = React.lazy(() => import("../pages/Record1"))
 // const Record2 = React.lazy(() => import("../pages/Record2"))
 const DoneRecord = React.lazy(() => import("../pages/DoneRecord"))
@@ -58,6 +63,14 @@ const routes = createBrowserRouter([
     ),
   },
   {
+    path: PathConstants.CATEGORY_ADMIN,
+    element: (
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <CategoryAdmin />
+      </React.Suspense>
+    ),
+  },
+  {
     path: PathConstants.VOCABULARY,
     element: (
       <React.Suspense fallback={<div>Loading...</div>}>
@@ -66,10 +79,26 @@ const routes = createBrowserRouter([
     ),
   },
   {
+    path: PathConstants.VOCABULARYADMIN,
+    element: (
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <VocabAdmin />
+      </React.Suspense>
+    ),
+  },
+  {
     path: PathConstants.DISPLAY_VOCAB,
     element: (
       <React.Suspense fallback={<div>Loading...</div>}>
         <DisplayVocab />
+      </React.Suspense>
+    ),
+  },
+  {
+    path: PathConstants.DISPLAY_VOCABADMIN,
+    element: (
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <DisplayVocabAdmin />
       </React.Suspense>
     ),
   },
@@ -102,6 +131,14 @@ const routes = createBrowserRouter([
     element: (
       <React.Suspense fallback={<div>Loading...</div>}>
         <Record />
+      </React.Suspense>
+    ),
+  },
+  {
+    path: PathConstants.DONE,
+    element: (
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <DoneRecord />
       </React.Suspense>
     ),
   },

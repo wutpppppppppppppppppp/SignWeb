@@ -33,7 +33,7 @@ const Vocab = () => {
       <div className="p-4">
         <div className="grid grid-cols-4 gap-4 justify-center">
           {vocabularies.map((vocab, index) => (
-            <Link key={index} to={`/category/${categoryName}/${vocab}`}>
+            <Link key={index} to={`/category/${categoryName}/${vocab.name}`}>
               <div className="border p-4 flex flex-col items-center">
                 <b>{vocab.name}</b>
                 {/* <div className="bg-cover bg-center" style="background-image: url(&)"></div> */}

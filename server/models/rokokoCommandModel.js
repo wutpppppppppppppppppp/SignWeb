@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const rokokoCommandSchema = new mongoose.Schema({
+const RokokoCommandSchema = new mongoose.Schema({
   commandType: { type: String, required: true },
   ipAddress: { type: String, required: true },
   port: { type: Number, required: true },
@@ -8,6 +8,6 @@ const rokokoCommandSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
 });
 
-const RokokoCommand = mongoose.model("RokokoCommand", rokokoCommandSchema);
+const RokokoCommand = mongoose.model("RokokoCommand", RokokoCommandSchema);
 
 export default RokokoCommand;

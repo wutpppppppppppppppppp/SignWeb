@@ -7,7 +7,13 @@ const Vocab = () => {
 
   // Fetch data or use context/state to get vocabularies for the category
   // For simplicity, this example just displays the category name and some dummy vocab items
-  const vocabularies = ["soup", "apple", "banana"] // Example vocab items
+  const vocabularies = [
+    { name: "แอปเปิ้ล", image:"https://as1.ftcdn.net/v2/jpg/01/92/00/78/1000_F_192007831_OGdxh37OAqmJpoMuWfgbKKYaQgpa9SJN.jpg" },
+    { name: "แอปเปิ้ล", image:"https://as1.ftcdn.net/v2/jpg/01/92/00/78/1000_F_192007831_OGdxh37OAqmJpoMuWfgbKKYaQgpa9SJN.jpg" },
+    { name: "แอปเปิ้ล", image:"https://as1.ftcdn.net/v2/jpg/01/92/00/78/1000_F_192007831_OGdxh37OAqmJpoMuWfgbKKYaQgpa9SJN.jpg" },
+    { name: "แอปเปิ้ล", image:"https://as1.ftcdn.net/v2/jpg/01/92/00/78/1000_F_192007831_OGdxh37OAqmJpoMuWfgbKKYaQgpa9SJN.jpg" },
+   
+  ] // Example vocab items
 
   return (
     <div className="w-screen">
@@ -29,6 +35,7 @@ const Vocab = () => {
           {vocabularies.map((vocab, index) => (
             <Link key={index} to={`/category/${categoryName}/${vocab}`}>
               <div className="border p-4">{vocab}</div>
+              <img src={} alt="Apple" />
             </Link>
           ))}
         </div>

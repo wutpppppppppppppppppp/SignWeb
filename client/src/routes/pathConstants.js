@@ -8,7 +8,7 @@ const PathConstants = {
   CATEGORY: '/category',
   CATEGORY_ADMIN: '/categoryad',
   VOCABULARY: '/category/:categoryName',
-  VOCABULARY_ADMIN: '/category/:categoryNamead',
+  VOCABULARY_ADMIN: '/categoryad/:categoryName',
   DISPLAY_VOCAB: '/category/:categoryName/:vocabName',
   DISPLAY_VOCAB_ADMIN: '/category/:categoryName/:vocabNamead',
 

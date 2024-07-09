@@ -43,7 +43,14 @@ const Vocab = () => {
           ))}
         </div>
       </div>
+      
+      <div class="cta" className="flex-grow flex place-self-end"> 
+        เลขที่พอร์ตปัจจุบัน (Port):14053
+        เลขที่ไอพีปัจจุบัน (IP Address):172.20.10.3
+      </div>
     </div>
+    
+
   )
 }
 

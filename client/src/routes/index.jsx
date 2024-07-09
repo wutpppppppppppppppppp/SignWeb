@@ -79,7 +79,7 @@ const routes = createBrowserRouter([
     ),
   },
   {
-    path: PathConstants.VOCABULARYADMIN,
+    path: PathConstants.VOCABULARY_ADMIN,
     element: (
       <React.Suspense fallback={<div>Loading...</div>}>
         <VocabAdmin />
@@ -95,7 +95,7 @@ const routes = createBrowserRouter([
     ),
   },
   {
-    path: PathConstants.DISPLAY_VOCABADMIN,
+    path: PathConstants.DISPLAY_VOCAB_ADMIN,
     element: (
       <React.Suspense fallback={<div>Loading...</div>}>
         <DisplayVocabAdmin />
@@ -127,7 +127,7 @@ const routes = createBrowserRouter([
     ),
   },
   {
-    path: PathConstants.RECORD,
+    path: PathConstants.RECORD1,
     element: (
       <React.Suspense fallback={<div>Loading...</div>}>
         <Record />

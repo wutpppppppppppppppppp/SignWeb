@@ -194,11 +194,12 @@
 
 // This is three-fiber codefor 3d display
 
-import React, { useEffect, useRef } from "react"
-import { Canvas, useFrame, useLoader } from '@react-three/fiber';
+import React, { useEffect, useRef,forwardRef } from "react"
+import { Canvas, useFrame, useLoader ,useThree } from '@react-three/fiber';
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import SceneWrapper from "/src/pages/SceneWrapper.jsx";
 
 const Model = () => {
   const gltf = useLoader(GLTFLoader, '/src/models/Rokoko_model/scene.gltf');
@@ -220,16 +221,18 @@ const Model = () => {
   return <primitive object={gltf.scene} scale={1} />;
 };
 
-const ThreeScene2 = () => {
-  return (
+const ThreeScene2 =  (() => {
+
+    return (
     <Canvas camera={{ position: [0, 2, 4], fov: 45 }}>
       <ambientLight intensity={1} />
       <directionalLight position={[5, 10, 7.5]} intensity={1} />
       <color attach="background" args={['#fffff']} />
-      <Model />
+      <Model/>
       <OrbitControls enableDamping /> //This is for camera movement
+      {/* <SceneWrapper ref={ref} /> Include SceneWrapper to forward the scene reference */}
     </Canvas>
   )
-};
+});
 
 export default ThreeScene2;

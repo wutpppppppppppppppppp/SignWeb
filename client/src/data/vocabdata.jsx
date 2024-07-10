@@ -10,4 +10,9 @@ const vocabDescriptions = {
     "กล้วย": "สีเหลือง อร่อย",
 };
 
-export { vocabularies, vocabDescriptions };
+const interpreter = {
+    "ไข่เจียว": "คุณไอติม",
+    "กล้วย": "สีเหลือง อร่อย",
+};
+
+export { vocabularies, vocabDescriptions , interpreter };

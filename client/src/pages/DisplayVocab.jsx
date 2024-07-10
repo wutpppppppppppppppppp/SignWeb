@@ -1,43 +1,12 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter.js";
-import Navbar3 from "../components/Navbar3";
-import { vocabularies, vocabDescriptions, interpreter } from "../data/vocabdata.jsx";
-import { Canvas, useLoader, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useLoader, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-
-const Model = () => {
-  const gltf = useLoader(GLTFLoader, '/src/models/Rokoko_model/scene.gltf');
-  const mixer = useRef();
-
-  useEffect(() => {
-    if (gltf.animations.length) {
-      mixer.current = new THREE.AnimationMixer(gltf.scene);
-      gltf.animations.forEach((clip) => {
-        mixer.current.clipAction(clip).play();
-      });
-    }
-  }, [gltf]);
-
-  useFrame((state, delta) => {
-    mixer.current?.update(delta);
-  });
-
-  return <primitive object={gltf.scene} scale={1} />;
-};
-
-const SceneWrapper = ({ sceneRef }) => {
-  const { scene } = useThree();
-  useEffect(() => {
-    if (sceneRef) {
-      sceneRef.current = scene;
-    }
-  }, [scene, sceneRef]);
-
-  return null;
-};
+import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter.js";
+import Navbar3 from "../components/Navbar3";
+import { vocabularies, vocabDescriptions, interpreters } from "../data/vocabdata.jsx";
 
 const DisplayVocab = () => {
   const { categoryName, vocabName } = useParams();
@@ -45,12 +14,12 @@ const DisplayVocab = () => {
   const [interpreter, setInterpreter] = useState("");
   const [image, setImage] = useState("");
   const navigate = useNavigate();
-  const sceneRef = useRef(null);
+  const [scene, setScene] = useState(null);
+  const [animations, setAnimations] = useState([]);
 
   useEffect(() => {
-    console.log(vocabName)
     setDescription(vocabDescriptions[vocabName] || "ไม่พบคำอธิบาย");
-    setInterpreter(interpreter[vocabName] || "ไม่พบข้อมูล");
+    setInterpreter(interpreters[vocabName] || "ไม่พบข้อมูล");
     const vocabItem = vocabularies.find((vocab) => vocab.name === vocabName);
     if (vocabItem) {
       setImage(vocabItem.image);
@@ -73,20 +42,26 @@ const DisplayVocab = () => {
 
   const handleExport = () => {
     const exporter = new GLTFExporter();
-    if (sceneRef.current) {
+    if (scene) {
       exporter.parse(
-        sceneRef.current,
+        scene,
         (gltf) => {
           console.log(gltf);
           downloadJSON(gltf);
         },
         (error) => {
-          console.log("An error happened:", error);
-        }
+          console.error("An error happened:", error);
+        },
+        { animations }
       );
     } else {
-      console.error("sceneRef.current is undefined or null");
+      console.error("Scene is undefined or null");
     }
+  };
+
+  const setSceneAndAnimations = (scene, animations) => {
+    setScene(scene);
+    setAnimations(animations);
   };
 
   return (
@@ -100,9 +75,8 @@ const DisplayVocab = () => {
                 <ambientLight intensity={1} />
                 <directionalLight position={[5, 10, 7.5]} intensity={1} />
                 <color attach="background" args={["#ffffff"]} />
-                <Model />
-                <OrbitControls enableDamping /> 
-                <SceneWrapper sceneRef={sceneRef} />
+                <Model setSceneAndAnimations={setSceneAndAnimations} />
+                <OrbitControls enableDamping />
               </Canvas>
             </figure>
             <div className="card-body relative">

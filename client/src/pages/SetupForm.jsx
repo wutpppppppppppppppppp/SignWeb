@@ -75,7 +75,7 @@ const SetupForm = () => {
           </form>
         ) : null}
         <button className="btn btn-wide">
-          <Link to="/category"  className="btn btn-wide btn-lg btn-primary text-primary-content">
+          <Link to="/categoryad"  className="btn btn-wide btn-lg btn-primary text-primary-content">
             ตั้งค่าสำเร็จ
           </Link>
         </button>

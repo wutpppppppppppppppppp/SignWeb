@@ -9,7 +9,7 @@ const RootComponent = () => {
     const fetchData = async () => {
       try {
         console.log("Fetching data...")
-        const response = await fetch("/api")
+        const response = await fetch("/api", { method: "GET" })
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`)
         }

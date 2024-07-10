@@ -222,7 +222,6 @@ const Model = () => {
 };
 
 const ThreeScene2 =  (() => {
-
     return (
     <Canvas camera={{ position: [0, 2, 4], fov: 45 }}>
       <ambientLight intensity={1} />

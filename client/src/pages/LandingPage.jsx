@@ -10,7 +10,7 @@ const LandingPage = () => {
 
       <div className="navbar self-start">
         <div className="flex-1">
-          <Link to={PathConstants.INFO_POLICY} className="btn btn-ghost text-xl">
+          <Link to={PathConstants.LANDING} className="btn btn-ghost text-xl">
             บลูมบีท
           </Link>
         </div>

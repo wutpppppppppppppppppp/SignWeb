@@ -2,6 +2,7 @@
 import { useParams } from "react-router-dom";
 import Navbar3 from "../components/Navbar3";
 import ThreeScene2 from "../pages/ThreeScene2";
+import { Link } from "react-router-dom";
 
 const DisplayVocab = () => {
   const { categoryName, vocabName } = useParams();
@@ -21,7 +22,11 @@ const DisplayVocab = () => {
               <a className="explanation text-xl">คำอธิบาย : ลูกกลม มีสีแดง เขียว รสเปรี้ยว</a>
               <a className="approve text-xl">รับรองโดย : คุณน่ารัก ครุครุคริคริ</a>
               <div className="absolute inset-x-0 bottom-0 p-4 bg-white shadow-lg flex justify-between">
-                <button className="btn bg-others text-white w-1/2 text-center">ดูคำอื่น</button>
+                <button className="btn bg-others text-white w-1/2 text-center">
+                  <Link to="/category">
+                    ดูคำอื่น
+                  </Link>
+                </button>
                 <button className="btn bg-confirm text-white w-1/2 text-center">ดาวน์โหลด</button>
               </div>
             </div>

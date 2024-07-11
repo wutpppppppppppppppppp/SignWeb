@@ -45,4 +45,4 @@ const DisplayVocab = () => {
   );
 };
 
-export default DisplayVocab;
+export default DisplayVocabAdmin;

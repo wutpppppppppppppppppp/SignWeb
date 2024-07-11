@@ -33,3 +33,27 @@ app.listen({ port: process.env.PORT || 3000 }, (err) => {
     process.exit(1)
   }
 })
+// import 'dotenv/config'
+// import Fastify from 'fastify'
+// import closeWithGrace from 'close-with-grace'
+
+// const app = Fastify({
+//   logger: true
+// })
+
+// const appService = await import('./app.js')
+// app.register(appService.default)
+
+// closeWithGrace({ delay: process.env.FASTIFY_CLOSE_GRACE_DELAY || 500 }, async function ({ signal, err, manual }) {
+//   if (err) {
+//     app.log.error(err)
+//   }
+//   await app.close()
+// })
+
+// app.listen({ port: process.env.PORT || 3000 }, (err) => {
+//   if (err) {
+//     app.log.error(err)
+//     process.exit(1)
+//   }
+// })

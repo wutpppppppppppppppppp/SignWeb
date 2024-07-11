@@ -8,14 +8,44 @@ import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter.js";
 import Navbar3 from "../components/Navbar3";
 import { vocabularies, vocabDescriptions, interpreters } from "../data/vocabdata.jsx";
 
+const Model = () => {
+  const gltf = useLoader(GLTFLoader, '/src/models/Rokoko_model/scene.gltf');
+  const mixer = useRef();
+
+  useEffect(() => {
+    if (gltf.animations.length) {
+      mixer.current = new THREE.AnimationMixer(gltf.scene);
+      gltf.animations.forEach((clip) => {
+        mixer.current.clipAction(clip).play();
+      });
+    }
+  }, [gltf]);
+
+  useFrame((state, delta) => {
+    mixer.current?.update(delta);
+  });
+
+  return <primitive object={gltf.scene} scale={1} />;
+};
+// const SceneWrapper = forwardRef((props, ref) => {
+//   const { scene } = useThree();
+
+//   useEffect(() => {
+//     if (ref) {
+//       ref.current = scene;
+//     }
+//   }, [scene, ref]);
+
+//   return null;
+// });
+
 const DisplayVocab = () => {
   const { categoryName, vocabName } = useParams();
   const [description, setDescription] = useState("");
   const [interpreter, setInterpreter] = useState("");
   const [image, setImage] = useState("");
   const navigate = useNavigate();
-  const [scene, setScene] = useState(null);
-  const [animations, setAnimations] = useState([]);
+  const sceneRef=useRef(null);
 
   useEffect(() => {
     setDescription(vocabDescriptions[vocabName] || "ไม่พบคำอธิบาย");
@@ -42,7 +72,7 @@ const DisplayVocab = () => {
 
   const handleExport = () => {
     const exporter = new GLTFExporter();
-    if (scene) {
+    if (sceneRef.current) {
       exporter.parse(
         scene,
         (gltf) => {
@@ -75,8 +105,9 @@ const DisplayVocab = () => {
                 <ambientLight intensity={1} />
                 <directionalLight position={[5, 10, 7.5]} intensity={1} />
                 <color attach="background" args={["#ffffff"]} />
-                <Model setSceneAndAnimations={setSceneAndAnimations} />
+                <Model  />
                 <OrbitControls enableDamping />
+                {/* <SceneWrapper ref={sceneRef} /> */}
               </Canvas>
             </figure>
             <div className="card-body relative">

@@ -199,7 +199,7 @@ import { Canvas, useFrame, useLoader ,useThree } from '@react-three/fiber';
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import SceneWrapper from "/src/pages/SceneWrapper.jsx";
+// import SceneWrapper from "/src/pages/SceneWrapper.jsx";
 
 const Model = () => {
   const gltf = useLoader(GLTFLoader, '/src/models/Rokoko_model/scene.gltf');

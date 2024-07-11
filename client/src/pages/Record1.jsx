@@ -1,6 +1,8 @@
 import * as React from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, Navigate , Link} from "react-router-dom";
 import Navbar3 from "../components/Navbar3";
+import PathConstants from "../routes/pathConstants";
+
 // import { startRecording, stopRecording, calibrate } from "../services/recordServices"; // Assuming these services are already defined
 
 const Record = () => {
@@ -13,22 +15,32 @@ const Record = () => {
 
   const handleStartRecording = () => {
     setIsRecording(true);
-    startRecording();
   };
 
   const handleStopRecording = () => {
-    setIsRecording(false);
-    stopRecording();
+     setIsRecording(false);
+    // Navigate(PathConstants.DISPLAY_VOCAB_ADMIN);
+    console.log("Recording stopped");
+    // <Link
+    //   to={PathConstants.DISPLAY_VOCAB_ADMIN}
+    // >
+    // </Link>
+    
   };
 
   return (
     <div className="w-screen h-screen flex flex-col justify-between">
       <Navbar3 title={`บันทึกท่าคำศัพท์: ${vocabName}`} />
-
+          
       <div className="flex flex-col items-center justify-center flex-grow">
-        <h1 className="text-2xl mb-4">มองหน้าตรงที่กล้อง</h1>
-        <div className="space-y-4">
-
+        {/* <h1 className="text-2xl mb-4">มองหน้าไปตรงที่โทรศัพท์ของคุณ</h1> */}
+        <div className="mockup-phone">
+          <div className="camera"></div>
+          <div className="display">
+            <div className="artboard artboard-demo phone-1">มองหน้าไปตรงที่โทรศัพท์ของคุณ</div>
+          </div>
+        </div>
+        <div className="space-y-4 space-x-4">
           <button className="btn btn-active btn-primary" onClick={handleCalibrate}>
             ปรับท่า
           </button>
@@ -37,12 +49,26 @@ const Record = () => {
               เริ่มการบันทึก
             </button>
           ) : (
-            <button className="btn btn-active btn-neutral" onClick={handleStopRecording}>
+            <button className="btn btn-active btn-neutral"  onClick={handleStopRecording}>
               สิ้นสุดการบันทึก
             </button>
           )}
+          {!isRecording && (
+                <Link to={PathConstants.DISPLAY_VOCAB_ADMIN}>
+                   <button className="btn btn-active btn-neutral" >
+                      สิ้นสุดการบันทึก
+                    </button>
+                </Link>
+          )}
         </div>
+
       </div>
+      <div className="mt-auto">
+              <div className="px-4 py-2 bg-black text-white text-center"> 
+                  เลขที่พอร์ตปัจจุบัน (Port): 14053
+                  เลขที่ไอพีปัจจุบัน (IP Address): 172.20.10.3
+              </div>
+          </div>
     </div>
   );
 };

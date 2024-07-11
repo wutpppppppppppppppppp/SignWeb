@@ -4,7 +4,8 @@ import useFormInput from "../hooks/useFormInput";
 import useFormSubmit from "../hooks/useFormSubmit";
 import Navbar2 from "../components/Navbar2";
 import { Link } from "react-router-dom";
-
+import PathConstants from "../routes/pathConstants";
+// This file is เชื่อมอุปกรณ
 const SetupForm = () => {
   const navigate = useNavigate();
 
@@ -78,9 +79,12 @@ const SetupForm = () => {
                 />
               </label>
 
-              <button type="submit" className="btn btn-wide btn-primary">
-                ตั้งค่าสำเร็จ
-              </button>
+              <Link
+              to={PathConstants.CATEGORY_ADMIN}
+              className="btn btn-wide btn-lg btn-primary text-primary-content"
+            >
+              สร้างบัญชี
+            </Link>
             </form>
           ) : null}
           

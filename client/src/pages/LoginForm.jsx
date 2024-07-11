@@ -7,7 +7,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   
   return (
-    <div className="w-screen h-screen flex flex-col justify-">
+    <div className="w-screen h-screen flex flex-col justify-center">
       <Navbar2  title="เข้าสู่ระบบ" />
 
       <div className="flex-grow flex items-center justify-center">
@@ -63,10 +63,6 @@ const Login = () => {
             >
               สร้างบัญชี
             </Link>
-          </div>
-
-          <div className="acc inset-x-0 bottom-0 p-4 flex-grow flex items-center justify-center">
-            ยังไม่มีบัญชี?
           </div>
         </div>
       </div>

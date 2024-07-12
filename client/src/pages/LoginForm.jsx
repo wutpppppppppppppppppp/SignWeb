@@ -7,14 +7,14 @@ const Login = () => {
   const [password, setPassword] = useState("")
 
   return (
-    <div className="w-screen h-screen flex flex-col justify-between ">
+    <div className="w-screen h-screen flex flex-col justify-between">
       <Navbar2 title="เข้าสู่ระบบ" />
 
       <div className="flex-grow flex items-center justify-center w-2/3 place-self-center bg-gray-200 my-20 rounded-lg">
         <div className="p-4 flex flex-col">
           <div className="flex flex-col gap-1 mb-4">
             {/* email */}
-            อีเมล
+            <span className="label-text">อีเมล</span>
             <label className="input input-bordered flex items-center gap-2">
               <IoMdMail />
               <input
@@ -24,7 +24,7 @@ const Login = () => {
               />
             </label>
             {/*password*/}
-            รหัสผ่าน
+            <span className="label-text">รหัสผ่าน</span>
             <label className="input input-bordered flex items-center gap-2">
               <FaKey className="text-current" />
               <input

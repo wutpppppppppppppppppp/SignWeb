@@ -9,7 +9,7 @@ import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter.js";
 import Navbar3 from "../components/Navbar3";
 import { vocabularies, vocabDescriptions, interpreters } from "../data/vocabdata.jsx";
 import DoneRecord from "./DoneRecord.jsx";
-
+import PathConstants from "../routes/pathConstants.js";
 const Model = () => {
   const gltf = useLoader(GLTFLoader, '/src/models/Rokoko_model/scene.gltf');
   const mixer = useRef();

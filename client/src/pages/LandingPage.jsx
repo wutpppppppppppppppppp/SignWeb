@@ -32,7 +32,9 @@ const LandingPage = () => {
       </div>
 
       <div class="Term and conditions place-self-end size-20">
-        <MdOutlineInfo className="size-8 cursor-pointer" title="ข้อตกลงการให้บริการ" onClick={() => document.getElementById('my_modal_3').showModal()} /> 
+        <MdOutlineInfo className="size-8 cursor-pointer" 
+                        title="ข้อตกลงการให้บริการ" 
+                        onClick={() => document.getElementById('my_modal_3').showModal()} /> 
       </div>
         <dialog id="my_modal_3" className="modal">
           <div className="modal-box">
@@ -85,7 +87,14 @@ const LandingPage = () => {
             </p>
           </div>
         </dialog>
+
+        <div class="Term and conditions place-self-end size-20">
+        <MdOutlineInfo className="size-8 cursor-pointer" 
+                        title="ข้อตกลงการให้บริการ" 
+                        onClick={() => document.getElementById('my_modal_3').showModal()} /> 
+        </div>
       </div>
+      
       
   );
 };

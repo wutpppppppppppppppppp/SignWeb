@@ -27,10 +27,10 @@ const VocabAdmin = () => {
                       </div>
                   </div>
               </div>
-              <div className="p-4">j
+              <div className="p-4">
                   <div className="grid grid-cols-4 gap-4 justify-center">
                       {vocabularies.map((vocab, index) => (
-                          <Link key={index} to={`/categoryad/${categoryName}/${vocab.name}`}>
+                          <Link key={index} to={`/record/${categoryName}/${vocab.name}`}>
                               <div className="border p-4 flex flex-col items-center">
                                   <b>{vocab.name}</b>
                                   <img src={vocab.image} alt={vocab.name} className="" />

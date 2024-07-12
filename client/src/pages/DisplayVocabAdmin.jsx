@@ -8,15 +8,17 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter.js";
 import Navbar3 from "../components/Navbar3";
 import { vocabularies, vocabDescriptions, interpreters } from "../data/vocabdata.jsx";
+import DoneRecord from "./DoneRecord.jsx";
 
 const DisplayVocabAdmin = () => {
   const { categoryName, vocabName } = useParams();
   const [description, setDescription] = useState("");
   const [interpreter, setInterpreter] = useState("");
   const [image, setImage] = useState("");
-  const navigate = useNavigate();
+
   const [scene, setScene] = useState(null);
   const [animations, setAnimations] = useState([]);
+  const Navigate = useNavigate();
 
   useEffect(() => {
     setDescription(vocabDescriptions[vocabName] || "ไม่พบคำอธิบาย");
@@ -65,6 +67,16 @@ const DisplayVocabAdmin = () => {
     setAnimations(animations);
   };
 
+  const rerecord = () => {
+    console.log("Rerecord");
+    Navigate(PathConstants.RECORD1);
+  }
+
+  const DoneRecord = () => {
+    console.log("Rerecord");
+    Navigate(PathConstants.DONE);
+  }
+
   return (
     <div className="w-screen h-screen flex flex-col relative">
       <Navbar3 title={`วิดีโอภาษามือ : ${vocabName}`} />
@@ -87,11 +99,11 @@ const DisplayVocabAdmin = () => {
               <a className="explanation text-xl">คำอธิบาย : {description}</a>
               <a className="approve text-xl">รับรองโดย : {interpreter}</a>
               <div className="absolute inset-x-0 bottom-0 p-4 bg-white shadow-lg flex justify-between">
-                <button className="btn bg-others text-white w-1/2 text-center" onClick={() => navigate(`/category/${categoryName}`)}>
-                  ดูคำอื่น
+                <button className="btn bg-others text-white w-1/2 text-center" onClick={rerecord}>
+                  บันทึกท่าใหม่
                 </button>
-                <button className="btn bg-confirm text-white w-1/2 text-center" onClick={handleExport}>
-                  ดาวน์โหลด
+                <button className="btn bg-confirm text-white w-1/2 text-center" onClick={DoneRecord}>
+                  ยืนยัน
                 </button>
               </div>
             </div>

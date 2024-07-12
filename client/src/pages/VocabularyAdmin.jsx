@@ -27,7 +27,7 @@ const Vocab = () => {
                       </div>
                   </div>
               </div>
-              <div className="p-4">
+              <div className="p-4">j
                   <div className="grid grid-cols-4 gap-4 justify-center">
                       {vocabularies.map((vocab, index) => (
                           <Link key={index} to={`/record/${categoryName}/${vocab.name}`}>

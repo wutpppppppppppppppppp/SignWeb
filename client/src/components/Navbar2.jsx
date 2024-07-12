@@ -7,13 +7,13 @@ function Navbar({ title }) {
   return (
     <div className="navbar bg-primary text-primary-content p-1">
 
-      <div className="navbar-start">
+      <div>
         <Link to="/" className="btn btn-ghost">
           <IoIosArrowBack className="size-6" title="กลับไปหน้าก่อน"/>
         </Link>
       </div>
 
-      <div className="navbar-center">
+      <div className="navbar-end">
         <span className="text-xl font-bold">{title}</span>
       </div>
       

@@ -36,17 +36,37 @@ const Record = () => {
             </div>
           </div>
         </div>
-        <div className="space-y-4 space-x-4">
-          <button className="btn btn-active btn-primary" onClick={handleCalibrate}>
-            ปรับท่า
-          </button>
+        
+        <div className="flex gap-x-5 m-5">
           {!isRecording ? (
-            <button className="btn btn-active btn-primary" onClick={handleStartRecording}>
-              เริ่มการบันทึก
+            <button
+              className="btn btn-accent text-accent-content"
+              onClick={handleCalibrate}
+            >
+              ปรับท่า​ (Calibrate)
             </button>
           ) : (
-            <button className="btn btn-active btn-neutral" onClick={handleStopRecording}>
-              สิ้นสุดการบันทึก
+            <button
+              className="btn btn-disabled btn-accent text-accent-content"
+              onClick={handleCalibrate}
+            >
+              ปรับท่า​ (Calibrate)
+            </button>
+          )}
+
+          {!isRecording ? (
+            <button
+              className="btn btn-success text-success-content"
+              onClick={handleStartRecording}
+            >
+              เริ่มการบันทึก (Start Recording)
+            </button>
+          ) : (
+            <button
+              className="btn btn-active btn-error text-error-content"
+              onClick={handleStopRecording}
+            >
+              สิ้นสุดการบันทึก (Stop Recording)
             </button>
           )}
         </div>

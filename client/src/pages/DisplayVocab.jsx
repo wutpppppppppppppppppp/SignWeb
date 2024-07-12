@@ -118,10 +118,10 @@ const DisplayVocab = () => {
               <a className="approve text-xl">รับรองโดย : {interpreter}</a>
               <div className="absolute inset-x-0 bottom-0 p-4 bg-white shadow-lg flex justify-between">
                 <button className="btn bg-others text-white w-1/2 text-center" onClick={() => navigate(`/category/${categoryName}`)}>
-                  ดูคำอื่น
+                  บันทึกท่าใหม่
                 </button>
                 <button className="btn bg-confirm text-white w-1/2 text-center" onClick={handleExport}>
-                  ดาวน์โหลด
+                  ยืนยันและส่งข้อมูล
                 </button>
               </div>
             </div>

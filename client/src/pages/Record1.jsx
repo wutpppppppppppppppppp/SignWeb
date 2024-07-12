@@ -1,6 +1,7 @@
 import * as React from "react"
 import { useParams } from "react-router-dom"
 import Navbar3 from "../components/Navbar3"
+// Uncomment the imports for the recording services
 // import {
 //   startRecording,
 //   stopRecording,
@@ -12,45 +13,57 @@ const Record = () => {
   const [isRecording, setIsRecording] = React.useState(false)
 
   const handleCalibrate = () => {
-    calibrate()
+    // Call the calibrate function
+    // calibrate()
   }
 
   const handleStartRecording = () => {
     setIsRecording(true)
-    startRecording()
+    // Call the startRecording function
+    // startRecording()
   }
 
   const handleStopRecording = () => {
     setIsRecording(false)
-    stopRecording()
+    // Call the stopRecording function
+    // stopRecording()
   }
 
   return (
     <div className="w-screen h-screen flex flex-col justify-between">
       <Navbar3 title={`บันทึกท่าคำศัพท์: ${vocabName}`} />
-
       <div className="flex flex-col items-center justify-center flex-grow">
-        <h1 className="text-2xl mb-4">มองหน้าตรงที่กล้อง</h1>
-        <div className="space-y-4">
-          <button
-            className="btn btn-active btn-primary"
-            // onClick={handleCalibrate}
-          >
-            ปรับท่า
-          </button>
+        <h1 className="text-2xl">มองหน้าตรงที่กล้อง</h1>
+        <div className="flex gap-x-5 m-5">
           {!isRecording ? (
             <button
-              className="btn btn-active btn-primary"
-              // onClick={handleStartRecording}
+              className="btn btn-accent text-accent-content"
+              onClick={handleCalibrate}
             >
-              เริ่มการบันทึก
+              ปรับท่า​ (Calibrate)
             </button>
           ) : (
             <button
-              className="btn btn-active btn-neutral"
-              // onClick={handleStopRecording}
+              className="btn btn-disabled btn-accent text-accent-content"
+              onClick={handleCalibrate}
             >
-              สิ้นสุดการบันทึก
+              ปรับท่า​ (Calibrate)
+            </button>
+          )}
+
+          {!isRecording ? (
+            <button
+              className="btn btn-success text-success-content"
+              onClick={handleStartRecording}
+            >
+              เริ่มการบันทึก (Start Recording)
+            </button>
+          ) : (
+            <button
+              className="btn btn-active btn-error text-error-content"
+              onClick={handleStopRecording}
+            >
+              สิ้นสุดการบันทึก (Stop Recording)
             </button>
           )}
         </div>

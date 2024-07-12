@@ -83,7 +83,7 @@ const SetupForm = () => {
               to={PathConstants.CATEGORY_ADMIN}
               className="btn btn-wide btn-lg btn-primary text-primary-content"
             >
-              สร้างบัญชี
+              ตั้งค่าสำเร็จ
             </Link>
             </form>
           ) : null}

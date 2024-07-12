@@ -1,82 +1,10 @@
 // src/pages/DisplayVocab.jsx
-import React, { useEffect, useRef, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { Canvas, useLoader, useFrame } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter.js";
-import Navbar3 from "../components/Navbar3";
-import { vocabularies, vocabDescriptions, interpreters } from "../data/vocabdata.jsx";
-import DoneRecord from "./DoneRecord.jsx";
+import { useParams } from "react-router-dom"
+import Navbar3 from "../components/Navbar3"
+import ThreeScene2 from "../pages/ThreeScene2"
 
-const DisplayVocabAdmin = () => {
-  const { categoryName, vocabName } = useParams();
-  const [description, setDescription] = useState("");
-  const [interpreter, setInterpreter] = useState("");
-  const [image, setImage] = useState("");
-
-  const [scene, setScene] = useState(null);
-  const [animations, setAnimations] = useState([]);
-  const Navigate = useNavigate();
-
-  useEffect(() => {
-    setDescription(vocabDescriptions[vocabName] || "ไม่พบคำอธิบาย");
-    setInterpreter(interpreters[vocabName] || "ไม่พบข้อมูล");
-    const vocabItem = vocabularies.find((vocab) => vocab.name === vocabName);
-    if (vocabItem) {
-      setImage(vocabItem.image);
-    } else {
-      setImage("");
-    }
-  }, [vocabName]);
-
-  const downloadJSON = (gltfData) => {
-    const jsonContent = JSON.stringify(gltfData);
-    const blob = new Blob([jsonContent], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "scene.gltf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  const handleExport = () => {
-    const exporter = new GLTFExporter();
-    if (scene) {
-      exporter.parse(
-        scene,
-        (gltf) => {
-          console.log(gltf);
-          downloadJSON(gltf);
-        },
-        (error) => {
-          console.error("An error happened:", error);
-        },
-        { animations }
-      );
-    } else {
-      console.error("Scene is undefined or null");
-    }
-  };
-
-  const setSceneAndAnimations = (scene, animations) => {
-    setScene(scene);
-    setAnimations(animations);
-  };
-
-  const rerecord = () => {
-    console.log("Rerecord");
-    Navigate(PathConstants.RECORD1);
-  }
-
-  const DoneRecord = () => {
-    console.log("Rerecord");
-    Navigate(PathConstants.DONE);
-  }
-
+const DisplayVocab = () => {
+  const { categoryName, vocabName } = useParams()
   return (
     <div className="w-screen h-screen flex flex-col relative">
       <Navbar3 title={`วิดีโอภาษามือ : ${vocabName}`} />
@@ -94,16 +22,24 @@ const DisplayVocabAdmin = () => {
             </figure>
             <div className="card-body relative">
               <h3 className="card-title font-bold text-2xl">{vocabName}</h3>
-              {image && <img src={image} alt={vocabName} className="flex mx-auto w-2/4" />}
-              <a className="category text-xl">ประเภทคำ : {categoryName}</a>
-              <a className="explanation text-xl">คำอธิบาย : {description}</a>
-              <a className="approve text-xl">รับรองโดย : {interpreter}</a>
+              <img
+                src="https://static.libertyprim.com/files/familles/pomme-large.jpg?1569271834"
+                alt="Apple"
+                className="flex mx-auto w-2/4"
+              />
+              <a className="category text-xl">ประเภทคำ : {vocabName}</a>
+              <a className="explanation text-xl">
+                คำอธิบาย : ลูกกลม มีสีแดง เขียว รสเปรี้ยว
+              </a>
+              <a className="approve text-xl">
+                รับรองโดย : คุณน่ารัก ครุครุคริคริ
+              </a>
               <div className="absolute inset-x-0 bottom-0 p-4 bg-white shadow-lg flex justify-between">
-                <button className="btn bg-others text-white w-1/2 text-center" onClick={rerecord}>
-                  บันทึกท่าใหม่
+                <button className="btn bg-others text-white w-1/2 text-center">
+                  ดูคำอื่น
                 </button>
-                <button className="btn bg-confirm text-white w-1/2 text-center" onClick={DoneRecord}>
-                  ยืนยัน
+                <button className="btn bg-confirm text-white w-1/2 text-center">
+                  ดาวน์โหลด
                 </button>
               </div>
             </div>
@@ -111,12 +47,12 @@ const DisplayVocabAdmin = () => {
         </div>
       </div>
 
-      <div class="cta" className="flex-grow flex place-self-end"> 
-        เลขที่พอร์ตปัจจุบัน (Port):14053
-        เลขที่ไอพีปัจจุบัน (IP Address):172.20.10.3
+      <div class="cta" className="flex-grow flex place-self-end">
+        เลขที่พอร์ตปัจจุบัน (Port):14053 เลขที่ไอพีปัจจุบัน (IP
+        Address):172.20.10.3
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default DisplayVocabAdmin;
+export default DisplayVocab

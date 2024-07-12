@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useParams, useLocation } from "react-router-dom";
 import Navbar3 from "../components/Navbar3";
-import { startRecording, stopRecording, calibrate } from "../services/recordServices"; // Assuming these services are already defined
+import { startRecording, stopRecording, calibrate } from "../services/recordServices";
 
 const Record = () => {
   const { categoryName, vocabName } = useParams();

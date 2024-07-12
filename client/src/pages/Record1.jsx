@@ -28,15 +28,14 @@ const Record = () => {
       <Navbar3 title={`บันทึกท่าคำศัพท์: ${vocabName}`} />
       
       <div className="flex flex-col items-center justify-center flex-grow">
-        <div className="mockup-phone">
-          <div className="camera"></div>
-          <div className="display">
-            <div className="artboard artboard-demo phone-1">
-              มองหน้าไปตรงที่โทรศัพท์ของคุณ
-            </div>
+      <div className="mockup-phone">
+        <div className="camera"></div>
+        <div className="display">
+          <div className="artboard artboard-demo phone-1">
+            <img src="/Screenshot 2567-07-12 at 23.50.09.png" alt="Rokoko Studio Model" className="w-full h-full"/>
           </div>
         </div>
-        
+      </div>
         <div className="flex gap-x-5 m-5">
           {!isRecording ? (
             <button

@@ -8,29 +8,25 @@ const DoneRecord = () => {
     <div className="w-screen h-screen flex flex-col justify-between">
       <Navbar2 title="เสร็จสิ้นการบันทึก" />
 
-      <div className="flex-grow flex items-center justify-center">
+      <div className="flex-grow flex flex-col items-center justify-center gap-7">
         {/* title */}
-        <div className="flex-grow flex item-center justify-center">
-          เราได้บันทึกท่าของคุณแล้ว ขอบคุณค่ะ
+        <div className="text-7xl">
+          เราได้บันทึกท่าของคุณแล้ว ขอบคุณที่ให้ความช่วยเหลือค่ะ
         </div>
 
         {/* button*/}
-        <button className="btn btn-wide">
-          <Link
-            to="/record1"
-            className="btn btn-width btn-lg btn-primary text-primary-content"
-          >
-            บันทึกท่าคำศัพท์ใหม่
+        <div className="flex gap-10">
+          <Link to="/record1">
+            <button className="btn btn-width btn-lg bg-confirm text-base-100">
+              บันทึกท่าคำศัพท์ใหม่
+            </button>
           </Link>
-        </button>
-        <button className="btn btn-wide">
-          <Link
-            to="/category"
-            className="btn btn-width btn-lg btn-primary text-primary-content"
-          >
-            กลับหน้าหลัก
+          <Link to="/category">
+            <button className="btn btn-width btn-lg btn-warning text-warning-content">
+              กลับหน้าหลัก
+            </button>
           </Link>
-        </button>
+        </div>
       </div>
     </div>
   )

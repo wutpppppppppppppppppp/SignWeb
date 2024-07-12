@@ -75,7 +75,7 @@ const Category = () => {
       <div className="flex-grow grid grid-cols-5 gap-4 py-4">
         {currentCategories.map((category, index) => (
           <div key={index} className="flex flex-col items-center">
-            <Link to={`/category/${category.name}`}>
+            <Link to={`/categoryad/${category.name}`}>
               <CatCard
                 image={category.image}
                 title={category.name}
@@ -92,6 +92,11 @@ const Category = () => {
           onPageChange={handlePageChange}
           currentPage={currentPage}
         />
+      </div>
+
+      <div class="cta" className="flex-grow flex place-self-end">
+        เลขที่พอร์ตปัจจุบัน (Port):14053 เลขที่ไอพีปัจจุบัน (IP
+        Address):172.20.10.3
       </div>
     </div>
   )

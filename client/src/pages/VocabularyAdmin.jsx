@@ -1,12 +1,11 @@
-// src/pages/Vocabulary.jsx
 import { useParams, Link } from "react-router-dom"
 import Navbar from "../components/navbar"
 import SearchBox from "../components/SearchBox"
+
 const Vocab = () => {
   const { categoryName } = useParams()
 
-  // Fetch data or use context/state to get vocabularies for the category
-  // For simplicity, this example just displays the category name and some dummy vocab items
+  // Example vocab items
   const vocabularies = [
     {
       name: "ไข่เจียว",
@@ -27,11 +26,11 @@ const Vocab = () => {
       image:
         "https://s359.kapook.com/pagebuilder/42ce18d3-1c13-4d6f-a03f-9964cf57124c.jpg",
     },
-  ] // Example vocab items
+  ]
 
   return (
     <div className="w-screen">
-      <Navbar title={`คำศัพท์${categoryName}`} />
+      <Navbar title={`คำศัพท์ ${categoryName}`} />
       <div className="hero w-screen bg-[url('https://as1.ftcdn.net/v2/jpg/01/92/00/78/1000_F_192007831_OGdxh37OAqmJpoMuWfgbKKYaQgpa9SJN.jpg')]">
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-neutral-content text-center">
@@ -45,15 +44,19 @@ const Vocab = () => {
       <div className="p-4">
         <div className="grid grid-cols-4 gap-4 justify-center">
           {vocabularies.map((vocab, index) => (
-            <Link key={index} to={`/category/${categoryName}/${vocab}`}>
+            <Link key={index} to={`/record/${categoryName}/${vocab.name}`}>
               <div className="border p-4 flex flex-col items-center">
                 <b>{vocab.name}</b>
-                {/* <div className="bg-cover bg-center" style="background-image: url(&)"></div> */}
                 <img src={vocab.image} alt={vocab.name} className="" />
               </div>
             </Link>
           ))}
         </div>
+      </div>
+
+      <div class="cta" className="flex-grow flex place-self-end">
+        เลขที่พอร์ตปัจจุบัน (Port):14053 เลขที่ไอพีปัจจุบัน (IP
+        Address):172.20.10.3
       </div>
     </div>
   )

@@ -20,7 +20,7 @@ const Record = () => {
   const handleStopRecording = () => {
     setIsRecording(false);
     console.log("Recording stopped");
-    Navigate(PathConstants.DISPLAY_VOCAB_ADMIN);
+    Navigate(`/categoryad/:categoryName/:vocabNamead`);
   };
 
   return (

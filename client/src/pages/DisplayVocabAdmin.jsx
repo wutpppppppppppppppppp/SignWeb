@@ -10,6 +10,26 @@ import Navbar3 from "../components/Navbar3";
 import { vocabularies, vocabDescriptions, interpreters } from "../data/vocabdata.jsx";
 import DoneRecord from "./DoneRecord.jsx";
 
+const Model = () => {
+  const gltf = useLoader(GLTFLoader, '/src/models/Rokoko_model/scene.gltf');
+  const mixer = useRef();
+
+  useEffect(() => {
+    if (gltf.animations.length) {
+      mixer.current = new THREE.AnimationMixer(gltf.scene);
+      gltf.animations.forEach((clip) => {
+        mixer.current.clipAction(clip).play();
+      });
+    }
+  }, [gltf]);
+
+  useFrame((state, delta) => {
+    mixer.current?.update(delta);
+  });
+
+  return <primitive object={gltf.scene} scale={1} />;
+};
+
 const DisplayVocabAdmin = () => {
   const { categoryName, vocabName } = useParams();
   const [description, setDescription] = useState("");
@@ -88,7 +108,7 @@ const DisplayVocabAdmin = () => {
                 <ambientLight intensity={1} />
                 <directionalLight position={[5, 10, 7.5]} intensity={1} />
                 <color attach="background" args={["#ffffff"]} />
-                <Model setSceneAndAnimations={setSceneAndAnimations} />
+                <Model  />
                 <OrbitControls enableDamping />
               </Canvas>
             </figure>

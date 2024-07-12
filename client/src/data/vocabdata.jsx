@@ -7,12 +7,13 @@ const vocabularies = [
 
 const vocabDescriptions = {
     "ไข่เจียว": "ไข่ไก่ที่ตีให้เข้ากันก่อนทอด",
-    "กล้วย": "สีเหลือง อร่อย",
+    "ต้มยำกุ้ง": "อาหารประเภทต้มที่มีรสเปรี้ยว, รสเผ็ด, รสเค็ม, รสหวาน",
 };
 
 const interpreters = {
     "ไข่เจียว": "คุณไอติม",
     "กล้วย": "สีเหลือง อร่อย",
+    "ต้มยำกุ้ง": "คุณไอติม",
 };
 
 export { vocabularies, vocabDescriptions , interpreters };

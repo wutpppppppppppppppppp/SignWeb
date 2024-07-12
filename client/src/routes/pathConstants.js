@@ -10,7 +10,7 @@ const PathConstants = {
   VOCABULARY: '/category/:categoryName',
   VOCABULARY_ADMIN: '/categoryad/:categoryName',
   DISPLAY_VOCAB: '/category/:categoryName/:vocabName',
-  DISPLAY_VOCAB_ADMIN: '/category/:categoryName/:vocabNamead',
+  DISPLAY_VOCAB_ADMIN: '/categoryad/:categoryName/:vocabNamead',
 
   SETUP_FORM: '/setup-form',
   CONTROL_BUTTONS: '/control-buttons',

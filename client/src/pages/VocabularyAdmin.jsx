@@ -2,8 +2,8 @@ import { useParams, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import SearchBox from "../components/SearchBox";
 
-const Vocab = () => {
-  const { categoryName } = useParams();
+const VocabAdmin = () => {
+  const { categoryName,vocabName } = useParams();
 
   // Example vocab items
   const vocabularies = [
@@ -30,7 +30,7 @@ const Vocab = () => {
               <div className="p-4">j
                   <div className="grid grid-cols-4 gap-4 justify-center">
                       {vocabularies.map((vocab, index) => (
-                          <Link key={index} to={`/record/${categoryName}/${vocab.name}`}>
+                          <Link key={index} to={`/categoryad/${categoryName}/${vocab.name}`}>
                               <div className="border p-4 flex flex-col items-center">
                                   <b>{vocab.name}</b>
                                   <img src={vocab.image} alt={vocab.name} className="" />
@@ -51,4 +51,4 @@ const Vocab = () => {
 };
 
 
-export default Vocab;
+export default VocabAdmin;

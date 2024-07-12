@@ -15,15 +15,6 @@ const allCategories = [
   { name: "เวลา", image: "https://www.ikea.com/th/en/images/products/pluttis-wall-clock-black__1013114_pe829054_s5.jpg?f=s" },
   { name: "ประโยค", image: "https://promova.com/content/common_mistakes_in_english_speaking_61f25b56ca.png" },
   { name: "การทำอาหาร", image: "https://www.health.com/thmb/wfkIOj5dW5H6QLhXqEFHw87ow08=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Health-GettyImages-1477430966-506a007e48744d5488a6ee1c0b729134.jpg" },
-  { name: "ประเภทที่10", image: placeHolder },
-  { name: "ประเภทที่11", image: placeHolder },
-  { name: "ประเภทที่12", image: placeHolder },
-  { name: "ประเภทที่13", image: placeHolder },
-  { name: "ประเภทที่14", image: placeHolder },
-  { name: "ประเภทที่15", image: placeHolder },
-  { name: "ประเภทที่16", image: placeHolder },
-  { name: "ประเภทที่17", image: placeHolder },
-  { name: "ประเภทที่18", image: placeHolder },
 ];
 
 const itemsPerPage = 15; 
@@ -60,9 +51,9 @@ const Category = () => {
         />
       </div>
 
-      <div class="cta" className="flex-grow flex place-self-end"> 
-        เลขที่พอร์ตปัจจุบัน (Port):14053
-        เลขที่ไอพีปัจจุบัน (IP Address):172.20.10.3
+      <div className="px-4 py-2 bg-black text-white text-center"> 
+                  เลขที่พอร์ตปัจจุบัน (Port): 14053
+                  เลขที่ไอพีปัจจุบัน (IP Address): 172.20.10.3
       </div>
 
     </div>

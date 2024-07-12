@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { FiHome } from "react-icons/fi";
-import { Link } from "react-router-dom";
-import Drawer from "./Drawer";
-import SearchBox from "./SearchBox";
+import React from "react"
+import PropTypes from "prop-types"
+import { FiHome } from "react-icons/fi"
+import { Link } from "react-router-dom"
+import Drawer from "./Drawer"
+import SearchBox from "./SearchBox"
 
 function Navbar({ title }) {
   return (
@@ -17,15 +17,15 @@ function Navbar({ title }) {
         <span className="text-xl font-bold">{title}</span>
       </div>
       <div className="navbar-end">
-        <SearchBox placeholder={"ค้นหา..."}/>
+        <SearchBox placeholder={"ค้นหา..."} />
         <Drawer />
       </div>
     </div>
-  );
+  )
 }
 
 Navbar.propTypes = {
   title: PropTypes.string,
-};
+}
 
-export default Navbar;
+export default Navbar

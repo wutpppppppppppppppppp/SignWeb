@@ -1,25 +1,29 @@
-import * as React from "react";
-import { useParams, useLocation } from "react-router-dom";
-import Navbar3 from "../components/Navbar3";
-import { startRecording, stopRecording, calibrate } from "../services/recordServices";
+import * as React from "react"
+import { useParams } from "react-router-dom"
+import Navbar3 from "../components/Navbar3"
+// import {
+//   startRecording,
+//   stopRecording,
+//   calibrate,
+// } from "../services/recordServices"
 
 const Record = () => {
-  const { categoryName, vocabName } = useParams();
-  const [isRecording, setIsRecording] = React.useState(false);
+  const { categoryName, vocabName } = useParams()
+  const [isRecording, setIsRecording] = React.useState(false)
 
   const handleCalibrate = () => {
-    calibrate();
-  };
+    calibrate()
+  }
 
   const handleStartRecording = () => {
-    setIsRecording(true);
-    startRecording();
-  };
+    setIsRecording(true)
+    startRecording()
+  }
 
   const handleStopRecording = () => {
-    setIsRecording(false);
-    stopRecording();
-  };
+    setIsRecording(false)
+    stopRecording()
+  }
 
   return (
     <div className="w-screen h-screen flex flex-col justify-between">
@@ -28,23 +32,31 @@ const Record = () => {
       <div className="flex flex-col items-center justify-center flex-grow">
         <h1 className="text-2xl mb-4">มองหน้าตรงที่กล้อง</h1>
         <div className="space-y-4">
-
-          <button className="btn btn-active btn-primary" onClick={handleCalibrate}>
+          <button
+            className="btn btn-active btn-primary"
+            // onClick={handleCalibrate}
+          >
             ปรับท่า
           </button>
           {!isRecording ? (
-            <button className="btn btn-active btn-primary" onClick={handleStartRecording}>
+            <button
+              className="btn btn-active btn-primary"
+              // onClick={handleStartRecording}
+            >
               เริ่มการบันทึก
             </button>
           ) : (
-            <button className="btn btn-active btn-neutral" onClick={handleStopRecording}>
+            <button
+              className="btn btn-active btn-neutral"
+              // onClick={handleStopRecording}
+            >
               สิ้นสุดการบันทึก
             </button>
           )}
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Record;
+export default Record

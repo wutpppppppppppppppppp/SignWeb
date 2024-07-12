@@ -13,38 +13,42 @@ const Vocab = () => {
     { name: "เกี๊ยวทอด", image: "https://s359.kapook.com/pagebuilder/42ce18d3-1c13-4d6f-a03f-9964cf57124c.jpg" },
   ];
 
+  
   return (
-    <div className="w-screen">
-      <Navbar title={`คำศัพท์ ${categoryName}`} />
-      <div className="hero w-screen bg-[url('https://as1.ftcdn.net/v2/jpg/01/92/00/78/1000_F_192007831_OGdxh37OAqmJpoMuWfgbKKYaQgpa9SJN.jpg')]">
-        <div className="hero-overlay bg-opacity-60"></div>
-        <div className="hero-content text-neutral-content text-center">
-          <div className="max-w-md mx-auto">
-            <h1 className="mb-5 text-5xl font-bold">{categoryName}</h1>
-            <SearchBox placeholder={"ค้นหาคำศัพท์ ..."} />
-          </div>
-        </div>
-      </div>
-
-      <div className="p-4">
-        <div className="grid grid-cols-4 gap-4 justify-center">
-          {vocabularies.map((vocab, index) => (
-            <Link key={index} to={`/record/${categoryName}/${vocab.name}`}>
-              <div className="border p-4 flex flex-col items-center">
-                <b>{vocab.name}</b>
-                <img src={vocab.image} alt={vocab.name} className="" />
+      <div className="flex flex-col min-h-screen">
+          <div className="w-screen">
+              <Navbar title={`คำศัพท์ ${categoryName}`} />
+              <div className="hero w-screen bg-[url('https://as1.ftcdn.net/v2/jpg/01/92/00/78/1000_F_192007831_OGdxh37OAqmJpoMuWfgbKKYaQgpa9SJN.jpg')]">
+                  <div className="hero-overlay bg-opacity-60"></div>
+                  <div className="hero-content text-neutral-content text-center">
+                      <div className="max-w-md mx-auto">
+                          <h1 className="mb-5 text-5xl font-bold">{categoryName}</h1>
+                          <SearchBox placeholder={"ค้นหาคำศัพท์ ..."} />
+                      </div>
+                  </div>
               </div>
-            </Link>
-          ))}
-        </div>
+              <div className="p-4">j
+                  <div className="grid grid-cols-4 gap-4 justify-center">
+                      {vocabularies.map((vocab, index) => (
+                          <Link key={index} to={`/record/${categoryName}/${vocab.name}`}>
+                              <div className="border p-4 flex flex-col items-center">
+                                  <b>{vocab.name}</b>
+                                  <img src={vocab.image} alt={vocab.name} className="" />
+                              </div>
+                          </Link>
+                      ))}
+                  </div>
+              </div>
+          </div>
+          <div className="mt-auto">
+              <div className="px-4 py-2 bg-black text-white text-center"> 
+                  เลขที่พอร์ตปัจจุบัน (Port): 14053
+                  เลขที่ไอพีปัจจุบัน (IP Address): 172.20.10.3
+              </div>
+          </div>
       </div>
-
-      <div class="cta" className="flex-grow flex place-self-end"> 
-        เลขที่พอร์ตปัจจุบัน (Port):14053
-        เลขที่ไอพีปัจจุบัน (IP Address):172.20.10.3
-      </div>
-    </div>
   );
 };
+
 
 export default Vocab;

@@ -46,6 +46,7 @@ const allCategories = [
 ]
 
 const itemsPerPage = 15
+const itemsPerPage = 15
 const Category = () => {
   const [currentPage, setCurrentPage] = useState(1)
 

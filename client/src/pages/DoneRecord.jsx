@@ -8,7 +8,7 @@ const DoneRecord = () => {
     <div className="w-screen h-screen flex flex-col justify-between">
       <Navbar2 title="เสร็จสิ้นการบันทึก" />
 
-      <div className="flex-grow flex items-center justify-center">
+      <div className="flex-grow flex flex-col items-center justify-center gap-7">
         {/* title */}
         <div className="flex-grow flex item-center justify-center">
           เราได้บันทึกท่าของคุณแล้ว ขอบคุณค่ะ
@@ -30,7 +30,8 @@ const DoneRecord = () => {
           >
             กลับหน้าหลัก
           </Link>
-        </button>
+          </button>
+        </div>
       </div>
     </div>
   )

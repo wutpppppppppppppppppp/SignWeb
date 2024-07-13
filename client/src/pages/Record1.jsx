@@ -1,32 +1,37 @@
-import * as React from "react";
-import { useParams, useLocation, useNavigate , Link} from "react-router-dom";
-import Navbar3 from "../components/Navbar3";
-import PathConstants from "../routes/pathConstants";
-
-// import { startRecording, stopRecording, calibrate } from "../services/recordServices"; // Assuming these services are already defined
+import * as React from "react"
+import { useParams } from "react-router-dom"
+import Navbar3 from "../components/Navbar3"
+// Uncomment the imports for the recording services
+// import {
+//   startRecording,
+//   stopRecording,
+//   calibrate,
+// } from "../services/recordServices"
 
 const Record = () => {
-  const { categoryName, vocabName } = useParams();
-  const [isRecording, setIsRecording] = React.useState(false);
-  const Navigate = useNavigate();
+  const { categoryName, vocabName } = useParams()
+  const [isRecording, setIsRecording] = React.useState(false)
+
   const handleCalibrate = () => {
-    calibrate();
-  };
+    // Call the calibrate function
+    // calibrate()
+  }
 
   const handleStartRecording = () => {
-    setIsRecording(true);
-  };
+    setIsRecording(true)
+    // Call the startRecording function
+    // startRecording()
+  }
 
   const handleStopRecording = () => {
-    setIsRecording(false);
-    console.log("Recording stopped");
-    Navigate(PathConstants.DISPLAY_VOCAB_ADMIN);
-  };
+    setIsRecording(false)
+    // Call the stopRecording function
+    // stopRecording()
+  }
 
   return (
     <div className="w-screen h-screen flex flex-col justify-between">
       <Navbar3 title={`บันทึกท่าคำศัพท์: ${vocabName}`} />
-      
       <div className="flex flex-col items-center justify-center flex-grow">
       <div className="mockup-phone">
         <div className="camera"></div>
@@ -78,7 +83,7 @@ const Record = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Record;
+export default Record

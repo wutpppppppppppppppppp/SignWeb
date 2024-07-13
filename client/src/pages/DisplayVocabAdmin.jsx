@@ -1,5 +1,4 @@
 // src/pages/DisplayVocab.jsx
-<<<<<<< HEAD
 import React, { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Canvas, useLoader, useFrame } from "@react-three/fiber";
@@ -11,23 +10,6 @@ import Navbar3 from "../components/Navbar3";
 import { vocabularies, vocabDescriptions, interpreters } from "../data/vocabdata.jsx";
 import DoneRecord from "./DoneRecord.jsx";
 import PathConstants from "../routes/pathConstants.js";
-=======
-import React, { useEffect, useRef, useState } from "react"
-import { useParams, useNavigate } from "react-router-dom"
-import { Canvas, useLoader, useFrame } from "@react-three/fiber"
-import { OrbitControls } from "@react-three/drei"
-import * as THREE from "three"
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
-import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter.js"
-import Navbar3 from "../components/Navbar3"
-import {
-  vocabularies,
-  vocabDescriptions,
-  interpreters,
-} from "../data/vocabdata.jsx"
-import DoneRecord from "./DoneRecord.jsx"
-import PathConstants from "../routes/pathConstants.js"
->>>>>>> c427869c21444207a34a9a48fca68c0d7e181849
 const Model = () => {
   const gltf = useLoader(GLTFLoader, "/src/models/Rokoko_model/scene.gltf")
   const mixer = useRef()
@@ -159,6 +141,11 @@ const DisplayVocabAdmin = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="cta" className="flex-grow flex place-self-end">
+        เลขที่พอร์ตปัจจุบัน (Port):14053 เลขที่ไอพีปัจจุบัน (IP
+        Address):172.20.10.3
       </div>
     </div>
   )

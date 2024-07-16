@@ -1,3 +1,12 @@
 {
-  "type": "module"
+  "name": "sign-web",
+  "version": "1.0.0",
+  "type": "module",
+  "workspaces": [
+    "client/",
+    "server/"
+  ],
+  "scripts": {
+    "dev": "npm run dev:client && npm run dev:server"
+  }
 }

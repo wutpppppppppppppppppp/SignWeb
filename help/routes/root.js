@@ -6,6 +6,9 @@ import fp from "fastify-plugin";
  */
 export default fp(async (fastify, opts) => {
   fastify.get("/", async function (request, reply) {
-    return { root: "This is root" };
+    reply
+      .code(200)
+      .header("Content-Type", "application/json; charset=utf-8")
+      .send({ root: "this is root" });
   });
 });

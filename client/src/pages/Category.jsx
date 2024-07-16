@@ -1,73 +1,54 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
+import axios from "axios"
 import { Link } from "react-router-dom"
 import CatCard from "../components/CatCard"
 import Pagination from "../components/Pagination"
 import Navbar from "../components/Navbar"
 import placeHolder from "../assets/placeholder.png"
 
-const allCategories = [
-  { name: "อาหาร", image: placeHolder },
-  { name: "สัตว์", image: placeHolder },
-  { name: "สี", image: placeHolder },
-  { name: "ประเภทที่4", image: placeHolder },
-  { name: "ประเภทที่5", image: placeHolder },
-  { name: "ประเภทที่6", image: placeHolder },
-  { name: "ประเภทที่7", image: placeHolder },
-  { name: "ประเภทที่8", image: placeHolder },
-  { name: "ประเภทที่9", image: placeHolder },
-  { name: "ประเภทที่10", image: placeHolder },
-  { name: "ประเภทที่11", image: placeHolder },
-  { name: "ประเภทที่12", image: placeHolder },
-  { name: "ประเภทที่13", image: placeHolder },
-  { name: "ประเภทที่14", image: placeHolder },
-  { name: "ประเภทที่15", image: placeHolder },
-  { name: "ประเภทที่16", image: placeHolder },
-  { name: "ประเภทที่17", image: placeHolder },
-  { name: "ประเภทที่18", image: placeHolder },
-]
-
 const itemsPerPage = 15
+
 const Category = () => {
+  const [categories, setCategories] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
+  console.log(categories)
+  useEffect(() => {
+    // Fetch categories from backend
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/categories")
+        setCategories(response.data)
+      } catch (error) {
+        console.error("Error fetching categories:", error)
+      }
+    }
+
+    fetchCategories()
+  }, [])
 
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentCategories = allCategories.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  )
+  const currentCategories = categories.slice(indexOfFirstItem, indexOfLastItem)
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
 
-  // const temp = useMemo(() => {
-
-  //   return ""
-
-  // }, [currentPage])
-
-  // init load page
-  // useEffect(() => {
-  // res =  axios.get(localhost:3000/login)
-  // setState(res)
-  // }, [])
-
   return (
     <div className="w-screen h-screen flex flex-col justify-between">
       <Navbar title="ประเภท" />
       <div className="flex-grow grid grid-cols-5 gap-4 py-4">
-        {currentCategories.map((category, index) => (
-          <div key={index} className="flex flex-col items-center">
-            <Link to={`/category/${category.name}`}>
-              <CatCard image={category.image} title={category.name} />
+        {currentCategories.map((category) => (
+          <div key={category._id} className="flex flex-col items-center">
+            <Link to={`/category/${category._id}`}>
+              <CatCard image={placeHolder} title={category.name} />
             </Link>
           </div>
         ))}
       </div>
       <div className="pb-4 self-center">
         <Pagination
-          totalItems={allCategories.length}
+          totalItems={categories.length}
           itemsPerPage={itemsPerPage}
           onPageChange={handlePageChange}
           currentPage={currentPage}

@@ -5,3 +5,15 @@ export const instance = axios.create({
   timeout: 1000,
   headers: { "X-Custom-Header": "foobar" },
 })
+
+// const temp = useMemo(() => {
+
+//   return ""
+
+// }, [currentPage])
+
+// init load page
+// useEffect(() => {
+// res =  axios.get(localhost:3000/login)
+// setState(res)
+// }, [])

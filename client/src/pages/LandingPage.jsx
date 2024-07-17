@@ -128,7 +128,7 @@ const LandingPage = () => {
                   )}
                   {!isVisible && (
                     <p className="mt-4 text-pretty w-full">
-                      <h3>License Agreement</h3>
+                      <h3>License Agreement </h3>
                       This software is a work developed by Panyawut Piyasirinanan, Pornchanok Pinnuwat, Nan Aye Myint Kyi from King Mongkut's University of Technology Thonburi under the provision of Jaturon Harnsomburana under Thai Sign Language 3D Gesture Repository, which has been supported by the National Science and Technology
                       Development Agency (NSTDA), in order to encourage pupils and students to
                       learn and practice their skills in developing software. Therefore, the intellectual

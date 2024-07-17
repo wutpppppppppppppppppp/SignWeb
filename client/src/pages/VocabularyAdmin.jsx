@@ -61,7 +61,6 @@ const VocabAdmin = () => {
               </div>
           </div>
       </div>
-    </div>
   )
 }
 

@@ -29,7 +29,7 @@ const SetupForm = () => {
   return (
     <div className="w-screen h-screen flex flex-col justify-between">
       <Navbar2 title="เชื่อมต่ออุปกรณ์" />
-      <div className="flex-grow flex items-center justify-center w-2/3 place-self-center bg-gray-200 my-20 rounded-lg">
+      <div className="flex-grow flex items-center justify-center w-2/3 place-self-center  my-20 rounded-lg">
         <div className="p-4 flex flex-col">
           {!isSubmitted ? (
             <form onSubmit={handleFormSubmit}>

@@ -99,7 +99,7 @@ const DisplayVocab = () => {
       <Navbar3 title={`วิดีโอภาษามือ : ${vocabName}`} />
       <div className="p-4 flex justify-center items-center flex-grow">
         <div className="flex justify-center items-center w-full h-full">
-          <div className="card lg:card-side bg-base-100 shadow-xl w-full h-full">
+          <div className="card lg:card-side bg-white shadow-xl w-full h-full">
             <figure className="flex justify-center w-2/4 h-auto">
               <Canvas camera={{ position: [0, 2, 4], fov: 45 }}>
                 <ambientLight intensity={1} />
@@ -118,10 +118,10 @@ const DisplayVocab = () => {
               <a className="approve text-xl">รับรองโดย : {interpreter}</a>
               <div className="absolute inset-x-0 bottom-0 p-4 bg-white shadow-lg flex justify-between">
                 <button className="btn bg-others text-white w-1/2 text-center" onClick={() => navigate(`/category/${categoryName}`)}>
-                  บันทึกท่าใหม่
+                  ดูคำอื่นๆ
                 </button>
                 <button className="btn bg-confirm text-white w-1/2 text-center" onClick={handleExport}>
-                  ยืนยันและส่งข้อมูล
+                  ดาวน์โหลด
                 </button>
               </div>
             </div>

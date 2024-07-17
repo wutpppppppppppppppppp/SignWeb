@@ -135,7 +135,7 @@ const DisplayVocabAdmin = () => {
                   className="btn bg-confirm text-white w-1/2 text-center"
                   onClick={DoneRecord}
                 >
-                  ยืนยัน
+                  ยืนยันและส่งข้อมูล
                 </button>
               </div>
             </div>

@@ -99,7 +99,7 @@ const DisplayVocabAdmin = () => {
 
   return (
     <div className="w-screen h-screen flex flex-col relative">
-      <Navbar3 title={`วิดีโอภาษามือ : ${vocabName}`} />
+      <Navbar3 title={`วิดีโอภาษามือ : ไข่เจียว `} />
       <div className="p-4 flex justify-center items-center flex-grow">
         <div className="flex justify-center items-center w-full h-full">
           <div className="card lg:card-side bg-base-100 shadow-xl w-full h-full">
@@ -113,7 +113,7 @@ const DisplayVocabAdmin = () => {
               </Canvas>
             </figure>
             <div className="card-body relative">
-              <h3 className="card-title font-bold text-2xl">{vocabName}</h3>
+              <h3 className="card-title font-bold text-2xl">ไข่เจียว</h3>
               {image && (
                 <img
                   src={image}
@@ -121,9 +121,9 @@ const DisplayVocabAdmin = () => {
                   className="flex mx-auto w-2/4"
                 />
               )}
-              <a className="category text-xl">ประเภทคำ : {categoryName}</a>
-              <a className="explanation text-xl">คำอธิบาย : {description}</a>
-              <a className="approve text-xl">รับรองโดย : {interpreter}</a>
+              <a className="category text-xl">ประเภทคำ : อาหาร</a>
+              <a className="explanation text-xl">คำอธิบาย : ไข่ไก่ที่ตีให้เข้ากันก่อนทอด</a>
+              <a className="approve text-xl">รับรองโดย : คุณไอติม</a>
               <div className="absolute inset-x-0 bottom-0 p-4 bg-white shadow-lg flex justify-between">
                 <button
                   className="btn bg-others text-white w-1/2 text-center"

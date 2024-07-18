@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
-import axios from "axios"
 import { Link } from "react-router-dom"
+import api from "../hooks/api"
 import CatCard from "../components/CatCard"
 import Pagination from "../components/Pagination"
 import Navbar from "../components/Navbar"
@@ -11,12 +11,11 @@ const itemsPerPage = 15
 const Category = () => {
   const [categories, setCategories] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
-  console.log(categories)
+
   useEffect(() => {
-    // Fetch categories from backend
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/categories")
+        const response = await api.get("/api/categories")
         setCategories(response.data)
       } catch (error) {
         console.error("Error fetching categories:", error)
@@ -29,7 +28,6 @@ const Category = () => {
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
   const currentCategories = categories.slice(indexOfFirstItem, indexOfLastItem)
-
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
   }

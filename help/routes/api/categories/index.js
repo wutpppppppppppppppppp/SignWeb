@@ -1,26 +1,14 @@
-"use strict";
-
-// server/routes/api/categories/index.js
 import fp from "fastify-plugin";
 
-/**
- * Registers routes for managing categories.
- *
- * @param {FastifyInstance} fastify - The Fastify instance.
- * @param {object} opts - Additional options.
- * @returns {void}
- */
-
 async function categoryRoutes(fastify, opts) {
-  fastify.get("/", opts, async function (request, reply) {
-    //api/categories
+  fastify.get("/", async function (request, reply) {
     try {
       const categoriesCollection = fastify.mongo.client
         .db("sample_sign")
         .collection("categories");
       const categories = await categoriesCollection.find().toArray();
       fastify.log.info(`Fetched categories: ${JSON.stringify(categories)}`);
-      return categories;
+      reply.send(categories);
     } catch (err) {
       fastify.log.error(err, "Failed to fetch categories");
       reply.code(500).send({ error: "Failed to fetch categories" });
@@ -28,7 +16,6 @@ async function categoryRoutes(fastify, opts) {
   });
 
   fastify.get("/:id", async function (request, reply) {
-    //api/categories/:id
     try {
       const categoriesCollection = fastify.mongo.client
         .db("sample_sign")
@@ -50,14 +37,8 @@ async function categoryRoutes(fastify, opts) {
   });
 }
 
-// Wrapping the plugin
-export default fp(
-  async function (app, opts) {
-    app.register(categoryRoutes, {
-      prefix: "/api/categories",
-    });
-  },
-  {
-    name: "category-routes",
-  }
-);
+export default fp(async function (app, opts) {
+  app.register(categoryRoutes, {
+    prefix: "/api/categories",
+  });
+});

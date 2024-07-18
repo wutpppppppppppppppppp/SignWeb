@@ -1,4 +1,5 @@
 "use strict";
+import fp from "fastify-plugin";
 
 import fp from "fastify-plugin";
 async function userRoutes(fastify, opts) {

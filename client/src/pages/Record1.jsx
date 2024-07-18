@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import Navbar3 from "../components/Navbar3"
 // Uncomment the imports for the recording services
 // import {
@@ -11,6 +11,7 @@ import Navbar3 from "../components/Navbar3"
 const Record = () => {
   const { categoryName, vocabName } = useParams()
   const [isRecording, setIsRecording] = React.useState(false)
+  const navigate = useNavigate()
 
   const handleCalibrate = () => {
     // Call the calibrate function
@@ -27,6 +28,7 @@ const Record = () => {
     setIsRecording(false)
     // Call the stopRecording function
     // stopRecording()
+    navigate(`/donerecord`)
   }
 
   return (
@@ -68,11 +70,11 @@ const Record = () => {
           )}
         </div>
       </div>
-      
+
       <div className="mt-auto">
         <div className="px-4 py-2 bg-black text-white text-center">
-          เลขที่พอร์ตปัจจุบัน (Port): 14053
-          เลขที่ไอพีปัจจุบัน (IP Address): 172.20.10.3
+          เลขที่พอร์ตปัจจุบัน (Port): 14053 เลขที่ไอพีปัจจุบัน (IP Address):
+          172.20.10.3
         </div>
       </div>
     </div>

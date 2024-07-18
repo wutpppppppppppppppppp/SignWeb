@@ -29,7 +29,7 @@ const Vocab = () => {
   ]
 
   return (
-    <div className="w-screen">
+    <div className="w-screen h-screen relative">
       <Navbar title={`คำศัพท์ ${categoryName}`} />
       <div className="hero w-screen bg-[url('https://as1.ftcdn.net/v2/jpg/01/92/00/78/1000_F_192007831_OGdxh37OAqmJpoMuWfgbKKYaQgpa9SJN.jpg')]">
         <div className="hero-overlay bg-opacity-60"></div>
@@ -54,9 +54,11 @@ const Vocab = () => {
         </div>
       </div>
 
-      <div class="cta" className="flex-grow flex place-self-end">
-        เลขที่พอร์ตปัจจุบัน (Port):14053 เลขที่ไอพีปัจจุบัน (IP
-        Address):172.20.10.3
+      <div className="mt-auto absolute inset-x-0 bottom-0">
+        <div className="px-4 py-2 bg-black text-white text-center">
+          เลขที่พอร์ตปัจจุบัน (Port): 14053 เลขที่ไอพีปัจจุบัน (IP Address):
+          172.20.10.3
+        </div>
       </div>
     </div>
   )

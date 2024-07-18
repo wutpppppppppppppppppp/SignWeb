@@ -44,6 +44,8 @@ export default async function (fastify, opts) {
 
 // query params P'Ryu Methods
 // export default fp(async (fastify, opts) => {
+
+  
 //   fastify.post("/", async (request, reply) => {
 //     return request.query, request.params;
 //   });

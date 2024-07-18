@@ -1,10 +1,11 @@
 import fp from "fastify-plugin";
 
-async function vocabularyRoutes(fastify) {
-  fastify.get("/vocabularies", async function (request, reply) {
+async function vocabulariesRoutes(fastify) {
+  fastify.get("/", async function (request, reply) {
     try {
-      const { categoryId } = request.query;
-      if (!categoryId) {
+      const { categoryName } = request.query;
+      console.log(categoryName);
+      if (!categoryName) {
         reply.code(400).send({ error: "categoryId is required" });
         return;
       }
@@ -14,12 +15,14 @@ async function vocabularyRoutes(fastify) {
         .collection("vocabularies");
 
       const vocabularies = await vocabulariesCollection
-        .find({ category_id: new fastify.mongo.ObjectId(categoryId) })
+        .find(
+          { $text: { $search: categoryName } } // Use categoryName directly
+        )
         .toArray();
 
       if (vocabularies.length === 0) {
         fastify.log.warn(
-          `No vocabularies found for category ID: ${categoryId}`
+          `No vocabularies found for category ID: ${categoryName}`
         );
         reply
           .code(404)
@@ -39,9 +42,9 @@ async function vocabularyRoutes(fastify) {
   fastify.get("/vocabularies/:vocabularyId", async function (request, reply) {
     try {
       const { vocabularyId } = request.params;
-      const { categoryId } = request.query;
-      if (!categoryId) {
-        reply.code(400).send({ error: "categoryId is required" });
+      const { categoryName } = request.query;
+      if (!categoryName) {
+        reply.code(400).send({ error: "categoryName is required" });
         return;
       }
 
@@ -51,12 +54,12 @@ async function vocabularyRoutes(fastify) {
 
       const vocabulary = await vocabulariesCollection.findOne({
         _id: new fastify.mongo.ObjectId(vocabularyId),
-        category_id: new fastify.mongo.ObjectId(categoryId),
+        category_name: new fastify.mongo.ObjectId(categoryName),
       });
 
       if (!vocabulary) {
         fastify.log.warn(
-          `Vocabulary not found for ID: ${vocabularyId} in category ID: ${categoryId}`
+          `Vocabulary not found for ID: ${vocabularyId} in category ID: ${categoryName}`
         );
         reply.code(404).send({ error: "Vocabulary not found" });
       } else {
@@ -71,7 +74,7 @@ async function vocabularyRoutes(fastify) {
 }
 
 export default fp(async function (app) {
-  app.register(vocabularyRoutes, {
-    prefix: "/api/categories/:categoryId",
+  app.register(vocabulariesRoutes, {
+    prefix: "/api/vocabularies",
   });
 });

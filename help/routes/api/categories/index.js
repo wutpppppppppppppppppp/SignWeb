@@ -1,6 +1,6 @@
 import fp from "fastify-plugin";
 
-async function categoryRoutes(fastify, opts) {
+async function categoriesRoutes(fastify, opts) {
   fastify.get("/", async function (request, reply) {
     try {
       const categoriesCollection = fastify.mongo.client
@@ -14,7 +14,6 @@ async function categoryRoutes(fastify, opts) {
       reply.code(500).send({ error: "Failed to fetch categories" });
     }
   });
-
   fastify.get("/:id", async function (request, reply) {
     try {
       const categoriesCollection = fastify.mongo.client
@@ -38,7 +37,7 @@ async function categoryRoutes(fastify, opts) {
 }
 
 export default fp(async function (app, opts) {
-  app.register(categoryRoutes, {
+  app.register(categoriesRoutes, {
     prefix: "/api/categories",
   });
 });

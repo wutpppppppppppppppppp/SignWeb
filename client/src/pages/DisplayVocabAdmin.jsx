@@ -93,7 +93,7 @@ const DisplayVocabAdmin = () => {
   }
 
   const DoneRecord = () => {
-    console.log("Rerecord")
+    console.log("Donecord")
     Navigate(PathConstants.DONE)
   }
 

@@ -1,7 +1,6 @@
-import * as React from "react"
-import { Link } from "react-router-dom"
-import Navbar2 from "../components/Navbar2"
-import PathConstants from "../routes/pathConstants"
+import * as React from "react";
+import { Link } from "react-router-dom";
+import Navbar2 from "../components/Navbar2";
 
 const DoneRecord = () => {
   return (
@@ -10,30 +9,26 @@ const DoneRecord = () => {
 
       <div className="flex-grow flex flex-col items-center justify-center gap-7">
         {/* title */}
-        <div className="flex-grow flex item-center justify-center">
-          เราได้บันทึกท่าของคุณแล้ว ขอบคุณค่ะ
+        <div className="text-7xl text-center">
+          เราได้บันทึกท่าของคุณแล้ว ขอบคุณที่ให้ความช่วยเหลือค่ะ
         </div>
 
         {/* button*/}
-        <button className="btn btn-wide">
-          <Link
-            to="/record1"
-            className="btn btn-width btn-lg btn-primary text-primary-content"
-          >
-            บันทึกท่าคำศัพท์ใหม่
+        <div className="flex gap-10">
+          <Link to="/record1">
+            <button className="btn btn-width btn-lg bg-confirm text-base-100">
+              บันทึกท่าคำศัพท์ใหม่
+            </button>
           </Link>
-        </button>
-        <button className="btn btn-wide">
-          <Link
-            to="/category"
-            className="btn btn-width btn-lg btn-primary text-primary-content"
-          >
-            กลับหน้าหลัก
+          <Link to="/category">
+            <button className="btn btn-width btn-lg btn-warning text-warning-content">
+              กลับหน้าหลัก
+            </button>
           </Link>
-          </button>
         </div>
       </div>
-  )
-}
+    </div>
+  );
+};
 
-export default DoneRecord
+export default DoneRecord;

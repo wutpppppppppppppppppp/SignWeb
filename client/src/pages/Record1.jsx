@@ -71,8 +71,8 @@ const Record = () => {
       </div>
       <div className="mt-auto">
         <div className="px-4 py-2 bg-black text-white text-center">
-          เลขที่พอร์ตปัจจุบัน (Port): 14053
-          เลขที่ไอพีปัจจุบัน (IP Address): 172.20.10.3
+          เลขที่พอร์ตปัจจุบัน (Port): 14053 เลขที่ไอพีปัจจุบัน (IP Address):
+          172.20.10.3
         </div>
       </div>
     </div>

@@ -33,7 +33,6 @@ const DoneRecord = () => {
           </button>
         </div>
       </div>
-    </div>
   )
 }
 

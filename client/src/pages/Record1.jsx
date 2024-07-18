@@ -1,6 +1,7 @@
 import * as React from "react"
-import { useParams } from "react-router-dom"
+import { Link, Navigate, useParams } from "react-router-dom"
 import Navbar3 from "../components/Navbar3"
+import PathConstants from "../routes/pathConstants"
 // Uncomment the imports for the recording services
 // import {
 //   startRecording,
@@ -25,8 +26,8 @@ const Record = () => {
 
   const handleStopRecording = () => {
     setIsRecording(false)
-    // Call the stopRecording function
-    // stopRecording()
+    console.log("stoprecord")
+    Navigate(PathConstants.DISPLAY_VOCAB_ADMIN)
   }
 
   return (

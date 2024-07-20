@@ -8,14 +8,13 @@ async function vocabulariesRoutes(fastify) {
         reply.code(400).send({ error: "category_name is required" });
         return;
       }
-
       const vocabulariesCollection = fastify.mongo.client
         .db("sample_sign")
         .collection("vocabularies");
       const vocabularies = await vocabulariesCollection
         .find({ category_name: category_name })
         .toArray();
-
+      // console.log(vocabularies);
       if (vocabularies.length === 0) {
         fastify.log.warn(
           `No vocabularies found for category name: ${category_name}`

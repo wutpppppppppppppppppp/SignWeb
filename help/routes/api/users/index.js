@@ -1,7 +1,6 @@
 "use strict";
 import fp from "fastify-plugin";
 
-import fp from "fastify-plugin";
 async function userRoutes(fastify, opts) {
   fastify.get("/", async function (request, reply) {
     try {

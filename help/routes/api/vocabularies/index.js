@@ -3,26 +3,22 @@ import fp from "fastify-plugin";
 async function vocabulariesRoutes(fastify) {
   fastify.get("/", async function (request, reply) {
     try {
-      const { categoryName } = request.query;
-      console.log(categoryName);
-      if (!categoryName) {
-        reply.code(400).send({ error: "categoryId is required" });
+      const { category_name } = request.query;
+      if (!category_name) {
+        reply.code(400).send({ error: "category_name is required" });
         return;
       }
 
       const vocabulariesCollection = fastify.mongo.client
         .db("sample_sign")
         .collection("vocabularies");
-
       const vocabularies = await vocabulariesCollection
-        .find(
-          { $text: { $search: categoryName } } // Use categoryName directly
-        )
+        .find({ category_name: category_name })
         .toArray();
 
       if (vocabularies.length === 0) {
         fastify.log.warn(
-          `No vocabularies found for category ID: ${categoryName}`
+          `No vocabularies found for category name: ${category_name}`
         );
         reply
           .code(404)
@@ -42,9 +38,9 @@ async function vocabulariesRoutes(fastify) {
   fastify.get("/vocabularies/:vocabularyId", async function (request, reply) {
     try {
       const { vocabularyId } = request.params;
-      const { categoryName } = request.query;
-      if (!categoryName) {
-        reply.code(400).send({ error: "categoryName is required" });
+      const { category_name } = request.query;
+      if (!category_name) {
+        reply.code(400).send({ error: "category_name is required" });
         return;
       }
 
@@ -54,12 +50,12 @@ async function vocabulariesRoutes(fastify) {
 
       const vocabulary = await vocabulariesCollection.findOne({
         _id: new fastify.mongo.ObjectId(vocabularyId),
-        category_name: new fastify.mongo.ObjectId(categoryName),
+        category_name: category_name,
       });
 
       if (!vocabulary) {
         fastify.log.warn(
-          `Vocabulary not found for ID: ${vocabularyId} in category ID: ${categoryName}`
+          `Vocabulary not found for ID: ${vocabularyId} in category name: ${category_name}`
         );
         reply.code(404).send({ error: "Vocabulary not found" });
       } else {

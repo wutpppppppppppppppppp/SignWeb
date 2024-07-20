@@ -3,9 +3,10 @@ import dgram from "node:dgram"
 import { WebSocketServer } from "ws"
 
 // Create a new socket
-const server = dgram.createSocket({ //for listen on internet
+const server = dgram.createSocket({
+  //for listen on internet
   type: "udp4", //use ip d4
-  recvBufferSize: 81920,  // 800kb
+  recvBufferSize: 81920, // 800kb
   reuseAddr: true,
 })
 
@@ -14,7 +15,7 @@ server.bind({
   port: 14053,
 })
 
-server.on("listening", () => { 
+server.on("listening", () => {
   const address = server.address()
   console.log(
     `Rokoko Studio Live started listening on ${address.address}:${address.port}` //

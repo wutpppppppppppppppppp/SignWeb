@@ -6,7 +6,9 @@ async function categoriesRoutes(fastify, opts) {
       const categoriesCollection = fastify.mongo.client
         .db("sample_sign")
         .collection("categories");
+      // console.log(categoriesCollection);
       const categories = await categoriesCollection.find().toArray();
+      // console.log(categories);
       fastify.log.info(`Fetched categories: ${JSON.stringify(categories)}`);
       reply.send(categories);
     } catch (err) {

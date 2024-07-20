@@ -2,6 +2,8 @@ import fp from "fastify-plugin";
 
 async function categoriesRoutes(fastify, opts) {
   fastify.get("/", async function (request, reply) {
+    // /api/categories get method
+    // return all category document in array of categories
     try {
       const categoriesCollection = fastify.mongo.client
         .db("sample_sign")

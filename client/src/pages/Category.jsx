@@ -38,7 +38,7 @@ const Category = () => {
       <div className="flex-grow grid grid-cols-5 gap-4 py-4">
         {currentCategories.map((category) => (
           <div key={category._id} className="flex flex-col items-center">
-            <Link to={`/category/${category._id}`}>
+            <Link to={`/category/${category.name}`}>
               <CatCard image={placeHolder} title={category.name} />
             </Link>
           </div>

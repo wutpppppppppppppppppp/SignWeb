@@ -29,7 +29,6 @@ wss.on("connection", (ws) => {
 
 // Listening for incoming messages
 server.on("message", (msg, rinfo) => {
-
   // Broadcast message to all WebSocket clients
   wss.clients.forEach((client) => {
     if (client.readyState === client.OPEN) {

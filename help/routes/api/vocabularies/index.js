@@ -38,14 +38,12 @@ const addThreedSchema = {
   schema: {
     body: S.object()
       .prop("vocabulary_id", S.string().required())
-      .prop("three_dim_data", S.string().required()) // Base64 encoded data
-      .prop("created_at", S.string().format("date-time"))
-      .prop("updated_at", S.string().format("date-time")),
+      .prop("three_dim_data", S.object().required()), // Adjust based on the actual structure of 3D data
     response: {
       201: S.object()
-        .prop("_id", S.string())
-        .prop("vocabulary_id", S.string())
-        .prop("three_dim_data", S.string())
+        .prop("_id", S.string().format("uuid"))
+        .prop("vocabulary_id", S.string().format("uuid"))
+        .prop("three_dim_data", S.object()) // Adjust based on the actual structure
         .prop("created_at", S.string().format("date-time"))
         .prop("updated_at", S.string().format("date-time")),
     },
@@ -57,13 +55,11 @@ const addVocabularySchema = {
     body: S.object()
       .prop("category_id", S.string().required())
       .prop("name", S.string().required())
-      .prop("description", S.string().required())
-      .prop("picture", S.string().required())
-      .prop("created_at", S.string().format("date-time"))
-      .prop("updated_at", S.string().format("date-time")),
+      .prop("description", S.string())
+      .prop("picture", S.string()),
     response: {
       201: S.object()
-        .prop("_id", S.string())
+        .prop("_id", S.string().format("uuid"))
         .prop("name", S.string())
         .prop("description", S.string())
         .prop("picture", S.string())
@@ -142,13 +138,13 @@ async function vocabulariesRoutes(fastify) {
   fastify.post("/", addVocabularySchema, async function (request, reply) {
     try {
       const { category_id, name, description, picture } = request.body;
-      const vocabulariesCollection = fastify.mongo.client
+      const categoriesCollection = fastify.mongo.client
         .db("sample_sign")
-        .collection("vocabularies");
+        .collection("categories");
 
       const currentTime = new Date().toISOString();
       const newVocabulary = {
-        category_id: new fastify.mongo.ObjectId(category_id),
+        _id: new fastify.mongo.ObjectId(), // Generate a new ObjectId for the vocabulary
         name,
         description,
         picture,
@@ -156,13 +152,23 @@ async function vocabulariesRoutes(fastify) {
         updated_at: currentTime,
       };
 
-      const result = await vocabulariesCollection.insertOne(newVocabulary);
-      newVocabulary._id = result.insertedId;
-
-      fastify.log.info(
-        `Added new vocabulary: ${JSON.stringify(newVocabulary)}`
+      // Update the category document to include the new vocabulary
+      const result = await categoriesCollection.updateOne(
+        { _id: new fastify.mongo.ObjectId(category_id) },
+        { $push: { vocabularies: newVocabulary } }
       );
-      reply.code(201).send(newVocabulary);
+
+      if (result.modifiedCount === 0) {
+        fastify.log.warn(`No category found with ID: ${category_id}`);
+        reply.code(404).send({ error: "No category found with this ID" });
+      } else {
+        fastify.log.info(
+          `Added new vocabulary to category ${category_id}: ${JSON.stringify(
+            newVocabulary
+          )}`
+        );
+        reply.code(201).send(newVocabulary);
+      }
     } catch (err) {
       fastify.log.error(err, "Failed to add vocabulary");
       reply.code(500).send({ error: "Failed to add vocabulary" });
@@ -175,16 +181,23 @@ async function vocabulariesRoutes(fastify) {
       const threedCollection = fastify.mongo.client
         .db("sample_sign")
         .collection("threed");
-      const vocabulariesCollection = fastify.mongo.client
+      const categoriesCollection = fastify.mongo.client
         .db("sample_sign")
-        .collection("vocabularies");
+        .collection("categories");
 
-      // Check if vocabulary_id exists
-      const vocabulary = await vocabulariesCollection.findOne({
-        _id: new fastify.mongo.ObjectId(vocabulary_id),
-      });
+      // Check if vocabulary_id exists within any category
+      const category = await categoriesCollection.findOne(
+        {
+          "vocabularies._id": new fastify.mongo.ObjectId(vocabulary_id),
+        },
+        {
+          projection: {
+            "vocabularies.$": 1, // Retrieve only the matching vocabulary
+          },
+        }
+      );
 
-      if (!vocabulary) {
+      if (!category || category.vocabularies.length === 0) {
         fastify.log.warn(`Vocabulary ID not found: ${vocabulary_id}`);
         reply.code(404).send({ error: "Vocabulary ID not found" });
         return;

@@ -9,5 +9,7 @@ import websocket from "@fastify/websocket";
  * @see https://github.com/fastify/fastify-websocket
  */
 export default fp(async (fastify, opts) => {
-  fastify.register(websocket);
+  fastify.register(websocket, {
+    port: 8080,
+  });
 });

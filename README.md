@@ -1,4 +1,5 @@
 # SignWeb
+<<<<<<< HEAD
 
 This website is Thai Sign language 3D Gesture Repository, designed for collecting mocap and opened for free usage 3D animation-ready model.
 
@@ -18,6 +19,14 @@ To run this project, you will need to add the following environment variables to
 ## Run Locally
 
 Clone the project
+=======
+
+SignWeb is a website that collects motion capture from Rokoko API.
+
+## Installation
+
+Clone the repository.
+>>>>>>> 7c7f02eb55fc86e3afc10f54e630b2b18a4ac73f
 
 ```bash
   git clone https://github.com/wutpppppppppppppppppp/SignWeb.git

@@ -6,12 +6,19 @@ const ControlButtons = React.lazy(() => import("../pages/ControlButtons"))
 const ThreeScene = React.lazy(() => import("../pages/ThreeScene"))
 const LandingPage = React.lazy(() => import("../pages/LandingPage"))
 // const InfoPolicy = React.lazy(() => import("../pages/InfoPolicy"));
-const Login = React.lazy(() => import("../pages/Login"))
-const SignIn = React.lazy(() => import("../pages/SignIn"))
+const Login = React.lazy(() => import("../pages/LoginForm"))
+const SignIn = React.lazy(() => import("../pages/SignInForm"))
+
 const Category = React.lazy(() => import("../pages/Category"))
+const CategoryAdmin = React.lazy(() => import("../pages/CategoryAdmin"))
 const Vocab = React.lazy(() => import("../pages/Vocabulary"))
+const VocabAdmin = React.lazy(() => import("../pages/VocabularyAdmin"))
 const DisplayVocab = React.lazy(() => import("../pages/DisplayVocab"))
-const Record = React.lazy(() => import("../pages/Record"))
+const DisplayVocabAdmin = React.lazy(() => import("../pages/DisplayVocabAdmin"))
+
+const Record = React.lazy(() => import("../pages/Record1"))
+// const Record2 = React.lazy(() => import("../pages/Record2"))
+const DoneRecord = React.lazy(() => import("../pages/DoneRecord"))
 
 const routes = createBrowserRouter([
   {
@@ -55,6 +62,14 @@ const routes = createBrowserRouter([
     ),
   },
   {
+    path: PathConstants.CATEGORY_ADMIN,
+    element: (
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <CategoryAdmin />
+      </React.Suspense>
+    ),
+  },
+  {
     path: PathConstants.VOCABULARY,
     element: (
       <React.Suspense fallback={<div>Loading...</div>}>
@@ -63,10 +78,26 @@ const routes = createBrowserRouter([
     ),
   },
   {
+    path: PathConstants.VOCABULARY_ADMIN,
+    element: (
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <VocabAdmin />
+      </React.Suspense>
+    ),
+  },
+  {
     path: PathConstants.DISPLAY_VOCAB,
     element: (
       <React.Suspense fallback={<div>Loading...</div>}>
         <DisplayVocab />
+      </React.Suspense>
+    ),
+  },
+  {
+    path: PathConstants.DISPLAY_VOCAB_ADMIN,
+    element: (
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <DisplayVocabAdmin />
       </React.Suspense>
     ),
   },
@@ -95,10 +126,18 @@ const routes = createBrowserRouter([
     ),
   },
   {
-    path: PathConstants.RECORD,
+    path: PathConstants.RECORD1,
     element: (
       <React.Suspense fallback={<div>Loading...</div>}>
         <Record />
+      </React.Suspense>
+    ),
+  },
+  {
+    path: PathConstants.DONE,
+    element: (
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <DoneRecord />
       </React.Suspense>
     ),
   },

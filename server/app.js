@@ -1,10 +1,10 @@
 "use strict";
 
-import { join } from "node:path";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import AutoLoad from "@fastify/autoload";
-
-const __filename = import.meta.filename;
-const __dirname = import.meta.dirname;
+// const __dirname = import.meta.dirname;
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Pass --options via CLI arguments in command to enable these options.
 const options = {};

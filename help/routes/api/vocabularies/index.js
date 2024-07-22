@@ -69,6 +69,24 @@ const addVocabularySchema = {
   },
 };
 
+const updateVocabularySchema = {
+  schema: {
+    body: S.object()
+      .prop("name", S.string())
+      .prop("description", S.string())
+      .prop("picture", S.string()),
+    response: {
+      200: S.object()
+        .prop("_id", S.string())
+        .prop("name", S.string())
+        .prop("description", S.string())
+        .prop("picture", S.string())
+        .prop("created_at", S.string().format("date-time"))
+        .prop("updated_at", S.string().format("date-time")),
+    },
+  },
+};
+
 async function vocabulariesRoutes(fastify) {
   fastify.get("/", vocabulariesSchema, async function (request, reply) {
     try {
@@ -104,7 +122,7 @@ async function vocabulariesRoutes(fastify) {
     }
   });
 
-  fastify.get("/show3d", showSchema, async function (request, reply) {
+  fastify.get("/3d", showSchema, async function (request, reply) {
     try {
       const { vocabulary_id } = request.query;
       const threedCollection = fastify.mongo.client
@@ -175,7 +193,7 @@ async function vocabulariesRoutes(fastify) {
     }
   });
 
-  fastify.post("/add3d", addThreedSchema, async function (request, reply) {
+  fastify.post("/3d", addThreedSchema, async function (request, reply) {
     try {
       const { vocabulary_id, three_dim_data } = request.body;
       const threedCollection = fastify.mongo.client
@@ -219,6 +237,42 @@ async function vocabulariesRoutes(fastify) {
     } catch (err) {
       fastify.log.error(err, "Failed to add 3D data");
       reply.code(500).send({ error: "Failed to add 3D data" });
+    }
+  });
+
+  // PUT /api/vocabularies/:id
+  fastify.put("/:id", updateVocabularySchema, async function (request, reply) {
+    try {
+      const { id } = request.params;
+      const { name, description, picture } = request.body;
+      const categoriesCollection = fastify.mongo.client
+        .db("sample_sign")
+        .collection("categories");
+
+      const updatedVocabulary = {
+        ...(name && { "vocabularies.$.name": name }),
+        ...(description && { "vocabularies.$.description": description }),
+        ...(picture && { "vocabularies.$.picture": picture }),
+        "vocabularies.$.updated_at": new Date().toISOString(),
+      };
+
+      const result = await categoriesCollection.updateOne(
+        { "vocabularies._id": new fastify.mongo.ObjectId(id) },
+        { $set: updatedVocabulary }
+      );
+
+      if (result.matchedCount === 0) {
+        fastify.log.warn(`Vocabulary ID not found: ${id}`);
+        reply.code(404).send({ error: "Vocabulary ID not found" });
+      } else {
+        fastify.log.info(
+          `Updated vocabulary ${id}: ${JSON.stringify(updatedVocabulary)}`
+        );
+        reply.code(200).send(updatedVocabulary);
+      }
+    } catch (err) {
+      fastify.log.error(err, "Failed to update vocabulary");
+      reply.code(500).send({ error: "Failed to update vocabulary" });
     }
   });
 }

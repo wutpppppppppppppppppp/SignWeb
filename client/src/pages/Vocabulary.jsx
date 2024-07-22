@@ -1,34 +1,32 @@
-// src/pages/Vocabulary.jsx
-import { useParams, Link } from "react-router-dom"
-import Navbar from "../components/navbar"
-import SearchBox from "../components/SearchBox"
-import { vocabularies } from "../data/vocabdata"
-const Vocab = () => {
-  const { categoryName } = useParams()
+import React, { useState, useEffect } from "react"
+import { useParams } from "react-router-dom"
+import axios from "axios"
+import Navbar from "../components/Navbar"
 
-  // Fetch data or use context/state to get vocabularies for the category
-  // For simplicity, this example just displays the category name and some dummy vocab items
-  const vocabularies = [
-    {
-      name: "ไข่เจียว",
-      image:
-        "https://s359.kapook.com/r/600/auto/pagebuilder/201d6cc5-020e-466b-983e-4c7dea7f5dfa.jpg",
-    },
-    {
-      name: "ต้มยำกุ้ง",
-      image:
-        "https://lh3.googleusercontent.com/proxy/4Fa81R1g1szKWWttMYMmlKUgd8TAEC29j5jtcQ-qbA_Hq-3F72UTynts9BT3Fdq3-HdYL7_HjChORSwo-N8dyvk685D1xS1H1n3fC1TMKTR2CflBY-snUAnKgpPF",
-    },
-    {
-      name: "ข้าวอบมันกุ้ง",
-      image: "https://f.ptcdn.info/889/080/000/rwb3o91a2v6Msds1s1rOw-o.jpg",
-    },
-    {
-      name: "เกี๊ยวทอด",
-      image:
-        "https://s359.kapook.com/pagebuilder/42ce18d3-1c13-4d6f-a03f-9964cf57124c.jpg",
-    },
-  ] // Example vocab items
+const Vocabulary = () => {
+  const { category } = useParams()
+  const [vocabularies, setVocabularies] = useState([])
+  const [error, setError] = useState(null)
+  // console.log(category)
+  useEffect(() => {
+    const fetchVocabularies = async () => {
+      try {
+        const response = await axios.get(`/api/vocabularies`, {
+          params: { category },
+        })
+        // console.log(response)
+        setVocabularies(response.data)
+        setError(null)
+      } catch (error) {
+        console.error("Error fetching vocabularies:", error)
+        setError("Error fetching vocabularies. Please try again later.")
+      }
+    }
+
+    if (category) {
+      fetchVocabularies()
+    }
+  }, [category])
 
   return (
     <div className="w-screen h-screen">

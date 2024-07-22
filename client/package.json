@@ -17,6 +17,7 @@
     "@react-three/drei": "^9.107.1",
     "@react-three/fiber": "^8.16.8",
     "@types/three": "^0.165.0",
+    "axios": "^1.7.2",
     "gltfjsx": "^6.2.18",
     "pnpm": "^9.4.0",
     "prop-types": "^15.8.1",

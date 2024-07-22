@@ -1,23 +1,18 @@
 const PathConstants = {
   // Public pages
-  LANDING: '/',
-  INFO_POLICY: '/info-policy',
-  LOGIN: '/login',
-  SIGN_IN: '/sign-in',
+  LANDING: "/",
+  INFO_POLICY: "/info-policy",
+  LOGIN: "/login",
+  SIGN_IN: "/sign-in",
   // Pages requiring login
-  CATEGORY: '/category',
-  CATEGORY_ADMIN: '/categoryad',
-  VOCABULARY: '/category/:categoryName',
-  VOCABULARY_ADMIN: '/categoryad/:categoryName',
-  DISPLAY_VOCAB: '/category/:categoryName/:vocabName',
-  DISPLAY_VOCAB_ADMIN: '/categoryad/:categoryName/:vocabNamead',
+  CATEGORY: "/category",
+  VOCABULARY: "/category/:category",
+  DISPLAY_VOCAB: "/category/:category_name/:vocab_name",
 
-  SETUP_FORM: '/setup-form',
-  CONTROL_BUTTONS: '/control-buttons',
-  THREE_SCENE: '/three-scene',
-  RECORD1: `/record/:categoryName/:vocabName`,
-  // RECORD2: '/record2',
-  DONE:'/donerecord'
-};
+  SETUP_FORM: "/setup-form",
+  CONTROL_BUTTONS: "/control-buttons",
+  THREE_SCENE: "/three-scene",
+  RECORD: "/record",
+}
 
-export default PathConstants;
+export default PathConstants

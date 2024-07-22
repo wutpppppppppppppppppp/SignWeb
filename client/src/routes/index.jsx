@@ -1,7 +1,6 @@
 import * as React from "react"
 import { createBrowserRouter } from "react-router-dom"
 import PathConstants from "./pathConstants"
-
 const SetupForm = React.lazy(() => import("../pages/SetupForm"))
 const ControlButtons = React.lazy(() => import("../pages/ControlButtons"))
 const ThreeScene = React.lazy(() => import("../pages/ThreeScene"))

@@ -1,14 +1,15 @@
 "use strict";
-// app.js
-// const path = require("node:path");
-// const AutoLoad = require("@fastify/autoload");
-import { path } from "node:path";
-import { AutoLoad } from "@fastify/autoload";
+
+import { join } from "node:path";
+import AutoLoad from "@fastify/autoload";
+
+const __filename = import.meta.filename;
+const __dirname = import.meta.dirname;
 
 // Pass --options via CLI arguments in command to enable these options.
 const options = {};
 
-module.exports = async function (fastify, opts) {
+export default async function (fastify, opts) {
   // Place here your custom code!
 
   // Do not touch the following lines
@@ -17,16 +18,17 @@ module.exports = async function (fastify, opts) {
   // those should be support plugins that are reused
   // through your application
   fastify.register(AutoLoad, {
-    dir: path.join(__dirname, "plugins"),
+    dir: join(__dirname, "plugins"),
     options: Object.assign({}, opts),
   });
 
   // This loads all plugins defined in routes
   // define your routes in one of these
   fastify.register(AutoLoad, {
-    dir: path.join(__dirname, "routes"),
+    dir: join(__dirname, "routes"),
     options: Object.assign({}, opts),
   });
-};
+}
 
-module.exports.options = options;
+const _options = options;
+export { _options as options };

@@ -7,6 +7,14 @@ export default {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     extend: {
+      colors: {
+        confirm:{
+          DEFAULT:"#718C69",
+        },
+        others:{
+          DEFAULT:"#F3A157",
+        },
+      },
       fontFamily: {
         noto: ['"Noto Sans Thai"', 'sans-serif'],
       },

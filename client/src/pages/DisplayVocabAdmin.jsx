@@ -1,0 +1,153 @@
+// src/pages/DisplayVocab.jsx
+import React, { useEffect, useRef, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { Canvas, useLoader, useFrame } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter.js";
+import Navbar3 from "../components/Navbar3";
+import { vocabularies, vocabDescriptions, interpreters } from "../data/vocabdata.jsx";
+import DoneRecord from "./DoneRecord.jsx";
+import PathConstants from "../routes/pathConstants.js";
+const Model = () => {
+  const gltf = useLoader(GLTFLoader, "/src/models/Rokoko_model/scene.gltf")
+  const mixer = useRef()
+
+  useEffect(() => {
+    if (gltf.animations.length) {
+      mixer.current = new THREE.AnimationMixer(gltf.scene)
+      gltf.animations.forEach((clip) => {
+        mixer.current.clipAction(clip).play()
+      })
+    }
+  }, [gltf])
+
+  useFrame((state, delta) => {
+    mixer.current?.update(delta)
+  })
+
+  return <primitive object={gltf.scene} scale={1} />
+}
+
+const DisplayVocabAdmin = () => {
+  const { categoryName, vocabName } = useParams()
+  const [description, setDescription] = useState("")
+  const [interpreter, setInterpreter] = useState("")
+  const [image, setImage] = useState("")
+
+  const [scene, setScene] = useState(null)
+  const [animations, setAnimations] = useState([])
+  const Navigate = useNavigate()
+
+  useEffect(() => {
+    setDescription(vocabDescriptions[vocabName] || "ไม่พบคำอธิบาย")
+    setInterpreter(interpreters[vocabName] || "ไม่พบข้อมูล")
+    const vocabItem = vocabularies.find((vocab) => vocab.name === vocabName)
+    if (vocabItem) {
+      setImage(vocabItem.image)
+    } else {
+      setImage("")
+    }
+  }, [vocabName])
+
+  const downloadJSON = (gltfData) => {
+    const jsonContent = JSON.stringify(gltfData)
+    const blob = new Blob([jsonContent], { type: "application/json" })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement("a")
+    link.href = url
+    link.download = "scene.gltf"
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
+  const handleExport = () => {
+    const exporter = new GLTFExporter()
+    if (scene) {
+      exporter.parse(
+        scene,
+        (gltf) => {
+          console.log(gltf)
+          downloadJSON(gltf)
+        },
+        (error) => {
+          console.error("An error happened:", error)
+        },
+        { animations }
+      )
+    } else {
+      console.error("Scene is undefined or null")
+    }
+  }
+
+  const setSceneAndAnimations = (scene, animations) => {
+    setScene(scene)
+    setAnimations(animations)
+  }
+
+  const rerecord = () => {
+    console.log("Rerecord")
+    Navigate(PathConstants.RECORD1)
+  }
+
+  const DoneRecord = () => {
+    console.log("Donecord")
+    Navigate(PathConstants.DONE)
+  }
+
+  return (
+    <div className="w-screen h-screen flex flex-col relative">
+      <Navbar3 title={`วิดีโอภาษามือ : ไข่เจียว `} />
+      <div className="p-4 flex justify-center items-center flex-grow">
+        <div className="flex justify-center items-center w-full h-full">
+          <div className="card lg:card-side bg-base-100 shadow-xl w-full h-full">
+            <figure className="flex justify-center w-2/4 h-auto">
+              <Canvas camera={{ position: [0, 2, 4], fov: 45 }}>
+                <ambientLight intensity={1} />
+                <directionalLight position={[5, 10, 7.5]} intensity={1} />
+                <color attach="background" args={["#ffffff"]} />
+                <Model />
+                <OrbitControls enableDamping />
+              </Canvas>
+            </figure>
+            <div className="card-body relative">
+              <h3 className="card-title font-bold text-2xl">ไข่เจียว</h3>
+              {image && (
+                <img
+                  src={image}
+                  alt={vocabName}
+                  className="flex mx-auto w-2/4"
+                />
+              )}
+              <a className="category text-xl">ประเภทคำ : อาหาร</a>
+              <a className="explanation text-xl">คำอธิบาย : ไข่ไก่ที่ตีให้เข้ากันก่อนทอด</a>
+              <a className="approve text-xl">รับรองโดย : คุณไอติม</a>
+              <div className="absolute inset-x-0 bottom-0 p-4 bg-white shadow-lg flex justify-between">
+                <button
+                  className="btn bg-others text-white w-1/2 text-center"
+                  onClick={rerecord}
+                >
+                  บันทึกท่าใหม่
+                </button>
+                <button
+                  className="btn bg-confirm text-white w-1/2 text-center"
+                  onClick={DoneRecord}
+                >
+                  ยืนยันและส่งข้อมูล
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta" className="flex-grow flex place-self-end">
+        เลขที่พอร์ตปัจจุบัน (Port):14053 เลขที่ไอพีปัจจุบัน (IPAddress):172.20.10.3
+      </div>
+    </div>
+  )
+}
+
+export default DisplayVocabAdmin

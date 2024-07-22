@@ -36,7 +36,6 @@ const threedSchema = {
 
 const addThreedSchema = {
   schema: {
-    consumes: ["multipart/form-data"],
     body: S.object()
       .prop("vocabulary_id", S.string().required())
       .prop("three_dim_data", S.object().required()), // Adjust based on the actual structure of 3D data

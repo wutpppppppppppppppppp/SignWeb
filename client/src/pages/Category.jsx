@@ -4,7 +4,6 @@ import api from "../hooks/api"
 import CatCard from "../components/CatCard"
 import Pagination from "../components/Pagination"
 import Navbar from "../components/Navbar"
-import placeHolder from "../assets/placeholder.png"
 
 const itemsPerPage = 15
 
@@ -39,7 +38,10 @@ const Category = () => {
         {currentCategories.map((category) => (
           <div key={category._id} className="flex flex-col items-center">
             <Link to={`/category/${category.name}`}>
-              <CatCard image={placeHolder} title={category.name} />
+              <CatCard
+                image={`data:image/jpeg;base64,${category.picture}`}
+                title={category.name}
+              />
             </Link>
           </div>
         ))}

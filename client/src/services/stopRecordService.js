@@ -1,4 +1,3 @@
-// src/services/startRecordServiceReplacment.js
 export const stopRecording = async (config) => {
   try {
     const { ip_address, port, api_key } = config
@@ -25,7 +24,7 @@ export const stopRecording = async (config) => {
 
     return await response.json()
   } catch (error) {
-    console.error("Error making API request", error);
-    throw error;
+    console.error("Error making API request", error)
+    throw error
   }
-};
+}

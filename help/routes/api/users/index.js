@@ -1,28 +1,18 @@
 "use strict";
-import fastify from "fastify";
 import fp from "fastify-plugin";
-// help\routes\api\users\index.js
-// required: ["email", "password", "firstname", "lastname", "age", "hearing_level", "interpreter_group", "curriculum", "curr_time", "institution", "picture_profile", "role", "created_at", "updated_at"],
-
-// module.exports = {
-//   indexSchema,
-//   showSchema,
-//   addUserSchema,
-//   updateUserSchema,
-//   deleteUserSchema,
-//   loginSchema,
-//   logoutSchema,
-// };
-
 import S from "fluent-json-schema";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+// import { User } from "./models/user"; // Adjust the path according to your project structure
+
 const userSchema = {
   schema: {
     response: {
       200: S.array().items(
         S.object()
+          .prop("_id", S.string())
           .prop("email", S.string())
           .prop("password", S.string())
-          .prop("_id", S.string().format("uuid"))
           .prop("firstname", S.string())
           .prop("lastname", S.string())
           .prop("age", S.number())
@@ -31,7 +21,7 @@ const userSchema = {
           .prop("curriculum", S.string())
           .prop("curr_time", S.string())
           .prop("institution", S.string())
-          .prop("picture_profile", S.string().format("media"))
+          .prop("picture_profile", S.string())
           .prop("role", S.string())
           .prop("created_at", S.string().format("date-time"))
           .prop("updated_at", S.string().format("date-time"))
@@ -42,13 +32,12 @@ const userSchema = {
 
 const showSchema = {
   schema: {
-    querystring: S.object().prop("user_id", S.string().required()),
+    params: S.object().prop("id", S.string().required()),
     response: {
-      200: S.array().items(
-        S.object()
+      200: S.object()
+        .prop("_id", S.string())
         .prop("email", S.string())
         .prop("password", S.string())
-        .prop("_id", S.string().format("uuid"))
         .prop("firstname", S.string())
         .prop("lastname", S.string())
         .prop("age", S.number())
@@ -57,11 +46,10 @@ const showSchema = {
         .prop("curriculum", S.string())
         .prop("curr_time", S.string())
         .prop("institution", S.string())
-        .prop("picture_profile", S.string().format("media"))
+        .prop("picture_profile", S.string())
         .prop("role", S.string())
         .prop("created_at", S.string().format("date-time"))
-        .prop("updated_at", S.string().format("date-time"))
-      ),
+        .prop("updated_at", S.string().format("date-time")),
     },
   },
 };
@@ -69,27 +57,24 @@ const showSchema = {
 const addUserSchema = {
   schema: {
     body: S.object()
-    .prop("email", S.string()).required()
-    .prop("password", S.string()).required()
-    .prop("_id", S.string().format("uuid")).required()
-    .prop("firstname", S.string()).required()
-    .prop("lastname", S.string()).required()
-    .prop("age", S.number()).required()
-    .prop("hearing_level", S.string()).required()
-    .prop("interpreter_group", S.string()).required()
-    .prop("curriculum", S.string()).required()
-    .prop("curr_time", S.string()).required()
-    .prop("institution", S.string()).required()
-    .prop("picture_profile", S.string().format("media")).required()
-    .prop("role", S.string()).required()
-    .prop("created_at", S.string().format("date-time")).required()
-    .prop("updated_at", S.string().format("date-time")).required(),
+      .prop("email", S.string().required())
+      .prop("password", S.string().required())
+      .prop("firstname", S.string().required())
+      .prop("lastname", S.string().required())
+      .prop("age", S.number().required())
+      .prop("hearing_level", S.string().required())
+      .prop("interpreter_group", S.string().required())
+      .prop("curriculum", S.string().required())
+      .prop("curr_time", S.string().required())
+      .prop("institution", S.string().required())
+      .prop("picture_profile", S.string().required())
+      .prop("role", S.string().required()),
     response: {
       201: S.object()
-        .prop("_id", S.string().format("uuid"))
-        .prop("firstname", S.string())
+        .prop("_id", S.string())
         .prop("email", S.string())
-        .prop("password", S.string())
+        .prop("firstname", S.string())
+        .prop("lastname", S.string())
         .prop("created_at", S.string().format("date-time"))
         .prop("updated_at", S.string().format("date-time")),
     },
@@ -98,27 +83,9 @@ const addUserSchema = {
 
 const updateUserSchema = {
   schema: {
-    querystring: S.object().prop("user_id", S.string().required())
-    .prop("email", S.string())
-    .prop("password", S.string())
-    .prop("_id", S.string().format("uuid"))
-    .prop("firstname", S.string())
-    .prop("lastname", S.string())
-    .prop("age", S.number())
-    .prop("hearing_level", S.string())
-    .prop("interpreter_group", S.string())
-    .prop("curriculum", S.string())
-    .prop("curr_time", S.string())
-    .prop("institution", S.string())
-    .prop("picture_profile", S.string().format("media"))
-    .prop("role", S.string())
-    .prop("created_at", S.string().format("date-time"))
-    .prop("updated_at", S.string().format("date-time")),
-    response: {
-      200: S.object()
+    body: S.object()
       .prop("email", S.string())
       .prop("password", S.string())
-      .prop("_id", S.string().format("uuid"))
       .prop("firstname", S.string())
       .prop("lastname", S.string())
       .prop("age", S.number())
@@ -127,23 +94,30 @@ const updateUserSchema = {
       .prop("curriculum", S.string())
       .prop("curr_time", S.string())
       .prop("institution", S.string())
-      .prop("picture_profile", S.string().format("media"))
-      .prop("role", S.string())
-      .prop("created_at", S.string().format("date-time"))
-      .prop("updated_at", S.string().format("date-time")),
+      .prop("picture_profile", S.string())
+      .prop("role", S.string()),
+    params: S.object().prop("id", S.string().required()),
+    response: {
+      200: S.object()
+        .prop("_id", S.string())
+        .prop("email", S.string())
+        .prop("firstname", S.string())
+        .prop("lastname", S.string())
+        .prop("created_at", S.string().format("date-time"))
+        .prop("updated_at", S.string().format("date-time")),
     },
   },
 };
 
 const deleteUserSchema = {
   schema: {
-    querystring: S.object().prop("user_id", S.string().required()),
+    params: S.object().prop("id", S.string().required()),
     response: {
       200: S.object()
-        .prop("_id", S.string().format("uuid"))
-        .prop("firstname", S.string())
+        .prop("_id", S.string())
         .prop("email", S.string())
-        .prop("password", S.string())
+        .prop("firstname", S.string())
+        .prop("lastname", S.string())
         .prop("created_at", S.string().format("date-time"))
         .prop("updated_at", S.string().format("date-time")),
     },
@@ -173,8 +147,8 @@ const logoutSchema = {
   },
 };
 
-async function userRoutes(app, options) {
-  fastify.post("/login", { schema: loginSchema }, async (request, reply) => {
+async function userRoutes(fastify) {
+  fastify.post("/login", loginSchema, async function (request, reply) {
     const { email, password } = request.body;
     const user = await User.findOne({ email });
     if (!user) {
@@ -191,46 +165,17 @@ async function userRoutes(app, options) {
     });
     reply.send({ token, user: { email: user.email } });
   });
-    const currentTime = new Date();
-    const newCategory = {
-      name,
-      description,
-      picture,
-      vocabularies: vocabularies.map((vocab) => ({
-        ...vocab,
-        _id: new fastify.mongo.ObjectId(),
-        created_at: currentTime,
-        updated_at: currentTime,
-      })),
-      created_at: currentTime,
-      updated_at: currentTime,
-  };
-  fastify.post("/logout", { schema: logoutSchema }, async (request, reply) => {
-    reply.send({ message: "Logged out successfully", user: { email: "user.email" } });
+
+  fastify.post("/logout", logoutSchema, async (request, reply) => {
+    reply.send({
+      message: "Logged out successfully",
+      user: { email: request.body.email },
+    });
   });
 
-
-  fastify.put("/update", { schema: updateUserSchema }, async (request, reply) => {
-    const {
-      user_id,
-      email,
-      password,
-      firstname,
-      lastname,
-      age,
-      hearing_level,
-      interpreter_group,
-      curriculum,
-      curr_time,
-      institution,
-      picture_profile,
-      role,
-      created_at,
-      updated_at,
-    } = request.body;
-    const user = await User.findByIdAndUpdate(
-      user_id,
-      {
+  fastify.post("/", { schema: addUserSchema }, async (request, reply) => {
+    try {
+      const {
         email,
         password,
         firstname,
@@ -243,34 +188,81 @@ async function userRoutes(app, options) {
         institution,
         picture_profile,
         role,
-        created_at,
-        updated_at,
-      },
-      { new: true }
-    );
-    if (!user) {
-      reply.code(404).send({ message: "User not found" });
-      return;
-    }
-    reply.send(user);
-    });
+      } = request.body;
 
-    fastify.delete("/delete", { schema: deleteUserSchema }, async (request, reply) => {
-      const { user_id } = request.query;
-      const user = await User.findByIdAndDelete(user_id);
-      if (!user) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const currentTime = new Date();
+
+      const newUser = new User({
+        email,
+        password: hashedPassword,
+        firstname,
+        lastname,
+        age,
+        hearing_level,
+        interpreter_group,
+        curriculum,
+        curr_time,
+        institution,
+        picture_profile,
+        role,
+        created_at: currentTime,
+        updated_at: currentTime,
+      });
+
+      const savedUser = await newUser.save();
+      reply.code(201).send(savedUser);
+    } catch (err) {
+      fastify.log.error(err);
+      reply.code(500).send({ error: "Failed to add user" });
+    }
+  });
+
+  fastify.put("/:id", { schema: updateUserSchema }, async (request, reply) => {
+    try {
+      const { id } = request.params;
+      const updates = request.body;
+
+      if (updates.password) {
+        updates.password = await bcrypt.hash(updates.password, 10);
+      }
+      updates.updated_at = new Date();
+
+      const updatedUser = await User.findByIdAndUpdate(id, updates, {
+        new: true,
+      });
+      if (!updatedUser) {
         reply.code(404).send({ message: "User not found" });
         return;
       }
-      reply.send(user);
-    });
+      reply.send(updatedUser);
+    } catch (err) {
+      fastify.log.error(err);
+      reply.code(500).send({ error: "Failed to update user" });
+    }
+  });
 
-    // fastify.get("/", { schema: getUserSchema }, async (request, reply) => {
-    //   const users = await User.find();
-    //   reply.send(users);
-    // });
+  fastify.delete(
+    "/:id",
+    { schema: deleteUserSchema },
+    async (request, reply) => {
+      try {
+        const { id } = request.params;
+        const deletedUser = await User.findByIdAndDelete(id);
+        if (!deletedUser) {
+          reply.code(404).send({ message: "User not found" });
+          return;
+        }
+        reply.send(deletedUser);
+      } catch (err) {
+        fastify.log.error(err);
+        reply.code(500).send({ error: "Failed to delete user" });
+      }
+    }
+  );
 
-    fastify.get("/:id", { schema: getUserSchema }, async (request, reply) => {
+  fastify.get("/:id", { schema: showSchema }, async (request, reply) => {
+    try {
       const { id } = request.params;
       const user = await User.findById(id);
       if (!user) {
@@ -278,40 +270,30 @@ async function userRoutes(app, options) {
         return;
       }
       reply.send(user);
-    });
-    fastify.listen({ port: 3000 }, (err) => {
-      if (err) throw err
-      console.log(`Server listening on ${fastify.server.address().port}`)
-    })
+    } catch (err) {
+      fastify.log.error(err);
+      reply.code(500).send({ error: "Failed to fetch user" });
+    }
+  });
 
+  fastify.get("/", { schema: userSchema }, async (request, reply) => {
+    try {
+      const users = await User.find();
+      reply.send(users);
+    } catch (err) {
+      fastify.log.error(err);
+      reply.code(500).send({ error: "Failed to fetch users" });
+    }
+  });
 }
 
-  // post("/login", { schema: loginSchema }, async (request, reply) => {
-  //     const { email, password } = request.body;
-  //     const user = await User.findOne({ email });
-  //     if (!user) {
-  //       reply.code(401).send({ message: "Invalid email or password" });
-  //       return;
-  //     }
-  //     const isPasswordValid = await bcrypt.compare(password, user.password);
-  //     if (!isPasswordValid) {
-  //       reply.code(401).send({ message: "Invalid email or password" });
-  //       return;
-  //     }
-  //     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-  //       expiresIn: "1h",
-  //     });
-  //     reply.send({ token, user: { email: user.email } });
-  //   });
-  // app.get("/", { schema: indexSchema }, async (request, reply) => {
-  //   return { message: "Hello World" };
-  // });
-
-
-
-
-export default fp(async function (app, opts) {
-  app.register(userRoutes, {
-    prefix: "/api/users",
-  });
-});
+export default fp(
+  async function (app, opts) {
+    app.register(userRoutes, {
+      prefix: "/api/users",
+    });
+  },
+  {
+    name: "user-routes",
+  }
+);

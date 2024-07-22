@@ -1,7 +1,7 @@
-import * as React from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Navbar3 from "../components/Navbar3";
-import PathConstants from "../routes/pathConstants";
+import * as React from "react"
+import { Link, useNavigate, useParams } from "react-router-dom"
+import Navbar3 from "../components/Navbar3"
+import PathConstants from "../routes/pathConstants"
 // Uncomment the imports for the recording services
 // import {
 //   startRecording,
@@ -10,26 +10,26 @@ import PathConstants from "../routes/pathConstants";
 // } from "../services/recordServices";
 
 const Record = () => {
-  const { categoryName, vocabName } = useParams();
-  const [isRecording, setIsRecording] = React.useState(false);
-  const navigate = useNavigate();
+  const { categoryName, vocabName } = useParams()
+  const [isRecording, setIsRecording] = React.useState(false)
+  const navigate = useNavigate()
 
-  const handleCalibrate = () => { 
+  const handleCalibrate = () => {
     // Call the calibrate function
     // calibrate()
-  };
+  }
 
   const handleStartRecording = () => {
-    setIsRecording(true);
+    setIsRecording(true)
     // Call the startRecording function
     // startRecording()
-  };
+  }
 
   const handleStopRecording = () => {
-    setIsRecording(false);
-    console.log("stoprecord");
-    navigate(PathConstants.DISPLAY_VOCAB_ADMIN); // Programmatically navigate after stopping recording
-  };
+    setIsRecording(false)
+    console.log("stoprecord")
+    navigate(PathConstants.DISPLAY_VOCAB_ADMIN) // Programmatically navigate after stopping recording
+  }
 
   return (
     <div className="w-screen h-screen flex flex-col justify-between">
@@ -39,13 +39,17 @@ const Record = () => {
           <div className="camera"></div>
           <div className="display">
             <div className="artboard artboard-demo phone-1">
-              <img src="/Screenshot 2567-07-12 at 23.50.09.png" alt="Rokoko Studio Model" className="w-full h-full"/>
+              <img
+                src="/Screenshot 2567-07-12 at 23.50.09.png"
+                alt="Rokoko Studio Model"
+                className="w-full h-full"
+              />
             </div>
           </div>
         </div>
         <div className="flex gap-x-5 m-5">
           <button
-            className={`btn ${isRecording ? 'btn-disabled' : 'btn-accent'} text-accent-content`}
+            className={`btn ${isRecording ? "btn-disabled" : "btn-accent"} text-accent-content`}
             onClick={handleCalibrate}
             disabled={isRecording}
           >
@@ -76,7 +80,7 @@ const Record = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Record;
+export default Record

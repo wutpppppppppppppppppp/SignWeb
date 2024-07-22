@@ -1,6 +1,14 @@
 import fp from "fastify-plugin";
 import S from "fluent-json-schema";
 
+// module.exports = {
+//   vocabulariesSchema,
+//   showSchema,
+//   addVocabularySchema,
+//   updateVocabularySchema,
+//   deleteVocabularySchema,
+// };
+
 const vocabulariesSchema = {
   schema: {
     querystring: S.object().prop("category", S.string().required()),

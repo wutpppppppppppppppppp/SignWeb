@@ -17,8 +17,8 @@ const Category = () => {
       try {
         const response = await api.get("/api/categories")
         setCategories(response.data)
-      } catch (error) {
-        console.error("Error fetching categories:", error)
+      } catch (err) {
+        console.error("Error fetching categories:", err)
       }
     }
 

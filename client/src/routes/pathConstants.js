@@ -12,7 +12,13 @@ const PathConstants = {
   SETUP_FORM: "/setup-form",
   CONTROL_BUTTONS: "/control-buttons",
   THREE_SCENE: "/three-scene",
-  RECORD: "/record",
+
+  // admin
+  CATEGORY_ADMIN: "/categoryad",
+  VOCABULARY_ADMIN: "/categoryad/:categoryad",
+  RECORD: "/record/:categoryname/:vocabName",
+  DONE: "/donerecord",
+  // API
 }
 
 export default PathConstants

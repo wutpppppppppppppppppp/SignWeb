@@ -69,8 +69,8 @@ const Record = () => {
             >
               สิ้นสุดการบันทึก (Stop Recording)
             </button>
+          <Link to={PathConstants.DONE}></Link>
           )}
-          <Link to={PathConstants.DISPLAY_VOCAB_ADMIN}></Link>
         </div>
       </div>
       <div className="mt-auto">

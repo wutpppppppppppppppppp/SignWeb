@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import CatCard from "../components/CatCard"
 import Pagination from "../components/Pagination"
-import Navbar from "../components/navbar"
+import Navbar from "../components/Navbar"
 import placeHolder from "../assets/placeholder.png"
 
 const allCategories = [

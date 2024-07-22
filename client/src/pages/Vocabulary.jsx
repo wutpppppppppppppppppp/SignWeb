@@ -14,7 +14,7 @@ const Vocabulary = () => {
         const response = await axios.get(`/api/vocabularies`, {
           params: { category },
         })
-        // console.log(response)
+        console.log(response)
         setVocabularies(response.data)
         setError(null)
       } catch (error) {
@@ -31,7 +31,7 @@ const Vocabulary = () => {
   return (
     <div className="w-screen h-screen">
       <Navbar title={`คำศัพท์${category}`} />
-      <div className="hero w-screen bg-[url('https://as1.ftcdn.net/v2/jpg/01/92/00/78/1000_F_192007831_OGdxh37OAqmJpoMuWfgbKKYaQgpa9SJN.jpg')]">
+      <div className="hero w-screen bg-[(data:image/png;base64,${category.picture})]">
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-neutral-content text-center">
           <div className="max-w-md mx-auto">

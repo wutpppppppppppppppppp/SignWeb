@@ -1,5 +1,6 @@
 import fp from "fastify-plugin";
 import S from "fluent-json-schema";
+import multipart from "@fastify/multipart";
 
 const categorySchema = {
   schema: {

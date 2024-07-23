@@ -50,6 +50,7 @@ Thumbs.db
 *.tar
 *.zip
 *.yaml
+
 # ignore private/secret files
 *.der
 *.key

@@ -1,20 +1,19 @@
-import React from "react";
-import { FaGoogle } from "react-icons/fa";
-import Navbar from "../components/Header";
+import React from "react"
+import { FaGoogle } from "react-icons/fa"
+import Navbar from "../components/Header"
 const SignIn = () => {
   const handleSubmit = (event) => {
-    event.preventDefault();
-    
+    event.preventDefault()
+
     // Add your sign-in logic here
-  };
-  return(
+  }
+  return (
     <div className="w-screen h-screen flex flex-col justify-between">
       <Navbar title="เข้าสู่ระบบ" />
       <div className="flex-grow grid grid-cols-5 gap-4 py-4"></div>
     </div>
   )
 }
-
 
 //   return (
 //     <div id="root" className="flex flex-col justify-center items-center w-full h-full max-w-screen-xl mx-auto my-0">
@@ -65,4 +64,4 @@ const SignIn = () => {
 //     </div>
 //   );
 // };
-export default SignIn;
+export default SignIn

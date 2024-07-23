@@ -63,13 +63,15 @@ const Record = () => {
               เริ่มการบันทึก (Start Recording)
             </button>
           ) : (
-            <button
-              className="btn btn-active btn-error text-error-content"
-              onClick={handleStopRecording}
-            >
-              สิ้นสุดการบันทึก (Stop Recording)
-            </button>
-          <Link to={PathConstants.DONE}></Link>
+            <>
+              <button
+                className="btn btn-active btn-error text-error-content"
+                onClick={handleStopRecording}
+              >
+                สิ้นสุดการบันทึก (Stop Recording)
+              </button>
+              <Link to={PathConstants.DONE}></Link>
+            </>
           )}
         </div>
       </div>

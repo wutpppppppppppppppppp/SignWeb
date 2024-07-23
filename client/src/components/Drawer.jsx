@@ -18,10 +18,10 @@ const Drawer = () => {
         ></label>
         <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
           <li>
-            <a>Sidebar Item 1</a>
+            <a>ลิสต์คำศัพท์</a>
           </li>
           <li>
-            <a>Sidebar Item 2</a>
+            <a></a>
           </li>
         </ul>
       </div>

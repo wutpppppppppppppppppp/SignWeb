@@ -11,7 +11,8 @@ const itemsPerPage = 15
 const Category = () => {
   const [categories, setCategories] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
-
+  //fetching data from backend
+  
   useEffect(() => {
     const fetchCategories = async () => {
       try {

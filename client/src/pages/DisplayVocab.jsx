@@ -103,7 +103,7 @@ const DisplayVocab = () => {
       <Navbar3 title={`วิดีโอภาษามือ : ${vocabName}`} />
       <div className="p-4 flex justify-center items-center flex-grow">
         <div className="flex justify-center items-center w-full h-full">
-          <div className="card lg:card-side bg-white shadow-xl w-full h-full">
+          <div className="card lg:card-side background-white shadow-xl w-full h-full">
             <figure className="flex justify-center w-2/4 h-auto">
               <Canvas
                 camera={{

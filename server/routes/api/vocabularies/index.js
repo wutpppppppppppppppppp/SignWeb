@@ -56,6 +56,7 @@ const updateVocabularySchema = {
     },
   },
 };
+
 const threedSchema = {
   schema: {
     querystring: S.object().prop("vocabulary_id", S.string().required()),
@@ -64,7 +65,7 @@ const threedSchema = {
         S.object()
           .prop("_id", S.string())
           .prop("vocabulary_id", S.string())
-          .prop("three_dim_data", S.string()) // Base64 encoded data
+          .prop("three_dim_data", S.string())
           .prop("created_at", S.string()) // ISO string format
           .prop("updated_at", S.string()) // ISO string format
       ),
@@ -220,6 +221,7 @@ async function vocabulariesRoutes(fastify) {
       reply.code(500).send({ error: "Failed to fetch 3D data" });
     }
   });
+
   fastify.post("/3d", addThreedSchema, async function (request, reply) {
     try {
       const { vocabulary_id, three_dim_data } = request.body;
@@ -323,6 +325,7 @@ async function vocabulariesRoutes(fastify) {
       }
     }
   );
+
   // fastify.post(
   //   "/",
   //   { schema: addVocabularySchema },

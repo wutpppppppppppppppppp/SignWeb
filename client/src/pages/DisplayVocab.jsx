@@ -13,7 +13,7 @@ import {
 } from "../data/vocabdata.jsx"
 
 const Model = () => {
-  const gltf = useLoader(GLTFLoader, "/src/models/Rokoko_model/scene.gltf")
+  const gltf = useLoader(GLTFLoader, "/models/joe/joe.gltf")
   const mixer = useRef()
 
   useEffect(() => {
@@ -31,17 +31,6 @@ const Model = () => {
 
   return <primitive object={gltf.scene} scale={1} />
 }
-// const SceneWrapper = forwardRef((props, ref) => {
-//   const { scene } = useThree();
-
-//   useEffect(() => {
-//     if (ref) {
-//       ref.current = scene;
-//     }
-//   }, [scene, ref]);
-
-//   return null;
-// });
 
 const DisplayVocab = () => {
   const { categoryName, vocabName } = useParams()
@@ -93,11 +82,6 @@ const DisplayVocab = () => {
     }
   }
 
-  const setSceneAndAnimations = (scene, animations) => {
-    setScene(scene)
-    setAnimations(animations)
-  }
-
   return (
     <div className="w-screen h-screen flex flex-col relative">
       <Navbar3 title={`วิดีโอภาษามือ : ${vocabName}`} />
@@ -115,10 +99,8 @@ const DisplayVocab = () => {
               >
                 <ambientLight intensity={1} />
                 <directionalLight position={[5, 10, 7.5]} intensity={1} />
-                <color attach="background" args={["#FFFCF5"]} />
                 <Model />
                 <OrbitControls enableDamping />
-                {/* <SceneWrapper ref={sceneRef} /> */}
               </Canvas>
             </figure>
             <div className="card-body relative">
@@ -134,7 +116,10 @@ const DisplayVocab = () => {
               <a className="explanation text-xl">คำอธิบาย : {description}</a>
               <a className="approve text-xl">รับรองโดย : {interpreter}</a>
               <div className="absolute inset-x-0 bottom-0 p-4 bg-white shadow-lg flex justify-between">
-                <button className="btn bg-others text-white w-1/2 text-center" onClick={() => navigate(`/category/${categoryName}`)}>
+                <button
+                  className="btn bg-others text-white w-1/2 text-center"
+                  onClick={() => navigate(`/category/${categoryName}`)}
+                >
                   ดูคำอื่นๆ
                 </button>
                 <button

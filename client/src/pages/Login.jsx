@@ -1,6 +1,6 @@
 import React from "react";
 import { FaGoogle } from "react-icons/fa";
-import Navbar from "../components/header";
+import Navbar from "../components/Header";
 const SignIn = () => {
   const handleSubmit = (event) => {
     event.preventDefault();

@@ -4,7 +4,6 @@ import api from "../hooks/api"
 import CatCard from "../components/CatCard"
 import Pagination from "../components/Pagination"
 import Navbar from "../components/Navbar"
-import placeHolder from "../assets/placeholder.png"
 
 const itemsPerPage = 15
 
@@ -18,8 +17,8 @@ const Category = () => {
       try {
         const response = await api.get("/api/categories")
         setCategories(response.data)
-      } catch (error) {
-        console.error("Error fetching categories:", error)
+      } catch (err) {
+        console.error("Error fetching categories:", err)
       }
     }
 
@@ -40,7 +39,10 @@ const Category = () => {
         {currentCategories.map((category) => (
           <div key={category._id} className="flex flex-col items-center">
             <Link to={`/category/${category.name}`}>
-              <CatCard image={placeHolder} title={category.name} />
+              <CatCard
+                image={`data:image/jpeg;base64,${category.picture}`}
+                title={category.name}
+              />
             </Link>
           </div>
         ))}

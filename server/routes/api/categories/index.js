@@ -36,7 +36,7 @@ const addCategorySchema = {
     body: S.object()
       .prop("name", S.string().required())
       .prop("description", S.string().required())
-      .prop("picture", S.string().required())
+      .prop("picture", S.string().contentEncoding("base64").required())
       .prop(
         "vocabularies",
         S.array()
@@ -44,7 +44,7 @@ const addCategorySchema = {
             S.object()
               .prop("name", S.string().required())
               .prop("description", S.string().required())
-              .prop("picture", S.string().required())
+              .prop("picture", S.string().contentEncoding("base64").required())
               .prop("created_at", S.string().format("date-time"))
               .prop("updated_at", S.string().format("date-time"))
           )
@@ -79,7 +79,7 @@ const updateCategorySchema = {
     body: S.object()
       .prop("name", S.string())
       .prop("description", S.string())
-      .prop("picture", S.string()),
+      .prop("picture", S.string().contentEncoding("base64")),
     response: {
       200: S.object()
         .prop("_id", S.string())
@@ -120,43 +120,53 @@ async function categoriesRoutes(fastify) {
     }
   });
 
-  fastify.post("/", addCategorySchema, async function (request, reply) {
-    try {
-      const { name, description, picture, vocabularies = [] } = request.body;
-      const categoriesCollection = fastify.mongo.client
-        .db("sample_sign")
-        .collection("categories");
+  fastify.post(
+    "/",
+    { schema: addCategorySchema },
+    async function (request, reply) {
+      try {
+        const { name, description, picture, vocabularies = [] } = request.body;
+        const pictureBuffer = picture;
+        const pictureBase64 = pictureBuffer.toString("base64");
 
-      const currentTime = new Date();
-      const newCategory = {
-        name,
-        description,
-        picture,
-        vocabularies: vocabularies.map((vocab) => ({
-          ...vocab,
-          _id: new fastify.mongo.ObjectId(),
+        const categoriesCollection = fastify.mongo.client
+          .db("sample_sign")
+          .collection("categories");
+
+        const currentTime = new Date();
+        const newCategory = {
+          name,
+          description,
+          picture: pictureBase64,
+          vocabularies: vocabularies.map((vocab) => ({
+            ...vocab,
+            _id: new fastify.mongo.ObjectId(),
+            created_at: currentTime,
+            updated_at: currentTime,
+          })),
           created_at: currentTime,
           updated_at: currentTime,
-        })),
-        created_at: currentTime,
-        updated_at: currentTime,
-      };
+        };
 
-      const result = await categoriesCollection.insertOne(newCategory);
-      newCategory._id = result.insertedId;
+        const result = await categoriesCollection.insertOne(newCategory);
+        newCategory._id = result.insertedId;
 
-      fastify.log.info(`Added new category: ${JSON.stringify(newCategory)}`);
-      reply.code(201).send(newCategory);
-    } catch (err) {
-      fastify.log.error(err, "Failed to add category");
-      reply.code(500).send({ error: "Failed to add category" });
+        fastify.log.info(`Added new category: ${JSON.stringify(newCategory)}`);
+        reply.code(201).send(newCategory);
+      } catch (err) {
+        fastify.log.error(err, "Failed to add category");
+        reply.code(500).send({ error: "Failed to add category" });
+      }
     }
-  });
+  );
 
   fastify.put("/:id", updateCategorySchema, async function (request, reply) {
     try {
       const { id } = request.params;
       const { name, description, picture } = request.body;
+      const pictureBuffer = picture;
+      const pictureBase64 = pictureBuffer.toString("base64");
+
       const categoriesCollection = fastify.mongo.client
         .db("sample_sign")
         .collection("categories");

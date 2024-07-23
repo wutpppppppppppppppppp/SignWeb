@@ -63,14 +63,16 @@ const Record = () => {
               เริ่มการบันทึก (Start Recording)
             </button>
           ) : (
-            <button
-              className="btn btn-active btn-error text-error-content"
-              onClick={handleStopRecording}
-            >
-              สิ้นสุดการบันทึก (Stop Recording)
-            </button>
+            <>
+              <button
+                className="btn btn-active btn-error text-error-content"
+                onClick={handleStopRecording}
+              >
+                สิ้นสุดการบันทึก (Stop Recording)
+              </button>
+              <Link to={PathConstants.DONE}></Link>
+            </>
           )}
-          <Link to={PathConstants.DISPLAY_VOCAB_ADMIN}></Link>
         </div>
       </div>
       <div className="mt-auto">

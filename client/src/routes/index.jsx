@@ -126,7 +126,7 @@ const routes = createBrowserRouter([
     ),
   },
   {
-    path: PathConstants.RECORD1,
+    path: PathConstants.RECORD,
     element: (
       <React.Suspense fallback={<div>Loading...</div>}>
         <Record />

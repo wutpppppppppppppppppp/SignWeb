@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
-import axios from "axios"
+import api from "../hooks/api"
 import Navbar from "../components/Navbar"
 import SearchBox from "../components/SearchBox"
 const Vocabulary = () => {
@@ -11,10 +11,9 @@ const Vocabulary = () => {
   useEffect(() => {
     const fetchVocabularies = async () => {
       try {
-        const response = await axios.get(`/api/vocabularies`, {
+        const response = await api.get(`/api/vocabularies`, {
           params: { category },
         })
-        // console.log(response)
         setVocabularies(response.data)
         setError(null)
       } catch (error) {
@@ -31,7 +30,7 @@ const Vocabulary = () => {
   return (
     <div className="w-screen h-screen">
       <Navbar title={`คำศัพท์${category}`} />
-      <div className="hero w-screen bg-[url('https://as1.ftcdn.net/v2/jpg/01/92/00/78/1000_F_192007831_OGdxh37OAqmJpoMuWfgbKKYaQgpa9SJN.jpg')]">
+      <div className="hero w-screen bg-[url(`data:image/png;base64,${this.state.image}`)]">
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-neutral-content text-center">
           <div className="max-w-md mx-auto">
@@ -48,7 +47,11 @@ const Vocabulary = () => {
               <div className="border p-4 flex flex-col items-center">
                 <b>{vocab.name}</b>
                 {/* <div className="bg-cover bg-center" style="background-image: url(&)"></div> */}
-                <img src={vocab.image} alt={vocab.name} className="" />
+                <img
+                  src={`data:image/jpeg;base64,${vocab.picture}`}
+                  alt={vocab.name}
+                  className=""
+                />
               </div>
             </Link>
           ))}

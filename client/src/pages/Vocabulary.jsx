@@ -7,7 +7,7 @@ const Vocabulary = () => {
   const { category } = useParams()
   const [vocabularies, setVocabularies] = useState([])
   const [error, setError] = useState(null)
-  // console.log(category)
+
   useEffect(() => {
     const fetchVocabularies = async () => {
       try {
@@ -47,11 +47,7 @@ const Vocabulary = () => {
               <div className="border p-4 flex flex-col items-center">
                 <b>{vocab.name}</b>
                 {/* <div className="bg-cover bg-center" style="background-image: url(&)"></div> */}
-                <img
-                  src={`data:image/jpeg;base64,${vocab.picture}`}
-                  alt={vocab.name}
-                  className=""
-                />
+                <img src={vocab.picture} alt={vocab.name} className="" />
               </div>
             </Link>
           ))}

@@ -16,6 +16,7 @@ const PathConstants = {
   // admin
   CATEGORY_ADMIN: "/categoryad",
   VOCABULARY_ADMIN: "/categoryad/:categoryad",
+  DISPLAY_VOCAB_ADMIN: "/categoryad/:categoryad/:vocab_name",
   RECORD: "/record/:categoryname/:vocabName",
   DONE: "/donerecord",
   // API

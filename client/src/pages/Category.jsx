@@ -11,7 +11,7 @@ const Category = () => {
   const [categories, setCategories] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   //fetching data from backend
-  
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -39,10 +39,7 @@ const Category = () => {
         {currentCategories.map((category) => (
           <div key={category._id} className="flex flex-col items-center">
             <Link to={`/category/${category.name}`}>
-              <CatCard
-                image={`data:image/jpeg;base64,${category.picture}`}
-                title={category.name}
-              />
+              <CatCard image={category.picture} title={category.name} />
             </Link>
           </div>
         ))}

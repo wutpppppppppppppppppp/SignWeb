@@ -1,5 +1,7 @@
 import fp from "fastify-plugin";
 import S from "fluent-json-schema";
+import cloudinary from "../../../config/cloudinary.js";
+import { PassThrough } from "stream";
 
 const categorySchema = {
   schema: {
@@ -36,7 +38,7 @@ const addCategorySchema = {
     body: S.object()
       .prop("name", S.string().required())
       .prop("description", S.string().required())
-      .prop("picture", S.string().contentEncoding("base64").required())
+      .prop("picture", S.string().required())
       .prop(
         "vocabularies",
         S.array()
@@ -44,7 +46,7 @@ const addCategorySchema = {
             S.object()
               .prop("name", S.string().required())
               .prop("description", S.string().required())
-              .prop("picture", S.string().contentEncoding("base64").required())
+              .prop("picture", S.string().required())
               .prop("created_at", S.string().format("date-time"))
               .prop("updated_at", S.string().format("date-time"))
           )
@@ -79,7 +81,7 @@ const updateCategorySchema = {
     body: S.object()
       .prop("name", S.string())
       .prop("description", S.string())
-      .prop("picture", S.string().contentEncoding("base64")),
+      .prop("picture", S.string()),
     response: {
       200: S.object()
         .prop("_id", S.string())
@@ -125,9 +127,27 @@ async function categoriesRoutes(fastify) {
     { schema: addCategorySchema },
     async function (request, reply) {
       try {
-        const { name, description, picture, vocabularies = [] } = request.body;
-        const pictureBuffer = picture;
-        const pictureBase64 = pictureBuffer.toString("base64");
+        const { name, description, vocabularies = [] } = request.body;
+        const pictureBuffer = request.body.picture;
+        if (!pictureBuffer) {
+          reply.code(400).send({ error: "Picture file is required" });
+          return;
+        }
+        const bufferStream = new PassThrough();
+        bufferStream.end(pictureBuffer);
+        const uploadResponse = await new Promise((resolve, reject) => {
+          const streamUpload = cloudinary.uploader.upload_stream(
+            (error, result) => {
+              if (result) {
+                resolve(result);
+              } else {
+                reject(error);
+              }
+            }
+          );
+          bufferStream.pipe(streamUpload);
+        });
+        const pictureUrl = uploadResponse.secure_url;
 
         const categoriesCollection = fastify.mongo.client
           .db("sample_sign")
@@ -137,7 +157,7 @@ async function categoriesRoutes(fastify) {
         const newCategory = {
           name,
           description,
-          picture: pictureBase64,
+          picture: pictureUrl,
           vocabularies: vocabularies.map((vocab) => ({
             ...vocab,
             _id: new fastify.mongo.ObjectId(),
@@ -160,43 +180,69 @@ async function categoriesRoutes(fastify) {
     }
   );
 
-  fastify.put("/:id", updateCategorySchema, async function (request, reply) {
-    try {
-      const { id } = request.params;
-      const { name, description, picture } = request.body;
-      const pictureBuffer = picture;
-      const pictureBase64 = pictureBuffer.toString("base64");
+  fastify.put(
+    "/:id",
+    { schema: updateCategorySchema },
+    async function (request, reply) {
+      try {
+        const { id } = request.params;
+        const { name, description, picture } = request.body;
 
-      const categoriesCollection = fastify.mongo.client
-        .db("sample_sign")
-        .collection("categories");
+        const categoriesCollection = fastify.mongo.client
+          .db("sample_sign")
+          .collection("categories");
 
-      const updatedCategory = {
-        ...(name && { name }),
-        ...(description && { description }),
-        ...(picture && { picture }),
-        updated_at: new Date().toISOString(),
-      };
+        let pictureUrl;
 
-      const result = await categoriesCollection.updateOne(
-        { _id: new fastify.mongo.ObjectId(id) },
-        { $set: updatedCategory }
-      );
+        if (picture) {
+          // Convert buffer to a stream
+          const bufferStream = new PassThrough();
+          bufferStream.end(Buffer.from(picture, "base64"));
 
-      if (result.matchedCount === 0) {
-        fastify.log.warn(`Category ID not found: ${id}`);
-        reply.code(404).send({ error: "Category ID not found" });
-      } else {
-        fastify.log.info(
-          `Updated category ${id}: ${JSON.stringify(updatedCategory)}`
+          // Upload to Cloudinary
+          const uploadResponse = await new Promise((resolve, reject) => {
+            const streamUpload = cloudinary.uploader.upload_stream(
+              (error, result) => {
+                if (result) {
+                  resolve(result);
+                } else {
+                  reject(error);
+                }
+              }
+            );
+            bufferStream.pipe(streamUpload);
+          });
+
+          pictureUrl = uploadResponse.secure_url;
+        }
+
+        const updatedCategory = {
+          ...(name && { name }),
+          ...(description && { description }),
+          ...(pictureUrl && { picture: pictureUrl }),
+          updated_at: new Date(), // Ensure updated_at is a Date object
+        };
+
+        const result = await categoriesCollection.updateOne(
+          { _id: new fastify.mongo.ObjectId(id) },
+          { $set: updatedCategory }
         );
-        reply.code(200).send(updatedCategory);
+
+        if (result.matchedCount === 0) {
+          fastify.log.warn(`Category ID not found: ${id}`);
+          reply.code(404).send({ error: "Category ID not found" });
+        } else {
+          fastify.log.info(
+            `Updated category ${id}: ${JSON.stringify(updatedCategory)}`
+          );
+          reply.code(200).send(updatedCategory);
+        }
+      } catch (err) {
+        fastify.log.error(err, "Failed to update category");
+        reply.code(500).send({ error: "Failed to update category" });
       }
-    } catch (err) {
-      fastify.log.error(err, "Failed to update category");
-      reply.code(500).send({ error: "Failed to update category" });
     }
-  });
+  );
 }
 
 export default fp(

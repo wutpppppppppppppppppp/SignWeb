@@ -16,7 +16,7 @@ const Vocabulary = () => {
         })
         setVocabularies(response.data)
         setError(null)
-      } catch (error) {
+      } catch (err) {
         console.error("Error fetching vocabularies:", error)
         setError("Error fetching vocabularies. Please try again later.")
       }

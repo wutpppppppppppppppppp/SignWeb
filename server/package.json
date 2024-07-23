@@ -28,7 +28,6 @@
     "dotenv": "^16.4.5",
     "fastify": "^4.28.1",
     "fastify-cli": "^6.2.1",
-    "fastify-multer": "^2.0.3",
     "fastify-plugin": "^4.5.1",
     "fluent-json-schema": "^4.2.1",
     "fs": "0.0.1-security",

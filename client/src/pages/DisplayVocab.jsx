@@ -41,9 +41,6 @@ const Model = () => {
 
 //   return null;
 // });
-=======
-import Model from "../components/Model"
->>>>>>> b39e23e5eb706ee89934701a4a12451818e243c7
 
 const DisplayVocab = () => {
   const { categoryName, vocabName } = useParams()

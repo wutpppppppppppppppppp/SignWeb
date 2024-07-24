@@ -57,6 +57,21 @@ const updateVocabularySchema = {
   },
 };
 
+const getVocabularyByNameSchema = {
+  schema: {
+    params: S.object().prop("vocabulary_name", S.string().required()),
+    response: {
+      200: S.object()
+        .prop("_id", S.string())
+        .prop("name", S.string())
+        .prop("description", S.string())
+        .prop("picture", S.string())
+        .prop("created_at", S.string().format("date-time"))
+        .prop("updated_at", S.string().format("date-time")),
+    },
+  },
+};
+
 const threedSchema = {
   schema: {
     querystring: S.object().prop("vocabulary_id", S.string().required()),
@@ -190,6 +205,45 @@ async function vocabulariesRoutes(fastify) {
       } catch (err) {
         fastify.log.error(err, "Failed to add vocabulary");
         reply.code(500).send({ error: "Failed to add vocabulary" });
+      }
+    }
+  );
+
+  fastify.get(
+    "/:vocabulary_name",
+    getVocabularyByNameSchema,
+    async function (request, reply) {
+      try {
+        const { vocabulary_name } = request.params;
+        const categoriesCollection = fastify.mongo.client
+          .db("sample_sign")
+          .collection("categories");
+
+        // Find the category document containing the vocabulary with the given name
+        const category = await categoriesCollection.findOne(
+          {
+            "vocabularies.name": vocabulary_name,
+          },
+          {
+            projection: { "vocabularies.$": 1 }, // Retrieve only the matching vocabulary
+          }
+        );
+
+        if (!category || category.vocabularies.length === 0) {
+          fastify.log.warn(`No vocabulary found with name: ${vocabulary_name}`);
+          reply.code(404).send({ error: "No vocabulary found with this name" });
+        } else {
+          const vocabulary = category.vocabularies[0];
+          fastify.log.info(
+            `Fetched vocabulary ${vocabulary_name}: ${JSON.stringify(
+              vocabulary
+            )}`
+          );
+          reply.send(vocabulary);
+        }
+      } catch (err) {
+        fastify.log.error(err, "Failed to fetch vocabulary");
+        reply.code(500).send({ error: "Failed to fetch vocabulary" });
       }
     }
   );

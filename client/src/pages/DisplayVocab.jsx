@@ -8,7 +8,42 @@ import {
   vocabDescriptions,
   interpreters,
 } from "../data/vocabdata.jsx"
+<<<<<<< HEAD
+
+const Model = () => {
+  // const gltf = useLoader(GLTFLoader, "/src/models/Rokoko_model/scene.gltf")
+  const gltf = useLoader(GLTFLoader, "/src/models/NonglouiseModel/Louise.gltf")
+  const mixer = useRef()
+
+  useEffect(() => {
+    if (gltf.animations.length) {
+      mixer.current = new THREE.AnimationMixer(gltf.scene)
+      gltf.animations.forEach((clip) => {
+        mixer.current.clipAction(clip).play()
+      })
+    }
+  }, [gltf])
+
+  useFrame((state, delta) => {
+    mixer.current?.update(delta)
+  })
+
+  return <primitive object={gltf.scene} scale={1} />
+}
+// const SceneWrapper = forwardRef((props, ref) => {
+//   const { scene } = useThree();
+
+//   useEffect(() => {
+//     if (ref) {
+//       ref.current = scene;
+//     }
+//   }, [scene, ref]);
+
+//   return null;
+// });
+=======
 import Model from "../components/Model"
+>>>>>>> b39e23e5eb706ee89934701a4a12451818e243c7
 
 const DisplayVocab = () => {
   const { categoryName, vocabName } = useParams()

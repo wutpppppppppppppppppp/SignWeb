@@ -1,16 +1,14 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { Canvas, useLoader, useFrame } from "@react-three/fiber"
+import { Canvas } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
-import * as THREE from "three"
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
-import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter.js"
 import Navbar3 from "../components/Navbar3"
 import {
   vocabularies,
   vocabDescriptions,
   interpreters,
 } from "../data/vocabdata.jsx"
+<<<<<<< HEAD
 
 const Model = () => {
   // const gltf = useLoader(GLTFLoader, "/src/models/Rokoko_model/scene.gltf")
@@ -43,6 +41,9 @@ const Model = () => {
 
 //   return null;
 // });
+=======
+import Model from "../components/Model"
+>>>>>>> b39e23e5eb706ee89934701a4a12451818e243c7
 
 const DisplayVocab = () => {
   const { categoryName, vocabName } = useParams()
@@ -50,7 +51,6 @@ const DisplayVocab = () => {
   const [interpreter, setInterpreter] = useState("")
   const [image, setImage] = useState("")
   const navigate = useNavigate()
-  const sceneRef = useRef(null)
 
   useEffect(() => {
     setDescription(vocabDescriptions[vocabName] || "ไม่พบคำอธิบาย")
@@ -63,41 +63,7 @@ const DisplayVocab = () => {
     }
   }, [vocabName])
 
-  const downloadJSON = (gltfData) => {
-    const jsonContent = JSON.stringify(gltfData)
-    const blob = new Blob([jsonContent], { type: "application/json" })
-    const url = URL.createObjectURL(blob)
-    const link = document.createElement("a")
-    link.href = url
-    link.download = "scene.gltf"
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
-
-  const handleExport = () => {
-    const exporter = new GLTFExporter()
-    if (sceneRef.current) {
-      exporter.parse(
-        scene,
-        (gltf) => {
-          console.log(gltf)
-          downloadJSON(gltf)
-        },
-        (error) => {
-          console.error("An error happened:", error)
-        },
-        { animations }
-      )
-    } else {
-      console.error("Scene is undefined or null")
-    }
-  }
-
-  const setSceneAndAnimations = (scene, animations) => {
-    setScene(scene)
-    setAnimations(animations)
-  }
+  const animationUrl = `https://your-s3-bucket.s3.amazonaws.com/joe/${vocabName}.bin`
 
   return (
     <div className="w-screen h-screen flex flex-col relative">
@@ -116,10 +82,8 @@ const DisplayVocab = () => {
               >
                 <ambientLight intensity={1} />
                 <directionalLight position={[5, 10, 7.5]} intensity={1} />
-                <color attach="background" args={["#FFFCF5"]} />
-                <Model />
+                <Model animationUrl={animationUrl} />
                 <OrbitControls enableDamping />
-                {/* <SceneWrapper ref={sceneRef} /> */}
               </Canvas>
             </figure>
             <div className="card-body relative">
@@ -135,13 +99,13 @@ const DisplayVocab = () => {
               <a className="explanation text-xl">คำอธิบาย : {description}</a>
               <a className="approve text-xl">รับรองโดย : {interpreter}</a>
               <div className="absolute inset-x-0 bottom-0 p-4 bg-white shadow-lg flex justify-between">
-                <button className="btn bg-others text-white w-1/2 text-center" onClick={() => navigate(`/category/${categoryName}`)}>
+                <button
+                  className="btn bg-others text-white w-1/2 text-center"
+                  onClick={() => navigate(`/category/${categoryName}`)}
+                >
                   ดูคำอื่นๆ
                 </button>
-                <button
-                  className="btn bg-confirm text-white w-1/2 text-center"
-                  onClick={handleExport}
-                >
+                <button className="btn bg-confirm text-white w-1/2 text-center">
                   ดาวน์โหลด
                 </button>
               </div>

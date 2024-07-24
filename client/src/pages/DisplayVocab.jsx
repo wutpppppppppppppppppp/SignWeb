@@ -31,14 +31,14 @@ const DisplayVocab = () => {
   // }, [vocab_name])
 
   const { category, vocabulary } = useParams()
-  const [detail, setDetail] = useState([])
+  const [data, setData] = useState([])
   const [error, setError] = useState(null)
 
   useEffect(() => {
     const fetchVocabularies = async () => {
       try {
         const response = await api.get(`/api/vocabularies/${vocabulary}`)
-        setDetail(response.data)
+        setData(response.data)
         setError(null)
       } catch (err) {
         console.error("Error fetching vocabularies:", error)
@@ -76,20 +76,22 @@ const DisplayVocab = () => {
             </figure>
             <div className="card-body relative">
               <h3 className="card-title font-bold text-2xl">{vocabulary}</h3>
-              {image && (
+              {data.picture && (
                 <img
-                  src={image}
-                  alt={vocab_name}
+                  src={data.picture}
+                  alt={data.names}
                   className="flex mx-auto w-2/4"
                 />
               )}
-              <a className="category text-xl">ประเภทคำ : {category_name}</a>
-              <a className="explanation text-xl">คำอธิบาย : {description}</a>
+              <a className="category text-xl">ประเภทคำ : {category}</a>
+              <a className="explanation text-xl">
+                คำอธิบาย : {data.description}
+              </a>
               {/* <a className="approve text-xl">รับรองโดย : {interpreter}</a> */}
-              <div className="absolute inset-x-0 bottom-0 p-4 bg-white shadow-lg flex justify-between">
+              <div className="absolute inset-x-0 bottom-0 p-4 flex justify-between">
                 <button
                   className="btn bg-others text-white w-1/2 text-center"
-                  onClick={() => navigate(`/category/${category_name}`)}
+                  onClick={() => navigate(`/category/${category}`)}
                 >
                   ดูคำอื่นๆ
                 </button>

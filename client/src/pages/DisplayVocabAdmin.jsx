@@ -1,106 +1,111 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { Canvas, useLoader, useFrame } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter.js";
-import Navbar3 from "../components/Navbar3";
-import { vocabularies, vocabDescriptions, interpreters } from "../data/vocabdata.jsx";
-import PathConstants from "../routes/pathConstants.js";
+import React, { useEffect, useRef, useState } from "react"
+import { useParams, useNavigate } from "react-router-dom"
+import { Canvas, useLoader, useFrame } from "@react-three/fiber"
+import { OrbitControls } from "@react-three/drei"
+import * as THREE from "three"
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
+import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter.js"
+import Navbar3 from "../components/Navbar3"
+import {
+  vocabularies,
+  vocabDescriptions,
+  interpreters,
+} from "../data/vocabdata.jsx"
+import PathConstants from "../routes/pathConstants.js"
 
 const Model = ({ animationName }) => {
-  const gltf = useLoader(GLTFLoader, "/src/models/NonglouiseModel/Louisehide.glb");
-  const mixer = useRef();
+  const gltf = useLoader(GLTFLoader, "/models/NonglouiseModel/Louisehide.glb")
+  const mixer = useRef()
   useEffect(() => {
     // Log all animation names
-    console.log("All animations:");
+    console.log("All animations:")
     gltf.animations.forEach((animation, index) => {
-      console.log(`${index}: ${animation.name}`);
-    });
+      console.log(`${index}: ${animation.name}`)
+    })
 
     if (gltf.animations.length) {
-      mixer.current = new THREE.AnimationMixer(gltf.scene);
-      let clip = THREE.AnimationClip.findByName(gltf.animations, animationName);
+      mixer.current = new THREE.AnimationMixer(gltf.scene)
+      let clip = THREE.AnimationClip.findByName(gltf.animations, animationName)
       if (!clip && !isNaN(parseInt(animationName))) {
-        const index = parseInt(animationName);
+        const index = parseInt(animationName)
         if (index >= 0 && index < gltf.animations.length) {
-          clip = gltf.animations[index];
+          clip = gltf.animations[index]
         }
       }
 
       if (clip) {
-        const action = mixer.current.clipAction(clip);
-        action.play();
-        console.log(`Playing animation: ${clip.name}`);
+        const action = mixer.current.clipAction(clip)
+        action.play()
+        console.log(`Playing animation: ${clip.name}`)
       } else {
-        console.log(`Animation not found: ${animationName}`);
+        console.log(`Animation not found: ${animationName}`)
       }
     }
 
-
     return () => {
-      mixer.current?.stopAllAction();
-    };
-  }, [gltf, animationName]);
+      mixer.current?.stopAllAction()
+    }
+  }, [gltf, animationName])
 
   useFrame((state, delta) => {
-    mixer.current?.update(delta);
-  });
-  return <primitive object={gltf.scene} scale={1} />;
-};
+    mixer.current?.update(delta)
+  })
+  return <primitive object={gltf.scene} scale={1} />
+}
 
 const DisplayVocabAdmin = () => {
-  const { categoryName, vocabName } = useParams();
-  const [description, setDescription] = useState("");
-  const [interpreter, setInterpreter] = useState("");
-  const [image, setImage] = useState("");
-  const [scene, setScene] = useState(null);
-  const [animations, setAnimations] = useState([]);
-  const navigate = useNavigate();
-  const [animationName, setAnimationName] = useState('Root|clip|Base_Layer Retarget.001');
+  const { categoryad, vocabularyad } = useParams()
+  const [description, setDescription] = useState("")
+  const [interpreter, setInterpreter] = useState("")
+  const [image, setImage] = useState("")
+  const [scene, setScene] = useState(null)
+  const [animations, setAnimations] = useState([])
+  const navigate = useNavigate()
+  const [animationName, setAnimationName] = useState(
+    "Root|clip|Base_Layer Retarget.001"
+  )
 
   useEffect(() => {
-    setDescription(vocabDescriptions[vocabName] || "ไม่พบคำอธิบาย");
-    setInterpreter(interpreters[vocabName] || "ไม่พบข้อมูล");
-    const vocabItem = vocabularies.find((vocab) => vocab.name === vocabName);
+    setDescription(vocabDescriptions[vocabularyad] || "ไม่พบคำอธิบาย")
+    setInterpreter(interpreters[vocabularyad] || "ไม่พบข้อมูล")
+    const vocabItem = vocabularies.find((vocab) => vocab.name === vocabularyad)
     if (vocabItem) {
-      setImage(vocabItem.image);
+      setImage(vocabItem.image)
     } else {
-      setImage("");
+      setImage("")
     }
-  }, [vocabName]);
+  }, [vocabularyad])
 
   const downloadJSON = (gltfData) => {
-    const jsonContent = JSON.stringify(gltfData);
-    const blob = new Blob([jsonContent], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "scene.gltf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+    const jsonContent = JSON.stringify(gltfData)
+    const blob = new Blob([jsonContent], { type: "application/json" })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement("a")
+    link.href = url
+    link.download = "scene.gltf"
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
 
   const handleExport = () => {
-    const exporter = new GLTFExporter();
+    const exporter = new GLTFExporter()
     if (scene) {
       exporter.parse(
         scene,
         (gltf) => {
-          console.log(gltf);
-          downloadJSON(gltf);
+          console.log(gltf)
+          downloadJSON(gltf)
         },
         (error) => {
-          console.error("An error happened:", error);
+          console.error("An error happened:", error)
         },
         { animations }
-      );
+      )
     } else {
-      console.error("Scene is undefined or null");
+      console.error("Scene is undefined or null")
     }
-  };
+  }
 
   // const setSceneAndAnimations = (scene, animations) => {
   //   setScene(scene);
@@ -108,18 +113,18 @@ const DisplayVocabAdmin = () => {
   // };
 
   const rerecord = () => {
-    console.log("Rerecord");
-    navigate(PathConstants.RECORD1);
-  };
+    console.log("Rerecord")
+    navigate(PathConstants.RECORD1)
+  }
 
   const doneRecord = () => {
-    console.log("DoneRecord");
-    navigate(PathConstants.DONE);
-  };
-  
+    console.log("DoneRecord")
+    navigate(PathConstants.DONE)
+  }
+
   useEffect(() => {
-    console.log("Current animationName:", animationName);
-  }, [animationName]);
+    console.log("Current animationName:", animationName)
+  }, [animationName])
 
   return (
     <div className="w-screen h-screen flex flex-col relative">
@@ -128,25 +133,27 @@ const DisplayVocabAdmin = () => {
         <div className="flex justify-center items-center w-full h-full">
           <div className="card lg:card-side bg-base-100 shadow-xl w-full h-full">
             <figure className="flex justify-center w-2/4 h-auto">
-            <Canvas camera={{ position: [0, 2, 4], fov: 45 }}>
-              <ambientLight intensity={1} />
-              <directionalLight position={[5, 10, 7.5]} intensity={1} />
-              <color attach="background" args={["#ffffff"]} />
-              <Model animationName={animationName} />
-              <OrbitControls enableDamping />
-          </Canvas>
+              <Canvas camera={{ position: [0, 2, 4], fov: 45 }}>
+                <ambientLight intensity={1} />
+                <directionalLight position={[5, 10, 7.5]} intensity={1} />
+                <color attach="background" args={["#ffffff"]} />
+                <Model animationName={animationName} />
+                <OrbitControls enableDamping />
+              </Canvas>
             </figure>
             <div className="card-body relative">
               <h3 className="card-title font-bold text-2xl">ไข่เจียว</h3>
               {image && (
                 <img
                   src={image}
-                  alt={vocabName}
+                  alt={vocabularyad}
                   className="flex mx-auto w-2/4"
                 />
               )}
               <a className="category text-xl">ประเภทคำ : อาหาร</a>
-              <a className="explanation text-xl">คำอธิบาย : ไข่ไก่ที่ตีให้เข้ากันก่อนทอด</a>
+              <a className="explanation text-xl">
+                คำอธิบาย : ไข่ไก่ที่ตีให้เข้ากันก่อนทอด
+              </a>
               <a className="approve text-xl">รับรองโดย : คุณไอติม</a>
               <div className="absolute inset-x-0 bottom-0 p-4 bg-white shadow-lg flex justify-between">
                 <button
@@ -168,10 +175,11 @@ const DisplayVocabAdmin = () => {
       </div>
 
       <div className="flex-grow flex place-self-end">
-        เลขที่พอร์ตปัจจุบัน (Port):14053 เลขที่ไอพีปัจจุบัน (IPAddress):172.20.10.3
+        เลขที่พอร์ตปัจจุบัน (Port):14053 เลขที่ไอพีปัจจุบัน
+        (IPAddress):172.20.10.3
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default DisplayVocabAdmin;
+export default DisplayVocabAdmin

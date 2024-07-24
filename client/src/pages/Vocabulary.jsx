@@ -11,7 +11,7 @@ const Vocabulary = () => {
   useEffect(() => {
     const fetchVocabularies = async () => {
       try {
-        const response = await api.get(`/api/vocabularies`, {
+        const response = await api.get(`/api/vocabularies/`, {
           params: { category },
         })
         setVocabularies(response.data)
@@ -25,7 +25,7 @@ const Vocabulary = () => {
     if (category) {
       fetchVocabularies()
     }
-  }, [category])
+  }, [category, error])
 
   return (
     <div className="w-screen h-screen">

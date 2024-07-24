@@ -7,7 +7,7 @@ const PathConstants = {
   // Pages requiring login
   CATEGORY: "/category",
   VOCABULARY: "/category/:category",
-  DISPLAY_VOCAB: "/category/:category_name/:vocab_name",
+  DISPLAY_VOCAB: "/category/:category/:vocabulary",
 
   SETUP_FORM: "/setup-form",
   CONTROL_BUTTONS: "/control-buttons",

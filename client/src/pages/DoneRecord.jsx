@@ -1,6 +1,6 @@
-import * as React from "react";
-import { Link } from "react-router-dom";
-import Navbar2 from "../components/Navbar2";
+import * as React from "react"
+import { Link } from "react-router-dom"
+import Navbar2 from "../components/Navbar2"
 
 const DoneRecord = () => {
   return (
@@ -15,7 +15,7 @@ const DoneRecord = () => {
 
         {/* button*/}
         <div className="flex gap-10">
-          <Link to="/record1">
+          <Link to="/record/:categoryname/:vocabName">
             <button className="btn btn-width btn-lg bg-confirm text-base-100">
               บันทึกท่าคำศัพท์ใหม่
             </button>
@@ -28,7 +28,7 @@ const DoneRecord = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default DoneRecord;
+export default DoneRecord

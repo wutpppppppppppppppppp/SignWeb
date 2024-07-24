@@ -1,36 +1,14 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { Canvas, useLoader, useFrame } from "@react-three/fiber"
+import { Canvas } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
-import * as THREE from "three"
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
-import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter.js"
 import Navbar3 from "../components/Navbar3"
 import {
   vocabularies,
   vocabDescriptions,
   interpreters,
 } from "../data/vocabdata.jsx"
-
-const Model = () => {
-  const gltf = useLoader(GLTFLoader, "/models/joe/joe.gltf")
-  const mixer = useRef()
-
-  useEffect(() => {
-    if (gltf.animations.length) {
-      mixer.current = new THREE.AnimationMixer(gltf.scene)
-      gltf.animations.forEach((clip) => {
-        mixer.current.clipAction(clip).play()
-      })
-    }
-  }, [gltf])
-
-  useFrame((state, delta) => {
-    mixer.current?.update(delta)
-  })
-
-  return <primitive object={gltf.scene} scale={1} />
-}
+import Model from "../components/Model"
 
 const DisplayVocab = () => {
   const { categoryName, vocabName } = useParams()
@@ -38,7 +16,6 @@ const DisplayVocab = () => {
   const [interpreter, setInterpreter] = useState("")
   const [image, setImage] = useState("")
   const navigate = useNavigate()
-  const sceneRef = useRef(null)
 
   useEffect(() => {
     setDescription(vocabDescriptions[vocabName] || "ไม่พบคำอธิบาย")
@@ -51,36 +28,7 @@ const DisplayVocab = () => {
     }
   }, [vocabName])
 
-  const downloadJSON = (gltfData) => {
-    const jsonContent = JSON.stringify(gltfData)
-    const blob = new Blob([jsonContent], { type: "application/json" })
-    const url = URL.createObjectURL(blob)
-    const link = document.createElement("a")
-    link.href = url
-    link.download = "scene.gltf"
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
-
-  const handleExport = () => {
-    const exporter = new GLTFExporter()
-    if (sceneRef.current) {
-      exporter.parse(
-        scene,
-        (gltf) => {
-          console.log(gltf)
-          downloadJSON(gltf)
-        },
-        (error) => {
-          console.error("An error happened:", error)
-        },
-        { animations }
-      )
-    } else {
-      console.error("Scene is undefined or null")
-    }
-  }
+  const animationUrl = `https://your-s3-bucket.s3.amazonaws.com/joe/${vocabName}.bin`
 
   return (
     <div className="w-screen h-screen flex flex-col relative">
@@ -99,7 +47,7 @@ const DisplayVocab = () => {
               >
                 <ambientLight intensity={1} />
                 <directionalLight position={[5, 10, 7.5]} intensity={1} />
-                <Model />
+                <Model animationUrl={animationUrl} />
                 <OrbitControls enableDamping />
               </Canvas>
             </figure>
@@ -122,10 +70,7 @@ const DisplayVocab = () => {
                 >
                   ดูคำอื่นๆ
                 </button>
-                <button
-                  className="btn bg-confirm text-white w-1/2 text-center"
-                  onClick={handleExport}
-                >
+                <button className="btn bg-confirm text-white w-1/2 text-center">
                   ดาวน์โหลด
                 </button>
               </div>

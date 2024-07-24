@@ -13,7 +13,8 @@ import {
 } from "../data/vocabdata.jsx"
 
 const Model = () => {
-  const gltf = useLoader(GLTFLoader, "/src/models/Rokoko_model/scene.gltf")
+  // const gltf = useLoader(GLTFLoader, "/src/models/Rokoko_model/scene.gltf")
+  const gltf = useLoader(GLTFLoader, "/src/models/NonglouiseModel/Louise.gltf")
   const mixer = useRef()
 
   useEffect(() => {

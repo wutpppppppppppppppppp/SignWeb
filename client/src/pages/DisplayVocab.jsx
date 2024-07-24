@@ -9,30 +9,14 @@ import Navbar3 from "../components/Navbar3"
 //   vocabularies,
 //   vocabDescriptions,
 //   interpreters,
-// } from "../data/vocabdata.jsx"
+// } from "../data/vocabdata.jsx";
 import Model from "../components/Model"
 
 const DisplayVocab = () => {
-  // const { category_name, vocab_name } = useParams()
-  // const [description, setDescription] = useState("")
-  // const [interpreter, setInterpreter] = useState("")
-  // const [image, setImage] = useState("")
-  // const navigate = useNavigate()
-
-  // useEffect(() => {
-  //   setDescription(vocabDescriptions[vocab_name] || "ไม่พบคำอธิบาย")
-  //   setInterpreter(interpreters[vocab_name] || "ไม่พบข้อมูล")
-  //   const vocabItem = vocabularies.find((vocab) => vocab.name === vocab_name)
-  //   if (vocabItem) {
-  //     setImage(vocabItem.image)
-  //   } else {
-  //     setImage("")
-  //   }
-  // }, [vocab_name])
-
   const { category, vocabulary } = useParams()
   const [data, setData] = useState([])
   const [error, setError] = useState(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchVocabularies = async () => {
@@ -41,7 +25,7 @@ const DisplayVocab = () => {
         setData(response.data)
         setError(null)
       } catch (err) {
-        console.error("Error fetching vocabularies:", error)
+        console.error("Error fetching vocabularies:", err) // Corrected error handling
         setError("Error fetching vocabularies. Please try again later.")
       }
     }
@@ -49,23 +33,23 @@ const DisplayVocab = () => {
     if (category) {
       fetchVocabularies()
     }
-  }, [category, error, vocabulary])
+  }, [category, vocabulary])
 
   const modelUrl = `/models/${vocabulary}.glb` // Assuming the model URL follows this pattern
 
   return (
-    <div className="w-screen h-screen flex flex-col relative">
+    <div className="w-screen h-screen flex flex-col">
       <Navbar3 title={`วิดีโอภาษามือ : ${vocabulary}`} />
       <div className="p-4 flex justify-center items-center flex-grow">
         <div className="flex justify-center items-center w-full h-full">
-          <div className="card lg:card-side background-white shadow-xl w-full h-full">
-            <figure className="flex justify-center w-2/4 h-auto">
+          <div className="card lg:card-side w-full h-full">
+            <figure className="w-2/4 h-auto">
               <Canvas
                 camera={{
-                  position: [0, 1, 5],
-                  fov: 95,
-                  zoom: 5,
-                  filmOffset: -2,
+                  position: [0, 2, 4],
+                  fov: 70,
+                  zoom: 2,
+                  filmOffset: 0,
                 }}
               >
                 <ambientLight intensity={1} />
@@ -83,10 +67,8 @@ const DisplayVocab = () => {
                   className="flex mx-auto w-2/4"
                 />
               )}
-              <a className="category text-xl">ประเภทคำ : {category}</a>
-              <a className="explanation text-xl">
-                คำอธิบาย : {data.description}
-              </a>
+              <a className="text-xl">ประเภทคำ : {category}</a>
+              <a className="text-xl">คำอธิบาย : {data.description}</a>
               {/* <a className="approve text-xl">รับรองโดย : {interpreter}</a> */}
               <div className="absolute inset-x-0 bottom-0 p-4 flex justify-between">
                 <button

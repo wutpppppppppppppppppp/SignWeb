@@ -47,7 +47,11 @@ const DisplayVocab = () => {
               <Canvas camera={{ position: [0, 1, 1.2], fov: 45 }}>
                 <ambientLight intensity={1} />
                 <directionalLight position={[5, 10, 7.5]} intensity={1} />
-                <Model modelUrl={modelUrl} />
+                <Model 
+                  modelUrl={modelUrl} 
+                  position={[0, 0, 0]}
+                  scale={[0.01, 0.01, 0.01]}
+                />
                 <OrbitControls
                   enableRotate={false}
                   enableZoom={false}

@@ -14,7 +14,7 @@ import {
 import PathConstants from "../routes/pathConstants.js"
 
 const Model = ({ animationName }) => {
-  const gltf = useLoader(GLTFLoader, "/models/NonglouiseModel/Louisehide.glb")
+  const gltf = useLoader(GLTFLoader, "/models/NonglouiseModel/Louisecenter.glb")
   const mixer = useRef()
   useEffect(() => {
     // Log all animation names
@@ -133,13 +133,19 @@ const DisplayVocabAdmin = () => {
         <div className="flex justify-center items-center w-full h-full">
           <div className="card lg:card-side bg-base-100 shadow-xl w-full h-full">
             <figure className="flex justify-center w-2/4 h-auto">
-              <Canvas camera={{ position: [0, 2, 4], fov: 45 }}>
+              <Canvas camera={{ position: [0, 1, 1], fov: 75 }}>
                 <ambientLight intensity={1} />
                 <directionalLight position={[5, 10, 7.5]} intensity={1} />
                 <color attach="background" args={["#ffffff"]} />
-                <Model animationName={animationName} />
-                <OrbitControls enableDamping />
+                {/* <axesHelper args={[5]} />
+                <gridHelper args={[10, 10]} /> */}
+                <Model animationName={animationName} 
+                position={[0, 0, 0]} 
+                scale={[0.01, 0.01, 0.01]}
+                />
+                <OrbitControls enableDampingDamping target={[0, 1, 0]} />
               </Canvas>
+              
             </figure>
             <div className="card-body relative">
               <h3 className="card-title font-bold text-2xl">ไข่เจียว</h3>

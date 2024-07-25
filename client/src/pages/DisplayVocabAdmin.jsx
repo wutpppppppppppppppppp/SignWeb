@@ -133,7 +133,7 @@ const DisplayVocabAdmin = () => {
         <div className="flex justify-center items-center w-full h-full">
           <div className="card lg:card-side bg-base-100 shadow-xl w-full h-full">
             <figure className="flex justify-center w-2/4 h-auto">
-              <Canvas camera={{ position: [0, 1, 1], fov: 75 }}>
+              <Canvas camera={{ position: [0, 1, 1.2], fov: 45 }}>
                 <ambientLight intensity={1} />
                 <directionalLight position={[5, 10, 7.5]} intensity={1} />
                 <color attach="background" args={["#ffffff"]} />
@@ -143,7 +143,7 @@ const DisplayVocabAdmin = () => {
                 position={[0, 0, 0]} 
                 scale={[0.01, 0.01, 0.01]}
                 />
-                <OrbitControls enableDampingDamping target={[0, 1, 0]} />
+                {/* <OrbitControls enableDampingDamping target={[0, 1, 0]} /> */}
               </Canvas>
               
             </figure>

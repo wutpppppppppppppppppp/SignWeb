@@ -1,7 +1,8 @@
 import * as React from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import Navbar3 from "../components/Navbar3"
-import PathConstants from "../routes/pathConstants"
+import RecordButton from "../components/RecordBtn"
+import { VscSettings } from "react-icons/vsc"
 // Uncomment the imports for the recording services
 // import {
 //   startRecording,
@@ -28,7 +29,9 @@ const Record = () => {
   const handleStopRecording = () => {
     setIsRecording(false)
     console.log("stoprecord")
-    navigate(PathConstants.DISPLAY_VOCAB_ADMIN) // Programmatically navigate after stopping recording
+    // Call the stopRecording function
+    // stopRecording()
+    navigate(`/categoryad/${categoryName}/${vocabName}`) // Programmatically navigate after stopping recording
   }
 
   return (
@@ -42,7 +45,7 @@ const Record = () => {
               <img
                 src="/Screenshot 2567-07-12 at 23.50.09.png"
                 alt="Rokoko Studio Model"
-                className="w-full h-full"
+                className="bg-cover h-full"
               />
             </div>
           </div>
@@ -53,26 +56,14 @@ const Record = () => {
             onClick={handleCalibrate}
             disabled={isRecording}
           >
-            ปรับท่า​ (Calibrate)
+            <VscSettings />
+            ปรับท่า​
           </button>
-          {!isRecording ? (
-            <button
-              className="btn bg-confirm text-white"
-              onClick={handleStartRecording}
-            >
-              เริ่มการบันทึก (Start Recording)
-            </button>
-          ) : (
-            <>
-              <button
-                className="btn btn-active btn-error text-error-content"
-                onClick={handleStopRecording}
-              >
-                สิ้นสุดการบันทึก (Stop Recording)
-              </button>
-              <Link to={PathConstants.DONE}></Link>
-            </>
-          )}
+          <RecordButton
+            isRecording={isRecording}
+            handleStartRecording={handleStartRecording}
+            handleStopRecording={handleStopRecording}
+          />
         </div>
       </div>
       <div className="mt-auto">

@@ -7,7 +7,7 @@ import SearchBox from "./SearchBox"
 
 function Navbar({ title }) {
   return (
-    <div className="navbar bg-primary text-primary-content p-1">
+    <div className="navbar bg-primary p-1 shadow-sm border-b-2 border-b-secondary-content">
       <div className="navbar-start">
         <Link to="/" className="btn btn-ghost">
           <FiHome className="size-6" title="กลับไปหน้าแรก" />

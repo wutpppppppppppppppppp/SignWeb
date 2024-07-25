@@ -34,7 +34,6 @@ const Category = () => {
   return (
     <div className="w-screen h-screen flex flex-col justify-between bg-primary">
       <Navbar title="ประเภท" />
-      <div className="h-0.5 bg-secondary-content w-full"></div>
       <div className="flex-grow grid grid-cols-5 gap-4 py-4">
         {currentCategories.map((category) => (
           <div key={category._id} className="flex flex-col items-center">

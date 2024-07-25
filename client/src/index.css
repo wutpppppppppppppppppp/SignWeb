@@ -2,13 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-html{
+html {
   box-sizing: border-box;
-  height:100;
+  height: 100;
   margin: 0;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
@@ -17,16 +19,16 @@ body {
 }
 
 #root {
-  @apply flex flex-col justify-center items-center w-full h-full max-w-screen-xl mx-auto my-0;
+  @apply w-full h-full mx-auto my-0;
 }
 
 h1 {
   @apply text-5xl font-bold;
 }
-h2{
+h2 {
   @apply text-3xl font-bold;
 }
 
-h3{
+h3 {
   @apply text-3xl font-semibold;
 }

@@ -44,18 +44,16 @@ const DisplayVocab = () => {
         <div className="flex justify-center items-center w-full h-full">
           <div className="card lg:card-side w-full h-full">
             <figure className="w-2/4 h-auto">
-              <Canvas
-                camera={{
-                  position: [0, 2, 4],
-                  fov: 70,
-                  zoom: 2,
-                  filmOffset: 0,
-                }}
-              >
+              <Canvas camera={{ position: [0, 1, 1.2], fov: 45 }}>
                 <ambientLight intensity={1} />
                 <directionalLight position={[5, 10, 7.5]} intensity={1} />
                 <Model modelUrl={modelUrl} />
-                <OrbitControls enableDamping />
+                <OrbitControls
+                  enableRotate={false}
+                  enableZoom={false}
+                  enablePan={false}
+                  target={[0, 1, 0]}
+                />
               </Canvas>
             </figure>
             <div className="card-body relative">

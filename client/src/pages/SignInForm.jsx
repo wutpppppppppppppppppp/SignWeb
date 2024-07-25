@@ -7,7 +7,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
 
   return (
-    <div className="w-screen h-screen flex flex-col justify-between">
+    <div className="w-screen h-screen flex flex-col justify-between bg-primary">
       <Navbar2 title="สร้างบัญชี" />
 
       <div className="flex flex-col items-center justify-center space-y-8">
@@ -112,7 +112,7 @@ const SignIn = () => {
         <div className="flex items-center justify-center mb-8">
         <div className="max-w-fit">
           <div className="flex justify-center gap-2 max-w-l w-full px-4">
-              <Link to="/login" className="btn btn-primary btn-lg btn-wide text-primary-content">
+              <Link to="/login" className="btn btn-secondary btn-lg btn-wide text-secondary-content">
               สร้างบัญชี
               </Link>
           </div>

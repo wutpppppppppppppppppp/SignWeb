@@ -62,7 +62,7 @@ const Categoryad = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-primary to-primary-light">
+    <div className="min-h-screen flex flex-col bg-primary from-primary to-primary-light">
       <Navbar title="ประเภท" />
       <div className="h-0.5 bg-secondary-content w-full"></div>
       <div className="flex-grow container mx-auto px-4 py-8">
@@ -85,7 +85,7 @@ const Categoryad = () => {
           currentPage={currentPage}
         />
       </div>
-      <div className="bg-gray-800 text-primary text-sm py-2 text-center">
+      <div className="bg-secondary text-secondary-content text-sm py-2 text-center">
         <p>เลขที่พอร์ตปัจจุบัน (Port): 14053</p>
         <p>เลขที่ไอพีปัจจุบัน (IP Address): 172.20.10.3</p>
       </div>

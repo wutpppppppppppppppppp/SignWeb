@@ -54,16 +54,16 @@ export default {
     themes: [
       {
         mytheme: {
-          "primary": "#FFFFFF",
+          "primary": "#FFFFFF", //white
           "primary-content": "#64558E",
 
-          "secondary": "#21005D",
+          "secondary": "#21005D",//purple 
           "secondary-content": "#EBDDFF",
           
           // "accent: "#707C69",
           "accent-content": "#FEFBFD",
           
-          "neutral": "#FCF3E3",
+          "neutral": "#FCF3E3", 
           "neutral-content": "#0B3B53",
           "base-100": "#FFFCF5",
           "base-200": "#FEF2E4",

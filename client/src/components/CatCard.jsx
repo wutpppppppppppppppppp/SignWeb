@@ -2,7 +2,7 @@ import React from "react"
 
 const CatCard = ({ image, title }) => {
   return (
-    <div className="card bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 w-full max-w-xs">
+    <div className="card bg-primary shadow-lg hover:shadow-xl transition-shadow duration-300 w-full max-w-xs">
       <figure className="px-4 pt-4">
         <img src={image} alt={title} className="rounded-xl object-cover w-full aspect-square" />
       </figure>

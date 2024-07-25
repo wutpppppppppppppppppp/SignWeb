@@ -2,6 +2,8 @@
 
 import daisyui from "daisyui"
 import autoprefixer from "autoprefixer"
+import { DEFAULT } from "@react-three/fiber/dist/declarations/src/core/utils"
+import { Warning } from "postcss"
 
 export default {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
@@ -13,6 +15,21 @@ export default {
         },
         others: {
           DEFAULT: "#F3A157",
+        },
+        white:{
+          DEFAULT: "#FFFFFF",
+        },
+        blue:{
+          DEFAULT: "#3B82F6", 
+        },
+        lightgray:{
+          DEFAULT: "#F3F4F6",
+        },
+        lightergray:{
+          DEFAULT: "E5E7EB",
+        },
+        darkgray:{
+          DEFAULT: "111827",
         },
       },
       fontFamily: {
@@ -39,10 +56,13 @@ export default {
         mytheme: {
           "primary": "#FFFFFF",
           "primary-content": "#64558E",
+
           "secondary": "#21005D",
           "secondary-content": "#EBDDFF",
+          
           // "accent: "#707C69",
           "accent-content": "#FEFBFD",
+          
           "neutral": "#FCF3E3",
           "neutral-content": "#0B3B53",
           "base-100": "#FFFCF5",

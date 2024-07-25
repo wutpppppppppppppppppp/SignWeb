@@ -1,7 +1,9 @@
-import React, { useState, useRef } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Navbar3 from "../components/Navbar3";
+import  React,{ useState, useRef } from "react"
+import { Link, useNavigate, useParams } from "react-router-dom"
+import Navbar3 from "../components/Navbar3"
 import PathConstants from "../routes/pathConstants";
+import RecordButton from "../components/RecordBtn"
+import { VscSettings } from "react-icons/vsc"
 // Uncomment the imports for the recording services
 // import {
 //   startRecording,
@@ -11,15 +13,22 @@ import PathConstants from "../routes/pathConstants";
 
 const Record = () => {
   const { categoryName, vocabName } = useParams();
-  const [isRecording, setIsRecording] = useState(false);
   const navigate = useNavigate();
+  const [isRecording, setIsRecording] = React.useState(false)
+  const [isCalibrating, setIsCalibrating] = React.useState(false)
   const vdo_3d = useRef(null);
   const vdo_cam = useRef(null);
 
   const handleCalibrate = () => {
+
+    setIsCalibrating(true)
     // Call the calibrate function
     // calibrate()
-  };
+
+    setTimeout(() => {
+      setIsCalibrating(false)
+    }, 3000) // Disable the button for 3 seconds
+  }
 
   const handleStartRecording = () => {
     
@@ -31,28 +40,26 @@ const Record = () => {
     }
     if (vdo_cam.current) {
       vdo_cam.current.play();
-    }
-    //after call start function the video of 3D and camera will play 
-  };
+    }//after call start function the video of 3D and camera will play 
+  }
 
   const handleStopRecording = () => {
-
-    setIsRecording(false);
-    console.log("stoprecord");
-    //the start record is false then will stop record
-    navigate(PathConstants.DISPLAY_VOCAB_ADMIN); 
-    //navigate after stopping recording
+    
+    setIsRecording(false)
+    console.log("stoprecord")
+    // Call the stopRecording function
+    // stopRecording()
+    navigate(`/categoryad/${categoryName}/${vocabName}`) // Programmatically navigate after stopping recording
     if (vdo_3d.current) {
       vdo_3d.current.pause();
     }
     if (vdo_cam.current) {
       vdo_cam.current.pause();
-    }
-    //pause the vdo then go to the stop record
-  };
+    }//pause the vdo then go to the stop record
+  }
 
   return (
-    <div className="w-screen h-screen flex flex-col justify-between bg-primary">
+    <div className="w-screen h-screen">
       <Navbar3 title={`บันทึกท่าคำศัพท์: ${vocabName}`} />
 
       {/* <div class="grid grid-cols-2 gap-2">
@@ -82,23 +89,19 @@ const Record = () => {
             ปรับท่า​ (Calibrate)
           </button>
           {!isRecording ? (
-            <button className="btn bg-confirm text-white" onClick={handleStartRecording}>
-              เริ่มการบันทึก (Start Recording)
-            </button>
+          <button className="btn bg-confirm text-white" onClick={handleStartRecording}>
+            เริ่มการบันทึก (Start Recording)
+          </button>
           ) : (
             <>
-              <button
-                className="btn btn-active btn-error text-error-content"
-                onClick={handleStopRecording}
-              >
+              <button className="btn btn-active btn-error text-error-content"
+                onClick={handleStopRecording}>
                 สิ้นสุดการบันทึก (Stop Recording)
               </button>
               <Link to={PathConstants.DONE}></Link>
             </>
           )}
         </div>
-      </div>
-      <div className="mt-auto">
         <div className="bg-primary-content text-primary text-sm py-2 text-center absolute bottom-0 inset-x-0">
           <p>เลขที่พอร์ตปัจจุบัน (Port): 14053</p>
           <p>เลขที่ไอพีปัจจุบัน (IP Address): 172.20.10.3</p>

@@ -2,6 +2,8 @@
 import * as React from "react"
 import { createBrowserRouter } from "react-router-dom"
 import PathConstants from "./pathConstants"
+import  LoadingDots  from "../components/Loading.jsx"
+
 const SetupForm = React.lazy(() => import("../pages/SetupForm"))
 const ControlButtons = React.lazy(() => import("../pages/ControlButtons"))
 const ThreeScene = React.lazy(() => import("../pages/ThreeScene"))
@@ -23,15 +25,15 @@ const routes = createBrowserRouter([
   {
     path: PathConstants.LANDING,
     element: (
-      <React.Suspense fallback={<div>Loading...</div>}>
-        <LandingPage />
-      </React.Suspense>
+      <React.Suspense fallback={<LoadingDots />}>
+      <LandingPage />
+    </React.Suspense>
     ),
   },
   // {
   //   path: PathConstants.INFO_POLICY,
   //   element: (
-  //     <React.Suspense fallback={<div>Loading...</div>}>
+  //     <React.Suspense fallback={<LoadingDots />}>
   //       <InfoPolicy />
   //     </React.Suspense>
   //   ),
@@ -39,7 +41,7 @@ const routes = createBrowserRouter([
   {
     path: PathConstants.LOGIN,
     element: (
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Suspense fallback={<LoadingDots />}>
         <Login />
       </React.Suspense>
     ),
@@ -47,7 +49,7 @@ const routes = createBrowserRouter([
   {
     path: PathConstants.SIGN_IN,
     element: (
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Suspense fallback={<LoadingDots />}>
         <SignIn />
       </React.Suspense>
     ),
@@ -55,7 +57,7 @@ const routes = createBrowserRouter([
   {
     path: PathConstants.CATEGORY,
     element: (
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Suspense fallback={<LoadingDots />}>
         <Category />
       </React.Suspense>
     ),
@@ -63,7 +65,7 @@ const routes = createBrowserRouter([
   {
     path: PathConstants.CATEGORY_ADMIN,
     element: (
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Suspense fallback={<LoadingDots />}>
         <CategoryAdmin />
       </React.Suspense>
     ),
@@ -71,7 +73,7 @@ const routes = createBrowserRouter([
   {
     path: PathConstants.VOCABULARY,
     element: (
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Suspense fallback={<LoadingDots />}>
         <Vocab />
       </React.Suspense>
     ),
@@ -79,7 +81,7 @@ const routes = createBrowserRouter([
   {
     path: PathConstants.VOCABULARY_ADMIN,
     element: (
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Suspense fallback={<LoadingDots />}>
         <VocabAdmin />
       </React.Suspense>
     ),
@@ -87,7 +89,7 @@ const routes = createBrowserRouter([
   {
     path: PathConstants.DISPLAY_VOCAB,
     element: (
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Suspense fallback={<LoadingDots />}>
         <DisplayVocab />
       </React.Suspense>
     ),
@@ -95,7 +97,7 @@ const routes = createBrowserRouter([
   {
     path: PathConstants.DISPLAY_VOCAB_ADMIN,
     element: (
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Suspense fallback={<LoadingDots />}>
         <DisplayVocabAdmin />
       </React.Suspense>
     ),
@@ -103,7 +105,7 @@ const routes = createBrowserRouter([
   {
     path: PathConstants.SETUP_FORM,
     element: (
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Suspense fallback={<LoadingDots />}>
         <SetupForm />
       </React.Suspense>
     ),
@@ -111,7 +113,7 @@ const routes = createBrowserRouter([
   {
     path: PathConstants.CONTROL_BUTTONS,
     element: (
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Suspense fallback={<LoadingDots />}>
         <ControlButtons />
       </React.Suspense>
     ),
@@ -119,7 +121,7 @@ const routes = createBrowserRouter([
   {
     path: PathConstants.THREE_SCENE,
     element: (
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Suspense fallback={<LoadingDots />}>
         <ThreeScene />
       </React.Suspense>
     ),
@@ -127,7 +129,7 @@ const routes = createBrowserRouter([
   {
     path: PathConstants.RECORD,
     element: (
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Suspense fallback={<LoadingDots />}>
         <Record />
       </React.Suspense>
     ),
@@ -135,7 +137,7 @@ const routes = createBrowserRouter([
   {
     path: PathConstants.DONE,
     element: (
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Suspense fallback={<LoadingDots />}>
         <DoneRecord />
       </React.Suspense>
     ),
@@ -147,3 +149,4 @@ const routes = createBrowserRouter([
 ])
 
 export default routes
+

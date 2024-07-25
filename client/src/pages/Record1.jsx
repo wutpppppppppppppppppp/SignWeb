@@ -13,11 +13,17 @@ import { VscSettings } from "react-icons/vsc"
 const Record = () => {
   const { categoryName, vocabName } = useParams()
   const [isRecording, setIsRecording] = React.useState(false)
+  const [isCalibrating, setIsCalibrating] = React.useState(false)
   const navigate = useNavigate()
 
   const handleCalibrate = () => {
+    setIsCalibrating(true)
     // Call the calibrate function
     // calibrate()
+
+    setTimeout(() => {
+      setIsCalibrating(false)
+    }, 3000) // Disable the button for 3 seconds
   }
 
   const handleStartRecording = () => {
@@ -35,38 +41,31 @@ const Record = () => {
   }
 
   return (
-    <div className="w-screen h-screen flex flex-col justify-between bg-primary">
+    <div className="w-screen h-screen">
       <Navbar3 title={`บันทึกท่าคำศัพท์: ${vocabName}`} />
-      <div className="flex flex-col items-center justify-center flex-grow">
-        <div className="mockup-phone">
-          <div className="camera"></div>
-          <div className="display">
-            <div className="artboard artboard-demo phone-1">
-              <img
-                src="/Screenshot 2567-07-12 at 23.50.09.png"
-                alt="Rokoko Studio Model"
-                className="bg-cover h-full"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="flex gap-x-5 m-5">
+      <div className="flex flex-col items-center justify-center">
+        <div className="flex gap-x-5 items-center">
           <button
-            className={`btn ${isRecording ? "btn-disabled" : "btn-primary-content"} text-primary-content`}
+            className={`btn ${
+              isCalibrating
+                ? "btn-disabled"
+                : "btn-primary-content text-primary-content"
+            } text-primary`}
             onClick={handleCalibrate}
-            disabled={isRecording}
+            disabled={isCalibrating}
           >
-            <VscSettings />
+            <VscSettings
+              className={`${isCalibrating ? "animate-pulse" : ""}`}
+            />
             ปรับท่า​
           </button>
           <RecordButton
+            className="h-10 w-10"
             isRecording={isRecording}
             handleStartRecording={handleStartRecording}
             handleStopRecording={handleStopRecording}
           />
         </div>
-      </div>
-      <div className="mt-auto">
         <div className="bg-primary-content text-primary text-sm py-2 text-center absolute bottom-0 inset-x-0">
           <p>เลขที่พอร์ตปัจจุบัน (Port): 14053</p>
           <p>เลขที่ไอพีปัจจุบัน (IP Address): 172.20.10.3</p>

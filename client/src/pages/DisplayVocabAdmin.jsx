@@ -127,7 +127,7 @@ const DisplayVocabAdmin = () => {
   }, [animationName])
 
   return (
-    <div className="w-screen h-screen flex flex-col relative">
+    <div className="w-screen h-screen flex flex-col relative bg-primary">
       <Navbar3 title={`วิดีโอภาษามือ : ไข่เจียว `} />
       <div className="p-4 flex justify-center items-center flex-grow">
         <div className="flex justify-center items-center w-full h-full">
@@ -180,10 +180,10 @@ const DisplayVocabAdmin = () => {
         </div>
       </div>
 
-      <div className="flex-grow flex place-self-end">
+      {/* <div className="flex-grow flex place-self-end">
         เลขที่พอร์ตปัจจุบัน (Port):14053 เลขที่ไอพีปัจจุบัน
         (IPAddress):172.20.10.3
-      </div>
+      </div> */}
     </div>
   )
 }

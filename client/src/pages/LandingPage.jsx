@@ -17,7 +17,7 @@ const LandingPage = () => {
           to={PathConstants.LANDING}
           className="text-purple-900 font-bold text-xl hover:text-purple-600 navbar-start pl-3"
         >
-          SignPose 3D
+          SignPose3D
         </Link>
         <div className="navbar-end"></div>
         <Link

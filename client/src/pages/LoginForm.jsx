@@ -8,12 +8,13 @@ const Login = () => {
 
   return (
     <div className="w-screen h-screen flex flex-col justify-between bg-primary">
-      <Navbar2 title="เข้าสู่ระบบ" />
+      <Navbar2 title="SignPose3D" />
       <div className="h-0.5 bg-secondary-content w-full"></div>
-      <div className="flex-grow flex items-center justify-center w-2/3 place-self-center bg-gray-200 my-20 rounded-lg">
-        <div className="p-4 flex flex-col">
+      <div className="flex-grow flex items-center justify-center w-2/3 place-self-center my-20">
+        <div className="p-4 flex flex-col justify-center item-center">
           <div className="flex flex-col gap-1 mb-4">
             {/* email */}
+            <h1 className="text-primary-content text-center">เข้าสู่ระบบ</h1>
             <span className="label-text">อีเมล</span>
             <label className="input input-bordered flex items-center gap-2">
               <IoMdMail />
@@ -39,8 +40,8 @@ const Login = () => {
           <div className="flex flex-col gap-2">
             {/*login*/}
             <Link to="/setup-form">
-              <button className="btn btn-wide btn-secondary text-secondary-content">
-                เข้าสู่ระบบ
+              <button className="btn btn-wide btn-secondary text-secondary-content ">
+                ยืนยัน
               </button>
             </Link>
             <div className="flex-grow flex items-center justify-center">
@@ -48,7 +49,7 @@ const Login = () => {
             </div>
             {/*signin*/}
             <Link to="/sign-in" className="place-self-center">
-              <button className="btn btn-success text-success-content">
+              <button className="btn btn-neutral text-success-content">
                 สร้างบัญชี
               </button>
             </Link>

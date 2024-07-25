@@ -15,24 +15,62 @@ const { version } = JSON.parse(
 // inside this plugin and its children will have the prefix
 // as part of the path.
 
-export default async function (fastify, opts) {
-  const opt = {
-    schema: {
-      querystring: {
-        type: "object",
-        properties: {
-          ids: {
-            type: "array",
-            default: [],
-          },
-        },
-      },
-    },
-  };
+const searchSchema = {
+  querystring: S.object().prop("find", S.string().required()),
+  response: {
+    200: S.object().prop(
+      "suggestions",
+      S.array().items(
+        S.object()
+          .prop("name", S.string())
+          .prop("type", S.string())
+          .prop("category", S.string())
+      )
+    ),
+  },
+};
 
-  fastify.get("/", opt, (request, reply) => {
-    reply.send({ params: request.query }); // echo the querystring
-  });
+export default async function (fastify, opts) {
+  fastify.get(
+    "/search",
+    { schema: searchSchema },
+    async function (request, reply) {
+      try {
+        const query = request.query.find.toLowerCase();
+        const categoriesCollection = fastify.mongo.client
+          .db("sample_sign")
+          .collection("categories");
+
+        // Fetch categories and vocabularies
+        const categories = await categoriesCollection.find().toArray();
+
+        // Filter and collect matching results
+        let suggestions = [];
+
+        categories.forEach((category) => {
+          if (category.name.toLowerCase().includes(query)) {
+            suggestions.push({ name: category.name, type: "category" });
+          }
+
+          category.vocabularies.forEach((vocab) => {
+            if (vocab.name.toLowerCase().includes(query)) {
+              suggestions.push({
+                name: vocab.name,
+                type: "vocabulary",
+                category: category.name,
+              });
+            }
+          });
+        });
+
+        fastify.log.info(`Fetched suggestions: ${JSON.stringify(suggestions)}`);
+        reply.send({ suggestions });
+      } catch (err) {
+        fastify.log.error(err, "Failed to fetch suggestions");
+        reply.code(500).send({ error: "Failed to fetch suggestions" });
+      }
+    }
+  );
 }
 // fastify.get("/status", opt, async function (request, reply) {
 //   // Create the response object

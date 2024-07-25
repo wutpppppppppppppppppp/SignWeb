@@ -12,7 +12,7 @@ const Vocabulary = () => {
     const fetchVocabularies = async () => {
       try {
         const response = await api.get(`/api/vocabularies/`, {
-          params: { category },
+          params: { category: category },
         })
         setVocabularies(response.data)
         setError(null)

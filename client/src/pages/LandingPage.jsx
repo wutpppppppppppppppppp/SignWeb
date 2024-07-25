@@ -36,7 +36,7 @@ const LandingPage = () => {
           <h1 className="text-8xl mb-10">คลังเก็บภาษามือไทย</h1>
           <Link
             to={PathConstants.CATEGORY}
-            className="btn btn-wide btn-lg btn-primary text-primary-content"
+            className="btn btn-wide btn-lg btn-primary text-primary-content hover:scale-105"
           >
             ค้นหาภาษามือ
           </Link>

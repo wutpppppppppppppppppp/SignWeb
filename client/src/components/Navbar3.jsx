@@ -6,11 +6,11 @@ import { Link } from "react-router-dom"
 import Drawer from "./Drawer"
 
 function Navbar({ title }) {
-  const Navigate = useNavigate()
+  const navigate = useNavigate()
   return (
     <div className="navbar bg-primary text-primary-content p-1">
       <div className="navbar-start">
-        <button onClick={() => Navigate(-1)} className="btn btn-ghost">
+        <button onClick={() => navigate(-1)} className="btn btn-ghost">
           <IoIosArrowBack className="size-6" title="กลับไปหน้าแรก" />
         </button>
       </div>

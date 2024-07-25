@@ -1,7 +1,7 @@
-import * as React from "react"
-import { Link, useNavigate, useParams } from "react-router-dom"
-import Navbar3 from "../components/Navbar3"
-import PathConstants from "../routes/pathConstants"
+import React, { useState, useRef } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Navbar3 from "../components/Navbar3";
+import PathConstants from "../routes/pathConstants";
 // Uncomment the imports for the recording services
 // import {
 //   startRecording,
@@ -10,56 +10,79 @@ import PathConstants from "../routes/pathConstants"
 // } from "../services/recordServices";
 
 const Record = () => {
-  const { categoryName, vocabName } = useParams()
-  const [isRecording, setIsRecording] = React.useState(false)
-  const navigate = useNavigate()
+  const { categoryName, vocabName } = useParams();
+  const [isRecording, setIsRecording] = useState(false);
+  const navigate = useNavigate();
+  const vdo_3d = useRef(null);
+  const vdo_cam = useRef(null);
 
   const handleCalibrate = () => {
     // Call the calibrate function
     // calibrate()
-  }
+  };
 
   const handleStartRecording = () => {
-    setIsRecording(true)
+    
+    setIsRecording(true);
     // Call the startRecording function
     // startRecording()
-  }
+    if (vdo_3d.current) {
+      vdo_3d.current.play();
+    }
+    if (vdo_cam.current) {
+      vdo_cam.current.play();
+    }
+    //after call start function the video of 3D and camera will play 
+  };
 
   const handleStopRecording = () => {
-    setIsRecording(false)
-    console.log("stoprecord")
-    navigate(PathConstants.DISPLAY_VOCAB_ADMIN) // Programmatically navigate after stopping recording
-  }
+
+    setIsRecording(false);
+    console.log("stoprecord");
+    //the start record is false then will stop record
+    navigate(PathConstants.DISPLAY_VOCAB_ADMIN); 
+    //navigate after stopping recording
+    if (vdo_3d.current) {
+      vdo_3d.current.pause();
+    }
+    if (vdo_cam.current) {
+      vdo_cam.current.pause();
+    }
+    //pause the vdo then go to the stop record
+  };
 
   return (
     <div className="w-screen h-screen flex flex-col justify-between bg-primary">
       <Navbar3 title={`บันทึกท่าคำศัพท์: ${vocabName}`} />
+
+      {/* <div class="grid grid-cols-2 gap-2">
+        <div class="col-start-1"></div>
+        <div class="grid grid-cols-subgrid gap-4 col-span-3"></div>
+      </div> */}
+      
+      <h1 className="text-primary-content text-center">บันทึกท่าคำศัพท์</h1>
       <div className="flex flex-col items-center justify-center flex-grow">
-        <div className="mockup-phone">
-          <div className="camera"></div>
-          <div className="display">
-            <div className="artboard artboard-demo phone-1">
-              <img
-                src="/Screenshot 2567-07-12 at 23.50.09.png"
-                alt="Rokoko Studio Model"
-                className="w-full h-full"
-              />
-            </div>
+        <div className="grid grid-cols-2 gap-10 w-full max-w-7xl p-6">
+          {/* clip 3D */}
+          <div className="item1"> 
+            <video ref={vdo_3d} controls className="w-full h-auto">
+              <source src="/Users/kwinyarutpoungsangthanakul/Catch me if you can/Library/PackageCache/com.unity.timeline@1.6.4/Samples~/Customization/Demo/Videos/M30-1422.mp4" type="video/mp4" />
+            </video>
+          </div>
+          {/* clip from camera */}
+          <div className="item2">
+            <video ref={vdo_cam} controls className="w-full h-auto">
+              <source src="/Users/kwinyarutpoungsangthanakul/Catch me if you can/Library/PackageCache/com.unity.timeline@1.6.4/Samples~/Customization/Demo/Videos/M30-1422.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
+
         <div className="flex gap-x-5 m-5">
-          <button
-            className={`btn ${isRecording ? "btn-disabled" : "btn-primary-content"} text-primary-content`}
-            onClick={handleCalibrate}
-            disabled={isRecording}
-          >
+          <button className={`btn ${isRecording ? "btn-disabled" : "btn-primary-content"} text-primary-content`} onClick={handleCalibrate} disabled={isRecording}>
             ปรับท่า​ (Calibrate)
           </button>
           {!isRecording ? (
-            <button
-              className="btn bg-confirm text-white"
-              onClick={handleStartRecording}
-            >
+            <button className="btn bg-confirm text-white" onClick={handleStartRecording}>
               เริ่มการบันทึก (Start Recording)
             </button>
           ) : (
@@ -82,7 +105,7 @@ const Record = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Record
+export default Record;

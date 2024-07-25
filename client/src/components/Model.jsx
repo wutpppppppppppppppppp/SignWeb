@@ -57,21 +57,37 @@ import * as THREE from "three"
 const Model = ({ modelUrl }) => {
   const gltf = useLoader(GLTFLoader, modelUrl)
   const mixer = useRef()
-
+  const animationName = "Root|clip|Base_Layer Retarget.001"
   useEffect(() => {
+    // Log all animation names
+    // console.log("All animations:")
+    // gltf.animations.forEach((animation, index) => {
+    //   console.log(`${index}: ${animation.name}`)
+    // })
+
     if (gltf.animations.length) {
       mixer.current = new THREE.AnimationMixer(gltf.scene)
-      gltf.animations.forEach((clip) => {
-        mixer.current.clipAction(clip).play()
-      })
+      let clip = THREE.AnimationClip.findByName(gltf.animations, animationName)
+      if (!clip && !isNaN(parseInt(animationName))) {
+        const index = parseInt(animationName)
+        if (index >= 0 && index < gltf.animations.length) {
+          clip = gltf.animations[index]
+        }
+      }
 
-      return () => {
-        gltf.animations.forEach((clip) => {
-          mixer.current.uncacheClip(clip)
-        })
+      if (clip) {
+        const action = mixer.current.clipAction(clip)
+        action.play()
+        // console.log(`Playing animation: ${clip.name}`)
+      } else {
+        console.log(`Animation not found: ${animationName}`)
       }
     }
-  }, [gltf])
+
+    return () => {
+      mixer.current?.stopAllAction()
+    }
+  }, [gltf, animationName])
 
   useFrame((state, delta) => {
     mixer.current?.update(delta)

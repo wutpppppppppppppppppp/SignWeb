@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom"
 import api from "../hooks/api"
 import Navbar from "../components/Navbar"
 import SearchBox from "../components/SearchBox"
+
 const Vocabulary = () => {
   const { category } = useParams()
   const [vocabularies, setVocabularies] = useState([])
@@ -25,13 +26,12 @@ const Vocabulary = () => {
     if (category) {
       fetchVocabularies()
     }
-  }, [category, error])
+  }, [category, vocabularies, error])
 
   return (
     <div className="w-screen h-screen">
       <Navbar title={`คำศัพท์${category}`} />
-      <div className="hero w-screen bg-[url(`data:image/png;base64,${this.state.image}`)]">
-        <div className="hero-overlay bg-opacity-60"></div>
+      <div className="hero w-screen">
         <div className="hero-content text-neutral-content text-center">
           <div className="max-w-md mx-auto">
             <h1 className="mb-5 text-5xl font-bold">{category}</h1>
@@ -39,7 +39,6 @@ const Vocabulary = () => {
           </div>
         </div>
       </div>
-
       <div className="p-4">
         <div className="grid grid-cols-4 gap-4 justify-center">
           {vocabularies.map((vocab, index) => (

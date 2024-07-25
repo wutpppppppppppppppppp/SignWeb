@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
-import daisyui from "daisyui"
-import autoprefixer from "autoprefixer"
+import daisyui from "daisyui";
+import autoprefixer from "autoprefixer";
 
 export default {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
@@ -30,17 +30,21 @@ export default {
         900: "900",
       },
       keyframes: {
-        pulse: {
+        wave: {
+          '0%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.5)' },
+          '100%': { transform: 'scale(1)' },
+        },        pulse: {
           "0%, 100%": { transform: "scale(1)", opacity: 1 },
           "50%": { transform: "scale(1.5)", opacity: 0.7 },
         },
       },
       animation: {
+        wave: 'wave 1s ease-in-out infinite',
         pulse: "pulse 1.5s ease-in-out infinite",
       },
     },
   },
-
   plugins: [daisyui, autoprefixer],
   daisyui: {
     themes: [
@@ -50,7 +54,6 @@ export default {
           "primary-content": "#64558E",
           secondary: "#21005D",
           "secondary-content": "#EBDDFF",
-          // "accent: "#707C69",
           "accent-content": "#FEFBFD",
           neutral: "#FCF3E3",
           "neutral-content": "#0B3B53",
@@ -70,4 +73,4 @@ export default {
       },
     ],
   },
-}
+};

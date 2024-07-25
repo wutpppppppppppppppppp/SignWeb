@@ -43,12 +43,12 @@ const DisplayVocab = () => {
       <div className="p-4 flex justify-center items-center flex-grow bg-primary">
         <div className="flex justify-center items-center w-full h-full">
           <div className="card lg:card-side w-full h-full">
-            <figure className="w-2/4 h-auto">
+            <figure className="w-2/4 h-auto bg-blue-500">
               <Canvas camera={{ position: [0, 1, 1.2], fov: 45 }}>
-                <ambientLight intensity={1} />
+                <ambientLight intensity={4} />
                 <directionalLight position={[5, 10, 7.5]} intensity={1} />
-                <Model 
-                  modelUrl={modelUrl} 
+                <Model
+                  modelUrl={modelUrl}
                   position={[0, 0, 0]}
                   scale={[0.01, 0.01, 0.01]}
                 />

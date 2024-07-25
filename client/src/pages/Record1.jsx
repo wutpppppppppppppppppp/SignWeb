@@ -73,13 +73,13 @@ const Record = () => {
           {/* clip 3D */}
           <div className="item1"> 
             <video ref={vdo_3d} controls className="w-full h-auto">
-              <source src="/Users/kwinyarutpoungsangthanakul/Catch me if you can/Library/PackageCache/com.unity.timeline@1.6.4/Samples~/Customization/Demo/Videos/M30-1422.mp4" type="video/mp4" />
+              <source src="https://vod-progressive.akamaized.net/exp=1721963401~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F13%2F19%2F475068701%2F2119168947.mp4~hmac=376794e2b0349072e918363f1e6a039bdbb88107126a636af1967a7367c9866c/vimeo-prod-skyfire-std-us/01/13/19/475068701/2119168947.mp4?download=1&filename=sample_video.mp4+%28240p%29.mp4" type="video/mp4" />
             </video>
           </div>
           {/* clip from camera */}
           <div className="item2">
             <video ref={vdo_cam} controls className="w-full h-auto">
-              <source src="/Users/kwinyarutpoungsangthanakul/Catch me if you can/Library/PackageCache/com.unity.timeline@1.6.4/Samples~/Customization/Demo/Videos/M30-1422.mp4" type="video/mp4" />
+              <source src="https://vod-progressive.akamaized.net/exp=1721963401~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F13%2F19%2F475068701%2F2119168947.mp4~hmac=376794e2b0349072e918363f1e6a039bdbb88107126a636af1967a7367c9866c/vimeo-prod-skyfire-std-us/01/13/19/475068701/2119168947.mp4?download=1&filename=sample_video.mp4+%28240p%29.mp4" type="video/mp4" />
             </video>
           </div>
         </div>

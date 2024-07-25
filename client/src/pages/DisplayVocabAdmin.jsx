@@ -6,10 +6,9 @@ import api from "../hooks/api"
 import Navbar3 from "../components/Navbar3"
 import Model from "../components/Model"
 
-
 const DisplayVocabAdmin = () => {
   const { categoryad, vocabularyad } = useParams()
-  const [data,setData] = useState([])
+  const [data, setData] = useState([])
   const [error, setError] = useState(null)
   const navigate = useNavigate()
 
@@ -88,24 +87,23 @@ const DisplayVocabAdmin = () => {
       <div className="p-4 flex justify-center items-center flex-1">
         <div className="flex justify-center items-center w-full h-full">
           <div className="card lg:card-side bg-base-100 shadow-xl w-full h-full">
-            <figure className="flex justify-center w-2/4 h-auto">
-              <Canvas camera={{ position: [0, 1, 1.2], fov: 45}}>
-                <ambientLight intensity={1} />
+            <figure className="flex justify-center w-2/4 h-auto bg-blue-500">
+              <Canvas camera={{ position: [0, 1, 1.2], fov: 45 }}>
+                <ambientLight intensity={4} />
                 <directionalLight position={[5, 10, 7.5]} intensity={1} />
-                <color attach="background" args={["#ffffff"]} />
                 {/* <axesHelper args={[5]} />
                 <gridHelper args={[10, 10]} /> */}
                 <Model
-                  modelUrl={modelUrl} 
+                  modelUrl={modelUrl}
                   // animationName={animationName}
                   position={[0, 0, 0]}
                   scale={[0.01, 0.01, 0.01]}
                 />
-                <OrbitControls 
-                 enableRotate={false}
-                 enableZoom={false}
-                 enablePan={false}
-                 target={[0, 1, 0]} 
+                <OrbitControls
+                  enableRotate={false}
+                  enableZoom={false}
+                  enablePan={false}
+                  target={[0, 1, 0]}
                 />
               </Canvas>
             </figure>
@@ -113,9 +111,7 @@ const DisplayVocabAdmin = () => {
               <h3 className="card-title font-bold text-2xl">{vocabularyad}</h3>
               <div className="flex flex-col gap-1">
                 <a className="category text-xl">ประเภทคำ : {categoryad}</a>
-                <a className="explanation text-xl">
-                  {data.description}
-                </a>
+                <a className="explanation text-xl">{data.description}</a>
                 {/* <a className="approve text-xl">รับรองโดย : คุณไอติม</a> */}
               </div>
               {data.picture && (
@@ -125,7 +121,7 @@ const DisplayVocabAdmin = () => {
                   className="w-40 mx-auto"
                 />
               )}
-              
+
               <div className="absolute inset-x-0 bottom-0 p-4 bg-white shadow-lg flex justify-between">
                 <button
                   className="btn bg-others text-white w-1/2 text-center"

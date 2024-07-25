@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
 import api from "../hooks/api"
 import Navbar from "../components/Navbar"
-import SearchBox from "../components/SearchBox"
+import CatCard from "../components/CatCard"
 
 const Vocabulary = () => {
   const { category } = useParams()
@@ -30,24 +30,12 @@ const Vocabulary = () => {
 
   return (
     <div className="w-screen h-screen">
-      <Navbar title={`คำศัพท์${category}`} />
-      <div className="hero w-screen">
-        <div className="hero-content text-neutral-content text-center">
-          <div className="max-w-md mx-auto">
-            <h1 className="mb-5 text-5xl font-bold">{category}</h1>
-            <SearchBox placeholder={"ค้นหาคำศัพท์ ..."} />
-          </div>
-        </div>
-      </div>
+      <Navbar title={`${category}`} />
       <div className="p-4">
-        <div className="grid grid-cols-4 gap-4 justify-center">
+        <div className="grid grid-cols-5 gap-4 py-4">
           {vocabularies.map((vocab, index) => (
             <Link key={index} to={`/category/${category}/${vocab.name}`}>
-              <div className="border p-4 flex flex-col items-center">
-                <b>{vocab.name}</b>
-                {/* <div className="bg-cover bg-center" style="background-image: url(&)"></div> */}
-                <img src={vocab.picture} alt={vocab.name} className="" />
-              </div>
+              <CatCard image={vocab.picture} title={vocab.name} />
             </Link>
           ))}
         </div>

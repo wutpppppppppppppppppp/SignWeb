@@ -1,91 +1,57 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
+import api from "../hooks/api"
 import CatCard from "../components/CatCard"
 import Pagination from "../components/Pagination"
 import Navbar from "../components/Navbar"
-import placeHolder from "../assets/placeholder.png"
-
-const allCategories = [
-  {
-    name: "อาหาร",
-    image:
-      "https://as1.ftcdn.net/v2/jpg/01/92/00/78/1000_F_192007831_OGdxh37OAqmJpoMuWfgbKKYaQgpa9SJN.jpg",
-  },
-  {
-    name: "สัตว์",
-    image:
-      "https://www.timeforkids.com/wp-content/uploads/2023/11/G3G5_231117_bear_steps.jpg?w=1024",
-  },
-  {
-    name: "สี",
-    image:
-      "https://hips.hearstapps.com/hmg-prod/images/gettyimages-1270527025-6515e6930b257.jpg?crop=1xw:0.84375xh;center,top",
-  },
-  { name: "ร่างกาย", image: placeHolder },
-  {
-    name: "ครอบครัว",
-    image:
-      "https://xcdn-cf.vuihoc.vn/upload/5c209fe6176b0/2022/04/16/0ca4_family-2.jpg",
-  },
-  { name: "ลักษณะผู้คน", image: placeHolder },
-  {
-    name: "เวลา",
-    image:
-      "https://www.ikea.com/th/en/images/products/pluttis-wall-clock-black__1013114_pe829054_s5.jpg?f=s",
-  },
-  {
-    name: "ประโยค",
-    image:
-      "https://promova.com/content/common_mistakes_in_english_speaking_61f25b56ca.png",
-  },
-  {
-    name: "การทำอาหาร",
-    image:
-      "https://www.health.com/thmb/wfkIOj5dW5H6QLhXqEFHw87ow08=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Health-GettyImages-1477430966-506a007e48744d5488a6ee1c0b729134.jpg",
-  },
-]
 
 const itemsPerPage = 15
 
 const Categoryad = () => {
+  const [categories, setCategories] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await api.get("/api/categories")
+        setCategories(response.data)
+      } catch (err) {
+        console.error("Error fetching categories:", err)
+      }
+    }
+
+    fetchCategories()
+  }, [])
 
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentCategories = allCategories.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  )
-
+  const currentCategories = categories.slice(indexOfFirstItem, indexOfLastItem)
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-primary to-primary-light">
+    <div className="w-screen h-screen flex flex-col justify-between">
       <Navbar title="ประเภท" />
-      <div className="h-0.5 bg-secondary-content w-full"></div>
-      <div className="flex-grow container mx-auto px-4 py-8">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-          {currentCategories.map((category, index) => (
-            <Link key={index} to={`/categoryad/${category.name}`} className="flex justify-center">
-              <CatCard
-                image={category.image}
-                title={category.name}
-              />
+      <div className="flex-grow grid grid-cols-5 gap-4 py-4">
+        {currentCategories.map((category) => (
+          <div key={category._id} className="flex flex-col items-center">
+            <Link to={`/categoryad/${category.name}`}>
+              <CatCard image={category.picture} title={category.name} />
             </Link>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
-      <div className="mt-8 mb-4 flex justify-center">
+      <div className="pb-4 self-center">
         <Pagination
-          totalItems={allCategories.length}
+          totalItems={categories.length}
           itemsPerPage={itemsPerPage}
           onPageChange={handlePageChange}
           currentPage={currentPage}
         />
       </div>
-      <div className="bg-gray-800 text-primary text-sm py-2 text-center">
+      <div className="bg-primary-content text-primary text-sm py-2 text-center">
         <p>เลขที่พอร์ตปัจจุบัน (Port): 14053</p>
         <p>เลขที่ไอพีปัจจุบัน (IP Address): 172.20.10.3</p>
       </div>

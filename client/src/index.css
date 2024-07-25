@@ -15,7 +15,7 @@ html {
 }
 
 body {
-  @apply bg-base-100 font-noto font-400;
+  @apply bg-primary font-noto font-400;
 }
 
 #root {

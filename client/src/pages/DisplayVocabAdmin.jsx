@@ -127,9 +127,9 @@ const DisplayVocabAdmin = () => {
   }, [animationName])
 
   return (
-    <div className="w-screen h-screen flex flex-col relative bg-primary">
+    <div className="w-screen h-screen flex flex-col bg-primary">
       <Navbar3 title={`วิดีโอภาษามือ : ไข่เจียว `} />
-      <div className="p-4 flex justify-center items-center flex-grow">
+      <div className="p-4 flex justify-center items-center flex-1">
         <div className="flex justify-center items-center w-full h-full">
           <div className="card lg:card-side bg-base-100 shadow-xl w-full h-full">
             <figure className="flex justify-center w-2/4 h-auto">
@@ -139,13 +139,13 @@ const DisplayVocabAdmin = () => {
                 <color attach="background" args={["#ffffff"]} />
                 {/* <axesHelper args={[5]} />
                 <gridHelper args={[10, 10]} /> */}
-                <Model animationName={animationName} 
-                position={[0, 0, 0]} 
-                scale={[0.01, 0.01, 0.01]}
+                <Model
+                  animationName={animationName}
+                  position={[0, 0, 0]}
+                  scale={[0.01, 0.01, 0.01]}
                 />
                 <OrbitControls enableDampingDamping target={[0, 1, 0]} />
               </Canvas>
-              
             </figure>
             <div className="card-body relative">
               <h3 className="card-title font-bold text-2xl">ไข่เจียว</h3>
@@ -179,11 +179,10 @@ const DisplayVocabAdmin = () => {
           </div>
         </div>
       </div>
-
-      {/* <div className="flex-grow flex place-self-end">
-        เลขที่พอร์ตปัจจุบัน (Port):14053 เลขที่ไอพีปัจจุบัน
-        (IPAddress):172.20.10.3
-      </div> */}
+      <div className="bg-primary-content text-primary text-sm py-2 text-center">
+        <p>เลขที่พอร์ตปัจจุบัน (Port): 14053</p>
+        <p>เลขที่ไอพีปัจจุบัน (IP Address): 172.20.10.3</p>
+      </div>
     </div>
   )
 }

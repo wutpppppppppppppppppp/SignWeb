@@ -5,7 +5,6 @@ const SetupForm = React.lazy(() => import("../pages/SetupForm"))
 const ControlButtons = React.lazy(() => import("../pages/ControlButtons"))
 const ThreeScene = React.lazy(() => import("../pages/ThreeScene"))
 const LandingPage = React.lazy(() => import("../pages/LandingPage"))
-// const InfoPolicy = React.lazy(() => import("../pages/InfoPolicy"));
 const Login = React.lazy(() => import("../pages/LoginForm"))
 const SignIn = React.lazy(() => import("../pages/SignInForm"))
 
@@ -17,7 +16,6 @@ const DisplayVocab = React.lazy(() => import("../pages/DisplayVocab"))
 const DisplayVocabAdmin = React.lazy(() => import("../pages/DisplayVocabAdmin"))
 
 const Record = React.lazy(() => import("../pages/Record1"))
-// const Record2 = React.lazy(() => import("../pages/Record2"))
 const DoneRecord = React.lazy(() => import("../pages/DoneRecord"))
 
 const routes = createBrowserRouter([

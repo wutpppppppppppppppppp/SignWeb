@@ -33,14 +33,14 @@ const DisplayVocab = () => {
     if (category) {
       fetchVocabularies()
     }
-  }, [category, vocabulary])
+  }, [category, vocabulary, error])
 
   const modelUrl = `/models/${vocabulary}.glb` // Assuming the model URL follows this pattern
 
   return (
     <div className="w-screen h-screen flex flex-col">
       <Navbar3 title={`วิดีโอภาษามือ : ${vocabulary}`} />
-      <div className="p-4 flex justify-center items-center flex-grow">
+      <div className="p-4 flex justify-center items-center flex-grow bg-primary">
         <div className="flex justify-center items-center w-full h-full">
           <div className="card lg:card-side w-full h-full">
             <figure className="w-2/4 h-auto">
@@ -60,15 +60,17 @@ const DisplayVocab = () => {
             </figure>
             <div className="card-body relative">
               <h3 className="card-title font-bold text-2xl">{vocabulary}</h3>
+              <div className="flex flex-col gap-1">
+                <a className="text-xl">ประเภทคำ : {category}</a>
+                <a className="text-xl">คำอธิบาย : {data.description}</a>
+              </div>
               {data.picture && (
                 <img
                   src={data.picture}
                   alt={data.names}
-                  className="flex mx-auto w-2/4"
+                  className="w-40 mx-auto"
                 />
               )}
-              <a className="text-xl">ประเภทคำ : {category}</a>
-              <a className="text-xl">คำอธิบาย : {data.description}</a>
               {/* <a className="approve text-xl">รับรองโดย : {interpreter}</a> */}
               <div className="absolute inset-x-0 bottom-0 p-4 flex justify-between">
                 <button

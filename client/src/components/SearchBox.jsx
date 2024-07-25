@@ -45,7 +45,7 @@ const SearchBox = ({ placeholder }) => {
 
   return (
     <div className="relative">
-      <label className="input flex items-center bg-base-100 text-base-content">
+      <label className="input flex items-center bg-primary text-primary-content border-b-2 border-b-primary-content">
         <button className="btn btn-circle btn-ghost btn-sm">
           <FaSearch />
         </button>
@@ -58,11 +58,11 @@ const SearchBox = ({ placeholder }) => {
         />
       </label>
       {suggestions.length > 0 && (
-        <ul className="absolute left-0 right-0 mt-2 bg-white border border-gray-300 rounded-md shadow-lg z-50">
+        <ul className="absolute left-0 right-0 mt-2 bg-primary text-primary-content border border-gray-300 rounded-md shadow-lg z-50">
           {suggestions.map((suggestion, index) => (
             <li
               key={index}
-              className="px-4 py-2 hover:bg-base-100 text-primary cursor-pointer"
+              className="px-4 py-2 hover:bg-base-100 text-primary-content cursor-pointer"
               onClick={() => handleSelect(suggestion)}
             >
               {suggestion.name}

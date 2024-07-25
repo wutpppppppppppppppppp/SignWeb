@@ -126,7 +126,7 @@ const LandingPage = () => {
                 with or arising out of the use of the software.
               </p>
             )}
-            <label className="swap text-neutral-content self-end hover:text-black">
+            <label className="swap text-neutral-content self-end hover:text-secondary">
               <input
                 type="checkbox"
                 checked={isVisible}

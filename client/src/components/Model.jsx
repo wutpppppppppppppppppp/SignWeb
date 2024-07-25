@@ -57,7 +57,8 @@ import * as THREE from "three"
 const Model = ({ modelUrl }) => {
   const gltf = useLoader(GLTFLoader, modelUrl)
   const mixer = useRef()
-  const animationName = "Root|clip|Base_Layer Retarget.001"
+  // const animationName = "Root|clip|Base_Layer Retarget.001"
+  const animationName = "Root|clip|Base_Layer Retarget"
   useEffect(() => {
     // Log all animation names
     // console.log("All animations:")

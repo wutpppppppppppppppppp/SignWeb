@@ -7,9 +7,9 @@ const Login = () => {
   const [password, setPassword] = useState("")
 
   return (
-    <div className="w-screen h-screen flex flex-col justify-between">
+    <div className="w-screen h-screen flex flex-col justify-between bg-primary">
       <Navbar2 title="เข้าสู่ระบบ" />
-
+      <div className="h-0.5 bg-secondary-content w-full"></div>
       <div className="flex-grow flex items-center justify-center w-2/3 place-self-center bg-gray-200 my-20 rounded-lg">
         <div className="p-4 flex flex-col">
           <div className="flex flex-col gap-1 mb-4">
@@ -39,7 +39,7 @@ const Login = () => {
           <div className="flex flex-col gap-2">
             {/*login*/}
             <Link to="/setup-form">
-              <button className="btn btn-wide btn-primary text-primary-content">
+              <button className="btn btn-wide btn-secondary text-secondary-content">
                 เข้าสู่ระบบ
               </button>
             </Link>

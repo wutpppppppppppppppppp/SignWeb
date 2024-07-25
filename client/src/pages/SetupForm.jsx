@@ -27,10 +27,11 @@ const SetupForm = () => {
   };
 
   return (
-    <div className="w-screen h-screen flex flex-col justify-between">
+    <div className="w-screen h-screen flex flex-col justify-between  bg-primary">
       <Navbar2 title="เชื่อมต่ออุปกรณ์" />
+      <div className="h-0.5 bg-secondary-content w-full"></div>
       <div className="flex-grow flex items-center justify-center w-2/3 place-self-center  my-20 rounded-lg">
-        <div className="p-4 flex flex-col">
+        <div className="p-4 flex flex-col ">
           {!isSubmitted ? (
             <form onSubmit={handleFormSubmit}>
               {/* <div>
@@ -80,11 +81,10 @@ const SetupForm = () => {
             </form>
           ) : null}
           <Link to="/categoryad">
-            <button className="btn btn-wide mt-6 btn-primary text-primary-content">
+            <button className="btn btn-wide mt-6 btn-secondary text-secondary-content">
               ตั้งค่าสำเร็จ
             </button>
           </Link>
-          {/* <button onClick={handleNewPageNavigation}>หน้าแสดงสามมิติ</button> */}
         </div>
       </div>
     </div>

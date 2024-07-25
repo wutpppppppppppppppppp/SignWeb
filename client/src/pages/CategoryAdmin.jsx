@@ -62,22 +62,22 @@ const Categoryad = () => {
   }
 
   return (
-    <div className="w-screen h-screen flex flex-col justify-between">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-primary to-primary-light">
       <Navbar title="ประเภท" />
-      <div className="flex-grow grid grid-cols-5 gap-4 py-4">
-        {currentCategories.map((category, index) => (
-          <div key={index} className="flex flex-col items-center">
-            <Link to={`/categoryad/${category.name}`}>
+      <div className="h-0.5 bg-secondary-content w-full"></div>
+      <div className="flex-grow container mx-auto px-4 py-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+          {currentCategories.map((category, index) => (
+            <Link key={index} to={`/categoryad/${category.name}`} className="flex justify-center">
               <CatCard
                 image={category.image}
                 title={category.name}
-                className="w-32 h-32 object-cover"
               />
             </Link>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-      <div className="pb-4 self-center">
+      <div className="mt-8 mb-4 flex justify-center">
         <Pagination
           totalItems={allCategories.length}
           itemsPerPage={itemsPerPage}
@@ -85,9 +85,9 @@ const Categoryad = () => {
           currentPage={currentPage}
         />
       </div>
-      <div className="px-4 py-2 bg-black text-white text-center">
-        เลขที่พอร์ตปัจจุบัน (Port): 14053 เลขที่ไอพีปัจจุบัน (IP Address):
-        172.20.10.3
+      <div className="bg-gray-800 text-primary text-sm py-2 text-center">
+        <p>เลขที่พอร์ตปัจจุบัน (Port): 14053</p>
+        <p>เลขที่ไอพีปัจจุบัน (IP Address): 172.20.10.3</p>
       </div>
     </div>
   )

@@ -2,13 +2,15 @@ import React from "react"
 
 const CatCard = ({ image, title }) => {
   return (
-    <div className="card card-compact bg-primary text-primary-content w-36 transform hover:scale-95 hover:shadow-lg">
-      <figure className="flex justify-center items-center overflow-hidden">
-        <img src={image} alt={title} className="w-32 h-32 pt-5 object-cover" />
+    <div className="card bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 w-full max-w-xs">
+      <figure className="px-4 pt-4">
+        <img src={image} alt={title} className="rounded-xl object-cover w-full aspect-square" />
       </figure>
-      <p className="card-title self-center mt-2">{title}</p>
+      <div className="card-body p-4 text-center">
+        <h3 className="card-title text-primary-content justify-center text-lg">{title}</h3>
+      </div>
+   
     </div>
   );
 }
-
 export default CatCard;

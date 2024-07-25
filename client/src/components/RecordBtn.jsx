@@ -4,6 +4,8 @@ const RecordButton = ({
   isRecording,
   handleStartRecording,
   handleStopRecording,
+  className,
+  style,
 }) => {
   const handleToggle = () => {
     if (isRecording) {
@@ -15,9 +17,10 @@ const RecordButton = ({
 
   return (
     <div
-      className={`flex justify-center items-center w-20 h-20 cursor-pointer transition-all duration-300 ease-in-out ${
+      className={`flex justify-center items-center cursor-pointer transition-all duration-300 ease-in-out ${
         isRecording ? "bg-white" : ""
-      }`}
+      } ${className}`}
+      style={style}
       onClick={handleToggle}
     >
       <div
@@ -27,7 +30,7 @@ const RecordButton = ({
       >
         <div
           className={`${
-            isRecording ? "w-10 h-10 rounded-md" : "w-14 h-14 rounded-full"
+            isRecording ? "w-3/5 h-3/5 rounded-md" : "w-4/5 h-4/5 rounded-full"
           } bg-red-600 transition-all duration-300 ease-in-out`}
         ></div>
       </div>

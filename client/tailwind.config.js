@@ -29,6 +29,15 @@ export default {
         800: "800",
         900: "900",
       },
+      keyframes: {
+        pulse: {
+          "0%, 100%": { transform: "scale(1)", opacity: 1 },
+          "50%": { transform: "scale(1.5)", opacity: 0.7 },
+        },
+      },
+      animation: {
+        pulse: "pulse 1.5s ease-in-out infinite",
+      },
     },
   },
 
@@ -37,25 +46,25 @@ export default {
     themes: [
       {
         mytheme: {
-          "primary": "#FFFFFF",
+          primary: "#FFFFFF",
           "primary-content": "#64558E",
-          "secondary": "#21005D",
+          secondary: "#21005D",
           "secondary-content": "#EBDDFF",
           // "accent: "#707C69",
           "accent-content": "#FEFBFD",
-          "neutral": "#FCF3E3",
+          neutral: "#FCF3E3",
           "neutral-content": "#0B3B53",
           "base-100": "#FFFCF5",
           "base-200": "#FEF2E4",
           "base-300": "#EFE0C2",
           "base-content": "#4C4C54",
-          "info": "#0000ff",
+          info: "#0000ff",
           "info-content": "#c6dbff",
-          "success": "#00ff00",
+          success: "#00ff00",
           "success-content": "#001600",
-          "warning": "#F4A258",
+          warning: "#F4A258",
           "warning-content": "#140a03",
-          "error": "#ff0000",
+          error: "#ff0000",
           "error-content": "#160000",
         },
       },

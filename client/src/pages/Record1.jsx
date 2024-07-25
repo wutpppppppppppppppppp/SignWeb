@@ -59,7 +59,7 @@ const Record = () => {
   }
 
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen h-screen flex flex-col justify-between bg-primary">
       <Navbar3 title={`บันทึกท่าคำศัพท์: ${vocabName}`} />
 
       {/* <div class="grid grid-cols-2 gap-2">
@@ -67,7 +67,7 @@ const Record = () => {
         <div class="grid grid-cols-subgrid gap-4 col-span-3"></div>
       </div> */}
       
-      <h1 className="text-primary-content text-center">บันทึกท่าคำศัพท์</h1>
+      {/* <h1 className="text-primary-content text-center">บันทึกท่าคำศัพท์</h1> */}
       <div className="flex flex-col items-center justify-center flex-grow">
         <div className="grid grid-cols-2 gap-10 w-full max-w-7xl p-6">
           {/* clip 3D */}

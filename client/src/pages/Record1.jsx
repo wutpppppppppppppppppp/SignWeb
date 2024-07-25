@@ -32,7 +32,7 @@ const Record = () => {
   }
 
   return (
-    <div className="w-screen h-screen flex flex-col justify-between">
+    <div className="w-screen h-screen flex flex-col justify-between bg-primary">
       <Navbar3 title={`บันทึกท่าคำศัพท์: ${vocabName}`} />
       <div className="flex flex-col items-center justify-center flex-grow">
         <div className="mockup-phone">
@@ -49,7 +49,7 @@ const Record = () => {
         </div>
         <div className="flex gap-x-5 m-5">
           <button
-            className={`btn ${isRecording ? "btn-disabled" : "btn-accent"} text-accent-content`}
+            className={`btn ${isRecording ? "btn-disabled" : "btn-primary-content"} text-primary-content`}
             onClick={handleCalibrate}
             disabled={isRecording}
           >

@@ -28,10 +28,12 @@ const SetupForm = () => {
 
   return (
     <div className="w-screen h-screen flex flex-col justify-between  bg-primary">
-      <Navbar2 title="เชื่อมต่ออุปกรณ์" />
+      <Navbar2 title="SignPose3D" />
       <div className="h-0.5 bg-secondary-content w-full"></div>
       <div className="flex-grow flex items-center justify-center w-2/3 place-self-center  my-20 rounded-lg">
+      
         <div className="p-4 flex flex-col ">
+          <h1 className="text-primary-content text-center">เชื่อมต่ออุปกรณ์</h1>
           {!isSubmitted ? (
             <form onSubmit={handleFormSubmit}>
               {/* <div>
@@ -80,9 +82,9 @@ const SetupForm = () => {
               {/* <button type="submit">ตั้งค่าสำเร็จ</button> */}
             </form>
           ) : null}
-          <Link to="/categoryad">
-            <button className="btn btn-wide mt-6 btn-secondary text-secondary-content">
-              ตั้งค่าสำเร็จ
+          <Link to="/categoryad" className="place-self-center">
+            <button className="btn btn-wide mt-6 btn-secondary text-secondary-content ">
+              ยืนยัน
             </button>
           </Link>
         </div>

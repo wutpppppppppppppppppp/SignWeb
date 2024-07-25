@@ -8,7 +8,7 @@ import Drawer from "./Drawer"
 function Navbar({ title }) {
   const navigate = useNavigate()
   return (
-    <div className="navbar bg-primary text-primary-content p-1">
+    <div className="navbar bg-primary p-1 shadow-sm border-b-2 border-b-secondary-content">
       <div className="navbar-start">
         <button onClick={() => navigate(-1)} className="btn btn-ghost">
           <IoIosArrowBack className="size-6" title="กลับไปหน้าแรก" />

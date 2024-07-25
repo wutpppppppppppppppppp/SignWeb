@@ -16,7 +16,7 @@ const LandingPage = () => {
       <div className="navbar self-start">
         <div className="flex-1">
           <Link to={PathConstants.LANDING} className="btn btn-ghost text-xl">
-            บลูมบีท
+            SignPose3D
           </Link>
         </div>
         <div className="flex-none">

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react"
 import { FaSearch } from "react-icons/fa"
 import api from "../hooks/api"
-import { useNavigate } from "react-router-dom" // useNavigate for React Router v6
+import { useNavigate, useLocation } from "react-router-dom" // Import useLocation
 
 const SearchBox = ({ placeholder }) => {
   const [inputValue, setInputValue] = useState("")
   const [suggestions, setSuggestions] = useState([])
   const [error, setError] = useState(null)
   const navigate = useNavigate() // for React Router v6
+  const location = useLocation() // Get the current location
 
   useEffect(() => {
     const fetchSuggestions = async () => {
@@ -36,11 +37,19 @@ const SearchBox = ({ placeholder }) => {
 
   const handleSelect = (suggestion) => {
     setInputValue(suggestion.name)
-    console.log(suggestion.name)
+    console.log(suggestion.name, suggestion.type, suggestion.category)
+
+    // Determine if the current path is for recording or viewing
+    const isRecordingPage = location.pathname.includes("/categoryad")
+
     if (suggestion.type === "category") {
       navigate(`/category/${suggestion.name}`)
     } else if (suggestion.type === "vocabulary" && suggestion.category) {
-      navigate(`/category/${suggestion.name}/${suggestion.name}`)
+      if (isRecordingPage) {
+        navigate(`/record/${suggestion.category}/${suggestion.name}`)
+      } else {
+        navigate(`/category/${suggestion.category}/${suggestion.name}`)
+      }
     }
   }
 
@@ -66,7 +75,7 @@ const SearchBox = ({ placeholder }) => {
               className="px-4 py-2 hover:bg-base-100 text-primary-content cursor-pointer"
               onClick={() => handleSelect(suggestion)}
             >
-              {suggestion.name}
+              {`${suggestion.name} (${suggestion.category})`}
             </li>
           ))}
         </ul>

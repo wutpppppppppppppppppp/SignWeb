@@ -35,7 +35,7 @@ const VocabAdmin = () => {
         {error && <div className="text-red-600">{error}</div>}
         <div className="grid grid-cols-5 gap-4 py-4">
           {vocabulariesad.map((vocab, index) => (
-            <Link key={index} to={`/category/${categoryad}/${vocab.name}`}>
+            <Link key={index} to={`/record/${categoryad}/${vocab.name}`}>
               <CatCard image={vocab.image} title={vocab.name} />
             </Link>
           ))}

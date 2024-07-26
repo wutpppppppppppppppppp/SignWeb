@@ -18,7 +18,7 @@ const searchSchema = {
         S.object()
           .prop("name", S.string())
           .prop("type", S.string())
-          .prop("category", S.string())
+          .prop("category", S.string({ nullable: true })) // Allow null for category in case of category type suggestion
       )
     ),
   },
@@ -43,8 +43,12 @@ export default async function (fastify, opts) {
         let suggestions = [];
 
         categories.forEach((category) => {
-          if (regex.test(category.category)) {
-            suggestions.push({ name: category.category, type: "category" });
+          if (regex.test(category.name)) {
+            suggestions.push({
+              name: category.name,
+              type: "category",
+              category: null,
+            });
           }
 
           category.vocabularies.forEach((vocab) => {
@@ -52,7 +56,7 @@ export default async function (fastify, opts) {
               suggestions.push({
                 name: vocab.name,
                 type: "vocabulary",
-                category: category.name,
+                category: category.category,
               });
             }
           });

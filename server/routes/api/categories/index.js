@@ -3,6 +3,8 @@ import S from "fluent-json-schema";
 import cloudinary from "../../../config/cloudinary.js";
 import { PassThrough } from "stream";
 
+
+
 const categorySchema = {
   schema: {
     response: {
@@ -167,7 +169,16 @@ async function categoriesRoutes(fastify) {
       try {
         const { id } = request.params;
         const { category, description, image } = request.body; // Destructure image from the request body
-  
+        
+        fastify.log.info(`Updating category with ID: ${id}`);
+
+        // Validate ID format
+        if (!ObjectId.isValid(id)) {
+          fastify.log.warn(`Invalid ID format: ${id}`);
+          reply.code(400).send({ error: "Invalid ID format" });
+          return;
+        }
+
         const categoriesCollection = fastify.mongo.client
           .db("sample_sign")
           .collection("categories");
@@ -205,6 +216,7 @@ async function categoriesRoutes(fastify) {
   
         const result = await categoriesCollection.updateOne(
           { _id: new fastify.mongo.ObjectId(id) },
+          // { _id: new ObjectId(id) },
           { $set: updatedCategory }
         );
   
@@ -233,3 +245,11 @@ export default fp(
     name: "category-routes",
   }
 );
+
+// note : [00:40:06.420] INFO (91342): Updating category with ID: 669ea9a141c184c9ad1dbdf6
+// [00:40:06.421] ERROR (91342): Failed to update category
+//     err: {
+//       "type": "ReferenceError",
+//       "message": "ObjectId is not defined",
+//       "stack":
+//           ReferenceError: ObjectId is not defined

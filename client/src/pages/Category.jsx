@@ -20,7 +20,6 @@ const Category = () => {
         console.error("Error fetching categories:", err)
       }
     }
-
     fetchCategories()
   }, [])
 
@@ -38,7 +37,7 @@ const Category = () => {
         {currentCategories.map((category) => (
           <div key={category._id} className="flex flex-col items-center">
             <Link to={`/category/${category.name}`}>
-              <CatCard image={category.picture} title={category.name} />
+              <CatCard image={category.image} title={category.category} />
             </Link>
           </div>
         ))}

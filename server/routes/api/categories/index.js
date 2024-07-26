@@ -7,27 +7,7 @@ const categorySchema = {
   schema: {
     response: {
       200: S.array().items(
-        S.object()
-          .prop("_id", S.string())
-          .prop("name", S.string())
-          .prop("description", S.string())
-          .prop("picture", S.string())
-          .prop(
-            "vocabularies",
-            S.array()
-              .items(
-                S.object()
-                  .prop("_id", S.string())
-                  .prop("name", S.string())
-                  .prop("description", S.string())
-                  .prop("picture", S.string())
-                  .prop("created_at", S.string().format("date-time"))
-                  .prop("updated_at", S.string().format("date-time"))
-              )
-              .default([])
-          )
-          .prop("created_at", S.string().format("date-time"))
-          .prop("updated_at", S.string().format("date-time"))
+        S.object().prop("category", S.string()).prop("image", S.string())
       ),
     },
   },
@@ -36,9 +16,8 @@ const categorySchema = {
 const addCategorySchema = {
   schema: {
     body: S.object()
-      .prop("name", S.string().required())
-      .prop("description", S.string().required())
-      .prop("picture", S.string().required())
+      .prop("category", S.string().required())
+      .prop("image", S.string().required())
       .prop(
         "vocabularies",
         S.array()
@@ -46,7 +25,8 @@ const addCategorySchema = {
             S.object()
               .prop("name", S.string().required())
               .prop("description", S.string().required())
-              .prop("picture", S.string().required())
+              .prop("parts_of_speech", S.string().required())
+              .prop("image", S.string().required())
               .prop("created_at", S.string().format("date-time"))
               .prop("updated_at", S.string().format("date-time"))
           )
@@ -55,9 +35,8 @@ const addCategorySchema = {
     response: {
       201: S.object()
         .prop("_id", S.string())
-        .prop("name", S.string())
-        .prop("description", S.string())
-        .prop("picture", S.string())
+        .prop("category", S.string())
+        .prop("image", S.string())
         .prop(
           "vocabularies",
           S.array().items(
@@ -65,7 +44,8 @@ const addCategorySchema = {
               .prop("_id", S.string())
               .prop("name", S.string())
               .prop("description", S.string())
-              .prop("picture", S.string())
+              .prop("parts_of_speech", S.string())
+              .prop("image", S.string())
               .prop("created_at", S.string().format("date-time"))
               .prop("updated_at", S.string().format("date-time"))
           )
@@ -78,16 +58,12 @@ const addCategorySchema = {
 
 const updateCategorySchema = {
   schema: {
-    body: S.object()
-      .prop("name", S.string())
-      .prop("description", S.string())
-      .prop("picture", S.string()),
+    body: S.object().prop("category", S.string()).prop("image", S.string()),
     response: {
       200: S.object()
         .prop("_id", S.string())
-        .prop("name", S.string())
-        .prop("description", S.string())
-        .prop("picture", S.string())
+        .prop("category", S.string())
+        .prop("image", S.string())
         .prop(
           "vocabularies",
           S.array().items(
@@ -95,7 +71,8 @@ const updateCategorySchema = {
               .prop("_id", S.string())
               .prop("name", S.string())
               .prop("description", S.string())
-              .prop("picture", S.string())
+              .prop("parts_of_speech", S.string())
+              .prop("image", S.string())
               .prop("created_at", S.string().format("date-time"))
               .prop("updated_at", S.string().format("date-time"))
           )
@@ -127,14 +104,14 @@ async function categoriesRoutes(fastify) {
     { schema: addCategorySchema },
     async function (request, reply) {
       try {
-        const { name, description, vocabularies = [] } = request.body;
-        const pictureBuffer = request.body.picture;
-        if (!pictureBuffer) {
-          reply.code(400).send({ error: "Picture file is required" });
+        const { category, description, vocabularies = [] } = request.body;
+        const imageBuffer = request.body.image;
+        if (!imageBuffer) {
+          reply.code(400).send({ error: "Image is required" });
           return;
         }
         const bufferStream = new PassThrough();
-        bufferStream.end(pictureBuffer);
+        bufferStream.end(imageBuffer);
         const uploadResponse = await new Promise((resolve, reject) => {
           const streamUpload = cloudinary.uploader.upload_stream(
             (error, result) => {
@@ -147,7 +124,7 @@ async function categoriesRoutes(fastify) {
           );
           bufferStream.pipe(streamUpload);
         });
-        const pictureUrl = uploadResponse.secure_url;
+        const imageUrl = uploadResponse.secure_url;
 
         const categoriesCollection = fastify.mongo.client
           .db("sample_sign")
@@ -155,9 +132,9 @@ async function categoriesRoutes(fastify) {
 
         const currentTime = new Date();
         const newCategory = {
-          name,
+          category,
           description,
-          picture: pictureUrl,
+          image: imageUrl,
           vocabularies: vocabularies.map((vocab) => ({
             ...vocab,
             _id: new fastify.mongo.ObjectId(),
@@ -186,18 +163,18 @@ async function categoriesRoutes(fastify) {
     async function (request, reply) {
       try {
         const { id } = request.params;
-        const { name, description, picture } = request.body;
+        const { category, description } = request.body;
 
         const categoriesCollection = fastify.mongo.client
           .db("sample_sign")
           .collection("categories");
 
-        let pictureUrl;
+        let imageUrl;
 
-        if (picture) {
+        if (image) {
           // Convert buffer to a stream
           const bufferStream = new PassThrough();
-          bufferStream.end(Buffer.from(picture, "base64"));
+          bufferStream.end(Buffer.from(image, "base64"));
 
           // Upload to Cloudinary
           const uploadResponse = await new Promise((resolve, reject) => {
@@ -213,13 +190,13 @@ async function categoriesRoutes(fastify) {
             bufferStream.pipe(streamUpload);
           });
 
-          pictureUrl = uploadResponse.secure_url;
+          imageUrl = uploadResponse.secure_url;
         }
 
         const updatedCategory = {
-          ...(name && { name }),
+          ...(category && { category }),
           ...(description && { description }),
-          ...(pictureUrl && { picture: pictureUrl }),
+          ...(imageUrl && { image: imageUrl }),
           updated_at: new Date(), // Ensure updated_at is a Date object
         };
 

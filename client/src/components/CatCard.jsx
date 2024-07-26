@@ -1,12 +1,17 @@
 import React from "react"
 
 const CatCard = ({ image, title }) => {
-  console.log(title)
+  // Determine the image URL based on the condition
+  const imageUrl =
+    image === "vocab_placeholder" || image === "category_placeholder"
+      ? `/${image}.jpg`
+      : image
+
   return (
     <div className="card bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 w-full max-w-xs">
       <figure className="px-4 pt-4">
         <img
-          src={`${image}.jpg`}
+          src={imageUrl}
           alt={title}
           className="rounded-xl object-cover w-full aspect-square"
         />
@@ -19,4 +24,5 @@ const CatCard = ({ image, title }) => {
     </div>
   )
 }
+
 export default CatCard

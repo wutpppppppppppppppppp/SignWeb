@@ -9,12 +9,6 @@ const { version } = JSON.parse(
   readFileSync(join(import.meta.url, "../../package.json"))
 );
 
-// Exporting a constant named `autoPrefix` will tell
-// to `fastify-autoload` that this plugin must be loaded
-// with the prefix option. In this way every route declared
-// inside this plugin and its children will have the prefix
-// as part of the path.
-
 const searchSchema = {
   querystring: S.object().prop("find", S.string().required()),
   response: {
@@ -36,7 +30,8 @@ export default async function (fastify, opts) {
     { schema: searchSchema },
     async function (request, reply) {
       try {
-        const query = request.query.find.toLowerCase();
+        const query = request.query.find;
+        const regex = new RegExp(`^${query}`, "i");
         const categoriesCollection = fastify.mongo.client
           .db("sample_sign")
           .collection("categories");
@@ -48,12 +43,12 @@ export default async function (fastify, opts) {
         let suggestions = [];
 
         categories.forEach((category) => {
-          if (category.name.toLowerCase().includes(query)) {
-            suggestions.push({ name: category.name, type: "category" });
+          if (regex.test(category.category)) {
+            suggestions.push({ name: category.category, type: "category" });
           }
 
           category.vocabularies.forEach((vocab) => {
-            if (vocab.name.toLowerCase().includes(query)) {
+            if (regex.test(vocab.name)) {
               suggestions.push({
                 name: vocab.name,
                 type: "vocabulary",
@@ -62,6 +57,9 @@ export default async function (fastify, opts) {
             }
           });
         });
+
+        // Limit suggestions to a maximum of 7
+        suggestions = suggestions.slice(0, 7);
 
         fastify.log.info(`Fetched suggestions: ${JSON.stringify(suggestions)}`);
         reply.send({ suggestions });
@@ -72,34 +70,3 @@ export default async function (fastify, opts) {
     }
   );
 }
-// fastify.get("/status", opt, async function (request, reply) {
-//   // Create the response object
-//   const response = {
-//     status: "ok",
-//     version, // Assuming version is imported from package.json
-//   };
-
-//   // Send the response
-//   reply.send(response);
-// });
-
-// fastify.get("/", async function (request, reply) {
-//   return { root: "Hello from API" };
-// });
-
-// const opt = {
-//   schema: {
-//     description: "Returns status and version of the application",
-//     response: {
-//       200: S.object().prop("status", S.string()).prop("version", S.string()),
-//     },
-//   },
-// };
-
-// query params P'Ryu Methods
-// export default fp(async (fastify, opts) => {
-
-//   fastify.post("/", async (request, reply) => {
-//     return request.query, request.params;
-//   });
-// });

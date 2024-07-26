@@ -26,16 +26,17 @@ const Vocabulary = () => {
     if (category) {
       fetchVocabularies()
     }
-  }, [category, vocabularies, error])
+  }, [category])
 
   return (
     <div className="w-screen h-screen">
       <Navbar title={`${category}`} />
       <div className="p-4">
+        {error && <div className="text-red-600">{error}</div>}
         <div className="grid grid-cols-5 gap-4 py-4">
           {vocabularies.map((vocab, index) => (
             <Link key={index} to={`/category/${category}/${vocab.name}`}>
-              <CatCard image={vocab.picture} title={vocab.name} />
+              <CatCard image={vocab.image} title={vocab.name} />
             </Link>
           ))}
         </div>

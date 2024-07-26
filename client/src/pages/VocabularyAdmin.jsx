@@ -26,21 +26,22 @@ const VocabAdmin = () => {
     if (categoryad) {
       fetchVocabularies()
     }
-  }, [categoryad, vocabulariesad, error])
+  }, [categoryad])
 
   return (
-    <div className="w-screen h-screen relative">
+    <div className="w-screen h-screen">
       <Navbar title={`${categoryad}`} />
       <div className="p-4">
+        {error && <div className="text-red-600">{error}</div>}
         <div className="grid grid-cols-5 gap-4 py-4">
           {vocabulariesad.map((vocab, index) => (
-            <Link key={index} to={`/record/${categoryad}/${vocab.name}`}>
-              <CatCard image={vocab.picture} title={vocab.name} />
+            <Link key={index} to={`/category/${categoryad}/${vocab.name}`}>
+              <CatCard image={vocab.image} title={vocab.name} />
             </Link>
           ))}
         </div>
       </div>
-      <div className="bg-primary-content text-primary text-sm py-2 text-center absolute bottom-0 inset-x-0">
+      <div className="bg-primary-content text-primary text-sm py-2 text-center ">
         <p>เลขที่พอร์ตปัจจุบัน (Port): 14053</p>
         <p>เลขที่ไอพีปัจจุบัน (IP Address): 172.20.10.3</p>
       </div>

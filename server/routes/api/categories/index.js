@@ -7,7 +7,10 @@ const categorySchema = {
   schema: {
     response: {
       200: S.array().items(
-        S.object().prop("category", S.string()).prop("image", S.string())
+        S.object()
+          .prop("_id", S.string())
+          .prop("category", S.string())
+          .prop("image", S.string())
       ),
     },
   },
@@ -91,7 +94,7 @@ async function categoriesRoutes(fastify) {
         .db("sample_sign")
         .collection("categories");
       const categories = await categoriesCollection.find().toArray();
-      fastify.log.info(`Fetched categories: ${JSON.stringify(categories)}`);
+      fastify.log.info(`Fetched categories`);
       reply.send(categories);
     } catch (err) {
       fastify.log.error(err, "Failed to fetch categories");

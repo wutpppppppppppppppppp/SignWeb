@@ -36,10 +36,11 @@ const SearchBox = ({ placeholder }) => {
 
   const handleSelect = (suggestion) => {
     setInputValue(suggestion.name)
+    console.log(suggestion.name)
     if (suggestion.type === "category") {
       navigate(`/category/${suggestion.name}`)
     } else if (suggestion.type === "vocabulary" && suggestion.category) {
-      navigate(`/category/${suggestion.category}/${suggestion.name}`)
+      navigate(`/category/${suggestion.name}/${suggestion.name}`)
     }
   }
 

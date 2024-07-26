@@ -121,11 +121,7 @@ async function vocabulariesRoutes(fastify) {
           .code(404)
           .send({ error: "No vocabularies found for this category" });
       } else {
-        fastify.log.info(
-          `Fetched vocabularies for category ${category}: ${JSON.stringify(
-            cat.vocabularies
-          )}`
-        );
+        fastify.log.info(`Fetched vocabularies for category ${category}}`);
         reply.send(cat.vocabularies);
       }
     } catch (err) {

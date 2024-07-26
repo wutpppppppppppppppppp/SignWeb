@@ -163,19 +163,19 @@ async function categoriesRoutes(fastify) {
     async function (request, reply) {
       try {
         const { id } = request.params;
-        const { category, description } = request.body;
-
+        const { category, description, image } = request.body; // Destructure image from the request body
+  
         const categoriesCollection = fastify.mongo.client
           .db("sample_sign")
           .collection("categories");
-
+  
         let imageUrl;
-
+  
         if (image) {
           // Convert buffer to a stream
           const bufferStream = new PassThrough();
           bufferStream.end(Buffer.from(image, "base64"));
-
+  
           // Upload to Cloudinary
           const uploadResponse = await new Promise((resolve, reject) => {
             const streamUpload = cloudinary.uploader.upload_stream(
@@ -189,22 +189,22 @@ async function categoriesRoutes(fastify) {
             );
             bufferStream.pipe(streamUpload);
           });
-
+  
           imageUrl = uploadResponse.secure_url;
         }
-
+  
         const updatedCategory = {
           ...(category && { category }),
           ...(description && { description }),
           ...(imageUrl && { image: imageUrl }),
           updated_at: new Date(), // Ensure updated_at is a Date object
         };
-
+  
         const result = await categoriesCollection.updateOne(
           { _id: new fastify.mongo.ObjectId(id) },
           { $set: updatedCategory }
         );
-
+  
         if (result.matchedCount === 0) {
           fastify.log.warn(`Category ID not found: ${id}`);
           reply.code(404).send({ error: "Category ID not found" });
@@ -220,7 +220,7 @@ async function categoriesRoutes(fastify) {
       }
     }
   );
-}
+}  
 
 export default fp(
   async function (app, opts) {

@@ -1,20 +1,14 @@
 import fp from "fastify-plugin";
 import S from "fluent-json-schema";
 import cloudinary from "../../../config/cloudinary.js";
-import stream from "stream";
+import { PassThrough } from "stream";
 
 const vocabulariesSchema = {
   schema: {
     querystring: S.object().prop("category", S.string().required()),
     response: {
       200: S.array().items(
-        S.object()
-          .prop("_id", S.string().format("uuid"))
-          .prop("name", S.string())
-          .prop("description", S.string())
-          .prop("picture", S.string())
-          .prop("created_at", S.string().format("date-time"))
-          .prop("updated_at", S.string().format("date-time"))
+        S.object().prop("name", S.string()).prop("image", S.string())
       ),
     },
   },
@@ -26,31 +20,14 @@ const addVocabularySchema = {
       .prop("category_id", S.string().required())
       .prop("name", S.string().required())
       .prop("description", S.string())
-      .prop("picture", S.string()),
+      .prop("image", S.string()),
     response: {
       201: S.object()
         .prop("_id", S.string().format("uuid"))
         .prop("name", S.string())
         .prop("description", S.string())
-        .prop("picture", S.string())
-        .prop("created_at", S.string().format("date-time"))
-        .prop("updated_at", S.string().format("date-time")),
-    },
-  },
-};
-
-const updateVocabularySchema = {
-  schema: {
-    body: S.object()
-      .prop("name", S.string())
-      .prop("description", S.string())
-      .prop("picture", S.string()),
-    response: {
-      200: S.object()
-        .prop("_id", S.string())
-        .prop("name", S.string())
-        .prop("description", S.string())
-        .prop("picture", S.string())
+        .prop("parts_of_speech", S.string())
+        .prop("image", S.string())
         .prop("created_at", S.string().format("date-time"))
         .prop("updated_at", S.string().format("date-time")),
     },
@@ -62,10 +39,31 @@ const getVocabularyByNameSchema = {
     params: S.object().prop("vocabulary_name", S.string().required()),
     response: {
       200: S.object()
-        .prop("_id", S.string())
+        .prop("_id", S.string().format("uuid"))
+        .prop("name", S.string()),
+      // .prop("description", S.string())
+      // .prop("parts_of_speech", S.string())
+      // .prop("image", S.string())
+      // .prop("created_at", S.string().format("date-time"))
+      // .prop("updated_at", S.string().format("date-time")),
+    },
+  },
+};
+
+const updateVocabularySchema = {
+  schema: {
+    body: S.object()
+      .prop("name", S.string())
+      .prop("description", S.string())
+      .prop("parts_of_speech", S.string())
+      .prop("image", S.string()),
+    response: {
+      200: S.object()
+        .prop("_id", S.string().format("uuid"))
         .prop("name", S.string())
         .prop("description", S.string())
-        .prop("picture", S.string())
+        .prop("parts_of_speech", S.string())
+        .prop("image", S.string())
         .prop("created_at", S.string().format("date-time"))
         .prop("updated_at", S.string().format("date-time")),
     },
@@ -112,7 +110,7 @@ async function vocabulariesRoutes(fastify) {
         .db("sample_sign")
         .collection("categories");
 
-      const cat = await categoriesCollection.findOne({ name: category });
+      const cat = await categoriesCollection.findOne({ category: category });
 
       if (!cat) {
         fastify.log.warn(`No category found with name: ${category}`);
@@ -142,21 +140,16 @@ async function vocabulariesRoutes(fastify) {
     async function (request, reply) {
       try {
         const { category_id, name, description } = request.body;
-
-        // Access file directly from request.body
-        const pictureBuffer = request.body.picture;
-        // console.log(request.body.picture);
-        // console.log(pictureBuffer);
-        if (!pictureBuffer) {
-          reply.code(400).send({ error: "Picture file is required" });
+        const imageBuffer = request.body.image;
+        // console.log(request.body.image);
+        // console.log(imageBuffer);
+        if (!imageBuffer) {
+          reply.code(400).send({ error: "image file is required" });
           return;
         }
+        const bufferStream = new PassThrough();
+        bufferStream.end(imageBuffer);
 
-        // Convert buffer to a stream
-        const bufferStream = new stream.PassThrough();
-        bufferStream.end(pictureBuffer);
-
-        // Upload to Cloudinary
         const uploadResponse = await new Promise((resolve, reject) => {
           const streamUpload = cloudinary.uploader.upload_stream(
             (error, result) => {
@@ -170,8 +163,7 @@ async function vocabulariesRoutes(fastify) {
           bufferStream.pipe(streamUpload);
         });
 
-        const pictureUrl = uploadResponse.secure_url;
-
+        const imageUrl = uploadResponse.secure_url;
         const categoriesCollection = fastify.mongo.client
           .db("sample_sign")
           .collection("categories");
@@ -181,7 +173,8 @@ async function vocabulariesRoutes(fastify) {
           _id: new fastify.mongo.ObjectId(),
           name,
           description,
-          picture: pictureUrl,
+          parts_of_speech,
+          image: imageUrl,
           created_at: currentTime,
           updated_at: currentTime,
         };
@@ -248,6 +241,73 @@ async function vocabulariesRoutes(fastify) {
     }
   );
 
+  fastify.put(
+    "/:id",
+    { schema: updateVocabularySchema },
+    async function (request, reply) {
+      try {
+        const { id } = request.params;
+        const { name, description, parts_of_speech, image } = request.body;
+
+        const categoriesCollection = fastify.mongo.client
+          .db("sample_sign")
+          .collection("categories");
+
+        let imageUrl;
+
+        if (image) {
+          // Convert buffer to a stream
+          const bufferStream = new PassThrough();
+          bufferStream.end(image);
+
+          // Upload to Cloudinary
+          const uploadResponse = await new Promise((resolve, reject) => {
+            const streamUpload = cloudinary.uploader.upload_stream(
+              (error, result) => {
+                if (result) {
+                  resolve(result);
+                } else {
+                  reject(error);
+                }
+              }
+            );
+            bufferStream.pipe(streamUpload);
+          });
+
+          imageUrl = uploadResponse.secure_url;
+        }
+
+        const updatedVocabulary = {
+          ...(name && { "vocabularies.$.name": name }),
+          ...(description && { "vocabularies.$.description": description }),
+          ...(parts_of_speech && {
+            "vocabularies.$.parts_of_speech": parts_of_speech,
+          }),
+          ...(imageUrl && { "vocabularies.$.image": imageUrl }),
+          "vocabularies.$.updated_at": new Date(),
+        };
+
+        const result = await categoriesCollection.updateOne(
+          { "vocabularies._id": new fastify.mongo.ObjectId(id) },
+          { $set: updatedVocabulary }
+        );
+
+        if (result.matchedCount === 0) {
+          fastify.log.warn(`Vocabulary ID not found: ${id}`);
+          reply.code(404).send({ error: "Vocabulary ID not found" });
+        } else {
+          fastify.log.info(
+            `Updated vocabulary ${id}: ${JSON.stringify(updatedVocabulary)}`
+          );
+          reply.code(200).send(updatedVocabulary);
+        }
+      } catch (err) {
+        fastify.log.error(err, "Failed to update vocabulary");
+        reply.code(500).send({ error: "Failed to update vocabulary" });
+      }
+    }
+  );
+
   fastify.get("/3d", threedSchema, async function (request, reply) {
     try {
       const { vocabulary_id } = request.query;
@@ -275,6 +335,7 @@ async function vocabulariesRoutes(fastify) {
       reply.code(500).send({ error: "Failed to fetch 3D data" });
     }
   });
+
   fastify.post("/3d", addThreedSchema, async function (request, reply) {
     try {
       const { vocabulary_id, three_dim_data } = request.body;
@@ -315,77 +376,14 @@ async function vocabulariesRoutes(fastify) {
     }
   });
 
-  fastify.put(
-    "/:id",
-    { schema: updateVocabularySchema },
-    async function (request, reply) {
-      try {
-        const { id } = request.params;
-        const { name, description, picture } = request.body;
-
-        const categoriesCollection = fastify.mongo.client
-          .db("sample_sign")
-          .collection("categories");
-
-        let pictureUrl;
-
-        if (picture) {
-          // Convert buffer to a stream
-          const bufferStream = new stream.PassThrough();
-          bufferStream.end(picture);
-
-          // Upload to Cloudinary
-          const uploadResponse = await new Promise((resolve, reject) => {
-            const streamUpload = cloudinary.uploader.upload_stream(
-              (error, result) => {
-                if (result) {
-                  resolve(result);
-                } else {
-                  reject(error);
-                }
-              }
-            );
-            bufferStream.pipe(streamUpload);
-          });
-
-          pictureUrl = uploadResponse.secure_url;
-        }
-
-        const updatedVocabulary = {
-          ...(name && { "vocabularies.$.name": name }),
-          ...(description && { "vocabularies.$.description": description }),
-          ...(pictureUrl && { "vocabularies.$.picture": pictureUrl }),
-          "vocabularies.$.updated_at": new Date(),
-        };
-
-        const result = await categoriesCollection.updateOne(
-          { "vocabularies._id": new fastify.mongo.ObjectId(id) },
-          { $set: updatedVocabulary }
-        );
-
-        if (result.matchedCount === 0) {
-          fastify.log.warn(`Vocabulary ID not found: ${id}`);
-          reply.code(404).send({ error: "Vocabulary ID not found" });
-        } else {
-          fastify.log.info(
-            `Updated vocabulary ${id}: ${JSON.stringify(updatedVocabulary)}`
-          );
-          reply.code(200).send(updatedVocabulary);
-        }
-      } catch (err) {
-        fastify.log.error(err, "Failed to update vocabulary");
-        reply.code(500).send({ error: "Failed to update vocabulary" });
-      }
-    }
-  );
   // fastify.post(
   //   "/",
   //   { schema: addVocabularySchema },
   //   async function (request, reply) {
   //     try {
-  //       const { category_id, name, description, picture } = request.body;
-  //       const pictureBuffer = picture;
-  //       const pictureBase64 = pictureBuffer.toString("base64");
+  //       const { category_id, name, description, image } = request.body;
+  //       const imageBuffer = image;
+  //       const imageBase64 = imageBuffer.toString("base64");
 
   //       const categoriesCollection = fastify.mongo.client
   //         .db("sample_sign")
@@ -396,7 +394,7 @@ async function vocabulariesRoutes(fastify) {
   //         _id: new fastify.mongo.ObjectId(),
   //         name,
   //         description,
-  //         picture: pictureBase64,
+  //         image: imageBase64,
   //         created_at: currentTime,
   //         updated_at: currentTime,
   //       };

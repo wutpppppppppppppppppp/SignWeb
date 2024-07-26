@@ -69,7 +69,7 @@ const Record = () => {
       
       {/* <h1 className="text-primary-content text-center">บันทึกท่าคำศัพท์</h1> */}
       <div className="flex flex-col items-center justify-center flex-grow">
-        <div className="grid grid-cols-2 gap-10 w-full max-w-7xl p-6">
+        <div className="grid grid-cols-2 gap-10 w-full p-6">
           {/* clip 3D */}
           <div className="item1"> 
             <video ref={vdo_3d} controls className="w-full h-auto">

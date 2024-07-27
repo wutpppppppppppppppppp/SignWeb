@@ -45,7 +45,7 @@ const Category = () => {
         ) : (
           currentCategories.map((category) => (
             <div key={category._id} className="flex flex-col items-center">
-              <Link to={`/categoryad/${category.category}`}>
+              <Link to={`/category/${category.category}`}>
                 <CatCard image={category.image} title={category.category} />
               </Link>
             </div>

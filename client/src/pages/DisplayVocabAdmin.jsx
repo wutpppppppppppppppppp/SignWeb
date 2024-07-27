@@ -1,13 +1,15 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { Canvas, useLoader, useFrame } from "@react-three/fiber"
+import { Canvas } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
 import api from "../hooks/api"
 import Navbar3 from "../components/Navbar3"
 import Model from "../components/Model"
+import PathConstants from "../routes/pathConstants.js"
 
 const DisplayVocabAdmin = () => {
   const { categoryad, vocabularyad } = useParams()
+  console.log(categoryad, vocabularyad)
   const [data, setData] = useState([])
   const [error, setError] = useState(null)
   const navigate = useNavigate()
@@ -69,7 +71,7 @@ const DisplayVocabAdmin = () => {
 
   const rerecord = () => {
     console.log("Rerecord")
-    navigate(PathConstants.RECORD1)
+    navigate(PathConstants.RECORD)
   }
 
   const doneRecord = () => {
@@ -83,7 +85,7 @@ const DisplayVocabAdmin = () => {
 
   return (
     <div className="w-screen h-screen flex flex-col bg-primary">
-      <Navbar3 title={`วิดีโอภาษามือ : ไข่เจียว `} />
+      <Navbar3 title={`วิดีโอภาษามือ : ${vocabularyad} `} />
       <div className="p-4 flex justify-center items-center flex-1">
         <div className="justify-center items-center w-full h-full">
           <div className="card lg:card-side bg-base-100 shadow-xl w-full h-full">
@@ -110,9 +112,11 @@ const DisplayVocabAdmin = () => {
             <div className="card-body relative">
               <h3 className="card-title font-bold text-2xl">{vocabularyad}</h3>
               <div className="flex flex-col gap-1">
-                <a className="category text-xl">ประเภทคำ : {categoryad}</a>
-                <a className="explanation text-xl">{data.description}</a>
-                {/* <a className="approve text-xl">รับรองโดย : คุณไอติม</a> */}
+                <a className="category text-xl">
+                  ความหมาย : {data.description}
+                </a>
+                <a className="text-xl">หมวดหมู่ : {categoryad}</a>
+                <a className="text-xl">ชนิดของคำ : {data.parts_of_speech}</a>
               </div>
               {data.picture && (
                 <img

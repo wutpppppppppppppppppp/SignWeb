@@ -24,6 +24,7 @@ const DisplayVocab = () => {
         const response = await api.get(`/api/vocabularies/${vocabulary}`)
         setData(response.data)
         setError(null)
+        // console.log(response)
       } catch (err) {
         console.error("Error fetching vocabularies:", err) // Corrected error handling
         setError("Error fetching vocabularies. Please try again later.")
@@ -63,8 +64,9 @@ const DisplayVocab = () => {
             <div className="card-body relative">
               <h3 className="card-title font-bold text-2xl">{vocabulary}</h3>
               <div className="flex flex-col gap-1">
-                <a className="text-xl">ประเภทคำ : {category}</a>
-                <a className="text-xl">คำอธิบาย : {data.description}</a>
+                <a className="text-xl">ความหมาย : {data.description}</a>
+                <a className="text-xl">หมวดหมู่ : {category}</a>
+                <a className="text-xl">ชนิดของคำ : {data.parts_of_speech}</a>
               </div>
               {data.picture && (
                 <img

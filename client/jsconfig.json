@@ -2,10 +2,10 @@
   "compilerOptions": {
     "module": "ES6",
     "target": "ES6",
-    "baseUrl": "client/src",
+    "baseUrl": "src",
     "jsx": "react",
     "allowJs": true
   },
-  "include": ["./client/src/**/*"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }

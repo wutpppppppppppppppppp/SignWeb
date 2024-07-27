@@ -40,10 +40,10 @@ const getVocabularyByNameSchema = {
     response: {
       200: S.object()
         .prop("_id", S.string().format("uuid"))
-        .prop("name", S.string()),
-      // .prop("description", S.string())
-      // .prop("parts_of_speech", S.string())
-      // .prop("image", S.string())
+        .prop("name", S.string())
+        .prop("description", S.string())
+        .prop("parts_of_speech", S.string())
+        .prop("image", S.string()),
       // .prop("created_at", S.string().format("date-time"))
       // .prop("updated_at", S.string().format("date-time")),
     },

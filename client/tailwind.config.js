@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
-import daisyui from "daisyui";
-import autoprefixer from "autoprefixer";
+import daisyui from "daisyui"
+import autoprefixer from "autoprefixer"
 
 export default {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
@@ -31,17 +31,34 @@ export default {
       },
       keyframes: {
         wave: {
-          '0%': { transform: 'scale(1)' },
-          '50%': { transform: 'scale(1.5)' },
-          '100%': { transform: 'scale(1)' },
-        },        pulse: {
+          "0%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.5)" },
+          "100%": { transform: "scale(1)" },
+        },
+        pulse: {
           "0%, 100%": { transform: "scale(1)", opacity: 1 },
           "50%": { transform: "scale(1.5)", opacity: 0.7 },
         },
+        "configure-clockwise": {
+          "0%": { transform: "rotate(0)" },
+          "25%": { transform: "rotate(90deg)" },
+          "50%": { transform: "rotate(180deg)" },
+          "75%": { transform: "rotate(270deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
+        "configure-xclockwise": {
+          "0%": { transform: "rotate(45deg)" },
+          "25%": { transform: "rotate(-45deg)" },
+          "50%": { transform: "rotate(-135deg)" },
+          "75%": { transform: "rotate(-225deg)" },
+          "100%": { transform: "rotate(-315deg)" },
+        },
       },
       animation: {
-        wave: 'wave 1s ease-in-out infinite',
+        wave: "wave 1s ease-in-out infinite",
         pulse: "pulse 1.5s ease-in-out infinite",
+        clockwise: "configure-clockwise 3s ease-in-out 0s infinite alternate",
+        xclockwise: "configure-xclockwise 3s ease-in-out 0s infinite alternate",
       },
     },
   },
@@ -73,4 +90,4 @@ export default {
       },
     ],
   },
-};
+}

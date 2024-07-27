@@ -84,63 +84,54 @@ const DisplayVocabAdmin = () => {
   // }, [animationName])
 
   return (
-    <div className="w-screen h-screen flex flex-col bg-primary">
-      <Navbar3 title={`วิดีโอภาษามือ : ${vocabularyad} `} />
-      <div className="p-4 flex justify-center items-center flex-1">
-        <div className="justify-center items-center w-full h-full">
-          <div className="card lg:card-side bg-base-100 shadow-xl w-full h-full">
-            <figure className="justify-center w-2/4 h-auto bg-blue-500">
-              <Canvas camera={{ position: [0, 1, 1.2], fov: 45 }}>
-                <ambientLight intensity={4} />
-                <directionalLight position={[5, 10, 7.5]} intensity={1} />
-                {/* <axesHelper args={[5]} />
-                <gridHelper args={[10, 10]} /> */}
-                <Model
-                  modelUrl={modelUrl}
-                  // animationName={animationName}
-                  position={[0, 0, 0]}
-                  scale={[0.01, 0.01, 0.01]}
-                />
-                <OrbitControls
-                  enableRotate={false}
-                  enableZoom={false}
-                  enablePan={false}
-                  target={[0, 1, 0]}
-                />
-              </Canvas>
-            </figure>
-            <div className="card-body relative">
-              <h3 className="card-title font-bold text-2xl">{vocabularyad}</h3>
-              <div className="flex flex-col gap-1">
-                <a className="category text-xl">
-                  ความหมาย : {data.description}
-                </a>
-                <a className="text-xl">หมวดหมู่ : {categoryad}</a>
-                <a className="text-xl">ชนิดของคำ : {data.parts_of_speech}</a>
-              </div>
-              {data.picture && (
-                <img
-                  src={data.picture}
-                  alt={data.name}
-                  className="w-40 mx-auto"
-                />
-              )}
-
-              <div className="absolute inset-x-0 bottom-0 p-4 bg-white shadow-lg flex justify-between">
-                <button
-                  className="btn bg-others text-white w-1/2 text-center"
-                  onClick={rerecord}
-                >
-                  บันทึกท่าใหม่
-                </button>
-                <button
-                  className="btn bg-confirm text-white w-1/2 text-center"
-                  onClick={doneRecord}
-                >
-                  ยืนยันและส่งข้อมูล
-                </button>
-              </div>
-            </div>
+    <div className="h-screen flex flex-col">
+      <Navbar3 title={`วิดีโอภาษามือ : ${vocabularyad}`} />
+      <div className="m-4 h-full flex">
+        <figure className="w-1/2 bg-blue-500 rounded-3xl">
+          <Canvas camera={{ position: [0, 1, 1.2], fov: 45 }}>
+            <ambientLight intensity={4} />
+            <directionalLight position={[5, 10, 7.5]} intensity={1} />
+            <Model
+              modelUrl={modelUrl}
+              position={[0, 0, 0]}
+              scale={[0.01, 0.01, 0.01]}
+            />
+            <OrbitControls
+              enableRotate={false}
+              enableZoom={false}
+              enablePan={false}
+              target={[0, 1, 0]}
+            />
+          </Canvas>
+        </figure>
+        <div className="w-1/2 p-10 rounded-lg flex flex-col">
+          <h1 className="font-bold text-4xl">{vocabularyad}</h1>
+          <div className="divider"></div>
+          <div className="flex flex-col gap-3">
+            <a className="text-xl font-semibold">
+              ความหมาย : <a className="font-normal">{data.description}</a>
+            </a>
+            <a className="text-xl font-semibold">
+              หมวดหมู่ : <a className="font-normal">{categoryad}</a>
+            </a>
+            <a className="text-xl font-semibold">
+              ชนิดของคำ : <a className="font-normal">{data.parts_of_speech}</a>
+            </a>
+          </div>
+          <div className="divider"></div>
+          {data.picture && (
+            <img src={data.picture} alt={data.names} className="w-40 mx-auto" />
+          )}
+          <div className="flex gap-4 p-4">
+            <button
+              className="btn btn-secondary w-1/2 text-center"
+              onClick={() => navigate(`/category/${categoryad}`)}
+            >
+              ดูคำอื่นๆ
+            </button>
+            <button className="btn btn-info w-1/2 text-center">
+              ดาวน์โหลด
+            </button>
           </div>
         </div>
       </div>

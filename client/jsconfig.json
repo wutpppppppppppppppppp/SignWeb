@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "CommonJS",
     "target": "ES6",
-    "baseUrl": "./client/src",
+    "baseUrl": "client/src",
     "jsx": "react",
     "allowJs": true
   },

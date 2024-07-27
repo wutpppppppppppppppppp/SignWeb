@@ -3,8 +3,7 @@ import { Link } from "react-router-dom"
 import api from "../hooks/api"
 import CatCard from "../components/CatCard"
 import Pagination from "../components/Pagination"
-import Navbar from "../components/Navbar"
-import Spinner from "../components/Fetching"
+import Navbar from "../components/Navbar"ห
 
 const itemsPerPage = 15
 
@@ -41,8 +40,8 @@ const Categoryad = () => {
       <div className="flex-grow grid grid-cols-5 gap-4 py-4">
         {loading ? (
           <div className="col-span-5 flex justify-center items-center">
-            <span className="loading loading-spinner loading-lg"></span>
-          </div>
+          <span className="loading loading-spinner loading-lg"></span>
+        </div>
         ) : (
           currentCategories.map((category) => (
             <div key={category._id} className="flex flex-col items-center">

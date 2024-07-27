@@ -4,7 +4,6 @@ import api from "../hooks/api"
 import CatCard from "../components/CatCard"
 import Pagination from "../components/Pagination"
 import Navbar from "../components/Navbar"
-import Spinner from "../components/Fetching"
 
 const itemsPerPage = 15
 
@@ -40,7 +39,7 @@ const Category = () => {
       <div className="flex-grow grid grid-cols-5 gap-4 py-4">
         {loading ? (
           <div className="col-span-5 flex justify-center items-center">
-            <Spinner />
+            <span className="loading loading-spinner loading-lg"></span>
           </div>
         ) : (
           currentCategories.map((category) => (

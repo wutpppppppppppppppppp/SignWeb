@@ -41,7 +41,7 @@ const Categoryad = () => {
       <div className="flex-grow grid grid-cols-5 gap-4 py-4">
         {loading ? (
           <div className="col-span-5 flex justify-center items-center">
-            <Spinner />
+            <span className="loading loading-spinner loading-lg"></span>
           </div>
         ) : (
           currentCategories.map((category) => (

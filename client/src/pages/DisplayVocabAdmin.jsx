@@ -85,9 +85,9 @@ const DisplayVocabAdmin = () => {
     <div className="w-screen h-screen flex flex-col bg-primary">
       <Navbar3 title={`วิดีโอภาษามือ : ไข่เจียว `} />
       <div className="p-4 flex justify-center items-center flex-1">
-        <div className="flex justify-center items-center w-full h-full">
+        <div className="justify-center items-center w-full h-full">
           <div className="card lg:card-side bg-base-100 shadow-xl w-full h-full">
-            <figure className="flex justify-center w-2/4 h-auto bg-blue-500">
+            <figure className="justify-center w-2/4 h-auto bg-blue-500">
               <Canvas camera={{ position: [0, 1, 1.2], fov: 45 }}>
                 <ambientLight intensity={4} />
                 <directionalLight position={[5, 10, 7.5]} intensity={1} />

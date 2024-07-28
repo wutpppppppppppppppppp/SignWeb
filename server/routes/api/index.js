@@ -1,13 +1,4 @@
-"use strict";
-
-import fp from "fastify-plugin";
-import { readFileSync } from "fs";
 import S from "fluent-json-schema";
-import { join } from "desm";
-
-const { version } = JSON.parse(
-  readFileSync(join(import.meta.url, "../../package.json"))
-);
 
 const searchSchema = {
   querystring: S.object().prop("find", S.string().required()),
@@ -18,7 +9,7 @@ const searchSchema = {
         S.object()
           .prop("name", S.string())
           .prop("type", S.string())
-          .prop("category", S.string({ nullable: true })) // Allow null for category in case of category type suggestion
+          .prop("category", S.string())
       )
     ),
   },
@@ -36,16 +27,24 @@ export default async function (fastify, opts) {
           .db("sample_sign")
           .collection("categories");
 
-        // Fetch categories and vocabularies
-        const categories = await categoriesCollection.find().toArray();
+        // Fetch categories and vocabularies using MongoDB query
+        const categories = await categoriesCollection
+          .find({
+            $or: [
+              { category: { $regex: regex } },
+              { "vocabularies.name": { $regex: regex } },
+            ],
+          })
+          .toArray();
+        // console.log("fetched", categories);
+        let categorySuggestions = [];
+        let vocabularySuggestions = [];
 
-        // Filter and collect matching results
-        let suggestions = [];
-
+        // Process each category and its vocabularies
         categories.forEach((category) => {
-          if (regex.test(category.name)) {
-            suggestions.push({
-              name: category.name,
+          if (regex.test(category.category)) {
+            categorySuggestions.push({
+              name: category.category,
               type: "category",
               category: null,
             });
@@ -53,19 +52,22 @@ export default async function (fastify, opts) {
 
           category.vocabularies.forEach((vocab) => {
             if (regex.test(vocab.name)) {
-              suggestions.push({
+              vocabularySuggestions.push({
                 name: vocab.name,
                 type: "vocabulary",
-                category: category.category,
+                category: category.category, // Use category name here
               });
             }
           });
         });
 
-        // Limit suggestions to a maximum of 7
-        suggestions = suggestions.slice(0, 7);
+        // Combine and limit suggestions
+        const maxSuggestions = 10;
+        let suggestions = [...categorySuggestions, ...vocabularySuggestions];
+        // console.log(suggestions);
+        suggestions = suggestions.slice(0, maxSuggestions);
 
-        fastify.log.info(`Fetched suggestions: ${JSON.stringify(suggestions)}`);
+        // fastify.log.info(`Fetched suggestions: ${JSON.stringify(suggestions)}`);
         reply.send({ suggestions });
       } catch (err) {
         fastify.log.error(err, "Failed to fetch suggestions");

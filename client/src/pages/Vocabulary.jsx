@@ -51,7 +51,7 @@ const Vocabulary = () => {
   return (
     <div className="h-screen flex flex-col">
       <Navbar title={`${category}`} />
-      <div className="p-4">
+      <div className="p-4 flex-grow">
         {error && <div className="text-red-600">{error}</div>}
         {loading ? (
           <div className="flex justify-center items-center h-full">

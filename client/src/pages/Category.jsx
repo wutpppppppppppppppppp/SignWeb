@@ -51,7 +51,7 @@ const Category = () => {
           </div>
         )}
       </div>
-      <div className="mb-4 self-center">
+      <div className="pb-4 self-center">
         <Pagination
           totalItems={categories.length}
           itemsPerPage={itemsPerPage}

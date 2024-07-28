@@ -23,7 +23,6 @@ const Categoryad = () => {
         setLoading(false)
       }
     }
-
     fetchCategories()
   }, [])
 
@@ -35,34 +34,34 @@ const Categoryad = () => {
   }
 
   return (
-    <div className="w-screen h-screen flex flex-col justify-between">
+    <div className="h-screen flex flex-col">
       <Navbar title="ประเภท" />
-      <div className="flex-grow grid grid-cols-5 gap-4 py-4">
+      <div className="p-4 flex-grow">
         {loading ? (
-          <div className="col-span-5 flex justify-center items-center">
+          <div className="flex justify-center items-center h-full">
             <span className="loading loading-spinner loading-lg"></span>
           </div>
         ) : (
-          currentCategories.map((category) => (
-            <div key={category._id} className="flex flex-col items-center">
-              <Link to={`/categoryad/${category.category}`}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 py-4">
+            {currentCategories.map((category, index) => (
+              <Link key={index} to={`/categoryad/${category.category}`}>
                 <CatCard image={category.image} title={category.category} />
               </Link>
-            </div>
-          ))
+            ))}
+          </div>
         )}
       </div>
-      <div className="pb-4 self-center">
+      <div className="self-stretch justify-self-center flex flex-col items-center gap-10">
         <Pagination
           totalItems={categories.length}
           itemsPerPage={itemsPerPage}
           onPageChange={handlePageChange}
           currentPage={currentPage}
         />
-      </div>
-      <div className="bg-primary-content text-primary text-sm py-2 text-center">
-        <p>เลขที่พอร์ตปัจจุบัน (Port): 14053</p>
-        <p>เลขที่ไอพีปัจจุบัน (IP Address): 172.20.10.3</p>
+        <div className="bg-primary-content text-primary text-sm py-2 text-center w-full">
+          <p>เลขที่พอร์ตปัจจุบัน (Port): 14053</p>
+          <p>เลขที่ไอพีปัจจุบัน (IP Address): 172.20.10.3</p>
+        </div>
       </div>
     </div>
   )

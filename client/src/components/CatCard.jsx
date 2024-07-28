@@ -1,14 +1,20 @@
 import React from "react"
 
 const CatCard = ({ image, title }) => {
-  // Determine the image URL based on the condition
-  const imageUrl =
+  // Determine if the image is a placeholder
+  const isPlaceholder =
     image === "vocab_placeholder" || image === "category_placeholder"
-      ? `/${image}.jpg`
-      : image
+
+  // Determine the image URL based on the condition
+  const imageUrl = isPlaceholder ? `/${image}.jpg` : image
 
   return (
-    <div className="card bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 w-full h-full">
+    <div
+      className={`card bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 w-full h-full ${
+        isPlaceholder ? "opacity-50 cursor-not-allowed" : ""
+      }`}
+      aria-disabled={isPlaceholder}
+    >
       <figure className="px-4 pt-4">
         <img
           src={imageUrl}

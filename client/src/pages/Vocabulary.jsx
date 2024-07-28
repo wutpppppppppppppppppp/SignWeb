@@ -48,6 +48,9 @@ const Vocabulary = () => {
     setCurrentPage(pageNumber)
   }
 
+  const isPlaceholder = (image) =>
+    image === "vocab_placeholder" || image === "category_placeholder"
+
   return (
     <div className="h-screen flex flex-col">
       <Navbar title={`${category}`} />
@@ -59,11 +62,18 @@ const Vocabulary = () => {
           </div>
         ) : (
           <div className="grid grid-cols-5 gap-4 py-4">
-            {currentVocabularies.map((vocab, index) => (
-              <Link key={index} to={`/category/${category}/${vocab.name}`}>
-                <CatCard image={vocab.image} title={vocab.name} />
-              </Link>
-            ))}
+            {currentVocabularies.map((vocab, index) => {
+              const card = (
+                <CatCard key={index} image={vocab.image} title={vocab.name} />
+              )
+              return isPlaceholder(vocab.image) ? (
+                <div key={index}>{card}</div>
+              ) : (
+                <Link key={index} to={`/category/${category}/${vocab.name}`}>
+                  {card}
+                </Link>
+              )
+            })}
           </div>
         )}
       </div>

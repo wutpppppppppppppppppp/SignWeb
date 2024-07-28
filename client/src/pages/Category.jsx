@@ -33,6 +33,9 @@ const Category = () => {
     setCurrentPage(pageNumber)
   }
 
+  const isPlaceholder = (image) =>
+    image === "vocab_placeholder" || image === "category_placeholder"
+
   return (
     <div className="h-screen flex flex-col">
       <Navbar title="ประเภท" />
@@ -43,11 +46,22 @@ const Category = () => {
           </div>
         ) : (
           <div className="grid grid-cols-5 gap-4 py-4">
-            {currentCategories.map((category, index) => (
-              <Link key={index} to={`/category/${category.category}`}>
-                <CatCard image={category.image} title={category.category} />
-              </Link>
-            ))}
+            {currentCategories.map((category, index) => {
+              const card = (
+                <CatCard
+                  key={index}
+                  image={category.image}
+                  title={category.category}
+                />
+              )
+              return isPlaceholder(category.image) ? (
+                <div key={index}>{card}</div>
+              ) : (
+                <Link key={index} to={`/category/${category.category}`}>
+                  {card}
+                </Link>
+              )
+            })}
           </div>
         )}
       </div>

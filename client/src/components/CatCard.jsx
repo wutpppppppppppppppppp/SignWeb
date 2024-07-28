@@ -8,12 +8,12 @@ const CatCard = ({ image, title }) => {
       : image
 
   return (
-    <div className="card bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 w-full max-w-xs">
+    <div className="card bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 w-full h-full">
       <figure className="px-4 pt-4">
         <img
           src={imageUrl}
           alt={title}
-          className="rounded-xl object-cover w-full aspect-square"
+          className="rounded-xl object-cover w-full h-48"
         />
       </figure>
       <div className="card-body p-4 text-center">

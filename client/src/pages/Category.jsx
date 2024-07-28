@@ -34,24 +34,24 @@ const Category = () => {
   }
 
   return (
-    <div className="w-screen h-screen flex flex-col justify-between bg-primary">
+    <div className="h-screen flex flex-col">
       <Navbar title="ประเภท" />
-      <div className="flex-grow grid grid-cols-5 gap-4 py-4">
+      <div className="p-4 flex-grow">
         {loading ? (
-          <div className="col-span-5 flex justify-center items-center">
+          <div className="flex justify-center items-center h-full">
             <span className="loading loading-spinner loading-lg"></span>
           </div>
         ) : (
-          currentCategories.map((category) => (
-            <div key={category._id} className="flex flex-col items-center">
-              <Link to={`/category/${category.category}`}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 py-4">
+            {currentCategories.map((category, index) => (
+              <Link key={index} to={`/category/${category.category}`}>
                 <CatCard image={category.image} title={category.category} />
               </Link>
-            </div>
-          ))
+            ))}
+          </div>
         )}
       </div>
-      <div className="pb-4 self-center">
+      <div className="mb-4 self-center">
         <Pagination
           totalItems={categories.length}
           itemsPerPage={itemsPerPage}

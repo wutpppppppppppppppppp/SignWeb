@@ -12,28 +12,28 @@ const SetupForm = () => {
     ip_address: "255.255.255.255",
     port: "14053",
     api_key: "1234",
-  });
+  })
 
-  const { values: config, handleChange } = useFormInput(initialConfig);
+  const { values: config, handleChange } = useFormInput(initialConfig)
 
   const { isSubmitted, handleSubmit } = useFormSubmit(() => {
-    console.log("Form submitted with config:", config);
-    navigate("/control-buttons", { state: { config } });
-  });
+    console.log("Form submitted with config:", config)
+    navigate("/control-buttons", { state: { config } })
+  })
 
   const handleFormSubmit = (event) => {
-    event.preventDefault();
-    handleSubmit();
-  };
+    event.preventDefault()
+    handleSubmit()
+  }
 
   return (
     <div className="w-screen h-screen flex flex-col justify-between  bg-primary">
       <Navbar2 title="SignPose3D" />
       <div className="h-0.5 bg-secondary-content w-full"></div>
       <div className="flex-grow flex items-center justify-center w-2/3 place-self-center  my-20 rounded-lg">
-      
         <div className="p-4 flex flex-col ">
           <h1 className="text-primary-content text-center">เชื่อมต่ออุปกรณ์</h1>
+          <div className="divider"></div>
           {!isSubmitted ? (
             <form onSubmit={handleFormSubmit}>
               {/* <div>
@@ -90,7 +90,7 @@ const SetupForm = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SetupForm;
+export default SetupForm

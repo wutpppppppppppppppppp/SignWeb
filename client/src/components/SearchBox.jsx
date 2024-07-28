@@ -71,7 +71,7 @@ const SearchBox = ({ placeholder }) => {
           {suggestions.map((suggestion, index) => (
             <li
               key={index}
-              className="px-4 py-2 hover:bg-base-100 text-primary-content cursor-pointer"
+              className="px-4 py-2 hover:bg-base-200 text-primary-content cursor-pointer"
               onClick={() => handleSelect(suggestion)}
             >
               {suggestion.type === "category"

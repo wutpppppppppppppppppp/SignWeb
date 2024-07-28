@@ -51,7 +51,7 @@ const Vocabulary = () => {
   return (
     <div className="h-screen flex flex-col">
       <Navbar title={`${category}`} />
-      <div className="p-4 flex-grow">
+      <div className="pt-4 px-6 flex-grow">
         {error && <div className="text-red-600">{error}</div>}
         {loading ? (
           <div className="flex justify-center items-center h-full">
@@ -67,7 +67,7 @@ const Vocabulary = () => {
           </div>
         )}
       </div>
-      <div className="pb-4 self-center">
+      <div className="mb-20 self-center">
         <Pagination
           totalItems={vocabularies.length}
           itemsPerPage={itemsPerPage}

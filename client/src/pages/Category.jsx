@@ -36,13 +36,13 @@ const Category = () => {
   return (
     <div className="h-screen flex flex-col">
       <Navbar title="ประเภท" />
-      <div className="p-4 flex-grow">
+      <div className="pt-4 px-6 flex-grow">
         {loading ? (
           <div className="flex justify-center items-center h-full">
             <span className="loading loading-spinner loading-lg"></span>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 py-4">
+          <div className="grid grid-cols-5 gap-4 py-4">
             {currentCategories.map((category, index) => (
               <Link key={index} to={`/category/${category.category}`}>
                 <CatCard image={category.image} title={category.category} />
@@ -51,7 +51,7 @@ const Category = () => {
           </div>
         )}
       </div>
-      <div className="pb-4 self-center">
+      <div className="mb-20 self-center">
         <Pagination
           totalItems={categories.length}
           itemsPerPage={itemsPerPage}

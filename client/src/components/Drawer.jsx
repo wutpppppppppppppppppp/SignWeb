@@ -1,8 +1,11 @@
-// src/components/Drawer.jsx
+import React from "react"
 import { VscThreeBars } from "react-icons/vsc"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 
 const Drawer = () => {
+  const location = useLocation()
+  const isAdminPage = location.pathname.includes("/categoryad")
+
   return (
     <div className="drawer drawer-end w-fit relative z-50">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
@@ -19,17 +22,15 @@ const Drawer = () => {
         ></label>
         <ul className="menu bg-primary text-primary-content min-h-full w-80 p-4">
           <li>
-            <Link to="/">
-              <a>หน้าหลัก</a>
-            </Link>
+            <Link to="/">หน้าหลัก</Link>
           </li>
+          {isAdminPage && (
+            <li>
+              <Link to="/categoryad">ลิสต์คำอัด</Link>
+            </li>
+          )}
           <li>
-            <Link to="/category">
-              <a>ลิสต์คำศัพท์</a>
-            </Link>
-          </li>
-          <li>
-            <a></a>
+            <Link to="/category">ลิสต์คำศัพท์</Link>
           </li>
         </ul>
       </div>

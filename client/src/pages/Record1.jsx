@@ -70,7 +70,7 @@ const Record = () => {
   const vdo3D ={
     // function to play video in louise view
     "ปลาช่อน" : ""
-    ,"สวัสดี" : ""
+    ,"สวัสดี" : "https://res.cloudinary.com/dein37xju/video/upload/v1722163357/louise%E0%B8%AA%E0%B8%A7%E0%B8%B1%E0%B8%AA%E0%B8%94%E0%B8%B5_ozntlf.mov"
     ,"ก้น" : ""
     ,"พ่อ" : ""
     ,"สีฟ้า" : ""
@@ -89,12 +89,12 @@ const Record = () => {
       <div className="flex flex-col items-center justify-center flex-grow ">
         {" "}
         {/* + c*/}
-        <div className="grid grid-cols-2 gap-10 w-full p-6">
+        <div className="grid grid-cols-2 gap-10 w-full max-w-7xl p-6">
           {" "}
           {/* flex gap-x-5 items-center *}
           {/* clip 3D */}
           <div className="item1">
-            <video ref={vdo_3d} controls className="w-full h-auto">
+            <video ref={vdo_3d} controls className="w-full h-auto ">
               <source
                 src={vdoSrc[vocabularyad]}  
                 type="video/mp4"

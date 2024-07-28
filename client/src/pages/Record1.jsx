@@ -59,6 +59,7 @@ const Record = () => {
     } //pause the vdo then go to the stop record
   }
   const vdoSrc ={
+    // function to play video in user view
     "ปลาช่อน" : "https://res.cloudinary.com/dein37xju/video/upload/v1722157789/%E0%B8%9B%E0%B8%A5%E0%B8%B2%E0%B8%8A%E0%B9%88%E0%B8%AD%E0%B8%99_rci4dc.mov"
     ,"สวัสดี" : "https://res.cloudinary.com/dein37xju/video/upload/v1722157790/%E0%B8%AA%E0%B8%A7%E0%B8%B1%E0%B8%AA%E0%B8%94%E0%B8%B5_wouilq.mov"
     ,"ก้น" : "https://res.cloudinary.com/dein37xju/video/upload/v1722157787/%E0%B8%81%E0%B9%89%E0%B8%99_rbnyqj.mov"
@@ -66,7 +67,15 @@ const Record = () => {
     ,"สีฟ้า" : "https://res.cloudinary.com/dein37xju/video/upload/v1722157606/blue_gctsdr.mov"
     ,"100" : "https://res.cloudinary.com/dein37xju/video/upload/v1722157604/100_iznlve.mov"
   }
-
+  const vdo3D ={
+    // function to play video in louise view
+    "ปลาช่อน" : ""
+    ,"สวัสดี" : ""
+    ,"ก้น" : ""
+    ,"พ่อ" : ""
+    ,"สีฟ้า" : ""
+    ,"100" : ""
+  }
   return (
     <div className="w-screen h-screen">
       <Navbar3 title={`บันทึกท่าคำศัพท์: ${vocabularyad}`} />
@@ -88,7 +97,6 @@ const Record = () => {
             <video ref={vdo_3d} controls className="w-full h-auto">
               <source
                 src={vdoSrc[vocabularyad]}  
-                // src="https://vod-progressive.akamaized.net/exp=1721963401~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F13%2F19%2F475068701%2F2119168947.mp4~hmac=376794e2b0349072e918363f1e6a039bdbb88107126a636af1967a7367c9866c/vimeo-prod-skyfire-std-us/01/13/19/475068701/2119168947.mp4?download=1&filename=sample_video.mp4+%28240p%29.mp4"
                 type="video/mp4"
               />
             </video>
@@ -97,7 +105,7 @@ const Record = () => {
           <div className="item2">
             <video ref={vdo_cam} controls className="w-full h-auto">
               <source
-                src="https://vod-progressive.akamaized.net/exp=1721963401~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F13%2F19%2F475068701%2F2119168947.mp4~hmac=376794e2b0349072e918363f1e6a039bdbb88107126a636af1967a7367c9866c/vimeo-prod-skyfire-std-us/01/13/19/475068701/2119168947.mp4?download=1&filename=sample_video.mp4+%28240p%29.mp4"
+                 src={vdo3D[vocabularyad]}
                 type="video/mp4"
               />
             </video>

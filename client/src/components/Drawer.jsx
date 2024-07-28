@@ -19,6 +19,11 @@ const Drawer = () => {
         ></label>
         <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
           <li>
+            <Link to="/">
+              <a>หน้าหลัก</a>
+            </Link>
+          </li>
+          <li>
             <Link to="/category">
               <a>ลิสต์คำศัพท์</a>
             </Link>

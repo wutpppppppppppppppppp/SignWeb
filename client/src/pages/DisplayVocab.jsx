@@ -46,7 +46,7 @@ const DisplayVocab = () => {
               scale={[0.01, 0.01, 0.01]}
             />
             <OrbitControls
-              enableRotate={false}
+              enableRotate={true}
               enableZoom={false}
               enablePan={false}
               target={[0, 1, 0]}

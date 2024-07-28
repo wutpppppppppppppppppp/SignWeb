@@ -15,13 +15,13 @@ const DoneRecord = () => {
 
         {/* button*/}
         <div className="flex gap-10">
-          <Link to="/record/:categoryname/:vocabName">
+          <Link to="/categoryad">
             <button className="btn btn-width btn-lg bg-confirm text-base-100">
               บันทึกท่าคำศัพท์ใหม่
             </button>
           </Link>
-          <Link to="/category">
-            <button className="btn btn-width btn-lg btn-warning text-warning-content">
+          <Link to="/">
+            <button className="btn btn-width btn-lg btn-secondary ">
               กลับหน้าหลัก
             </button>
           </Link>

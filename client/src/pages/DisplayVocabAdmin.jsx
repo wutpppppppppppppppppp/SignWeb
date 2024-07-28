@@ -71,7 +71,7 @@ const DisplayVocabAdmin = () => {
 
   const rerecord = () => {
     console.log("Rerecord")
-    navigate(PathConstants.RECORD)
+    navigate(`/record/${categoryad}/${vocabularyad}`)
   }
 
   const doneRecord = () => {
@@ -125,12 +125,15 @@ const DisplayVocabAdmin = () => {
           <div className="flex gap-4 p-4">
             <button
               className="btn btn-secondary w-1/2 text-center"
-              onClick={() => navigate(`/category/${categoryad}`)}
+              onClick={rerecord}
             >
-              ดูคำอื่นๆ
+              บันทึกท่าใหม่
             </button>
-            <button className="btn btn-info w-1/2 text-center">
-              ดาวน์โหลด
+            <button
+              className="btn btn-info w-1/2 text-center"
+              onClick={doneRecord}
+            >
+              ยืนยันและส่งข้อมูล
             </button>
           </div>
         </div>

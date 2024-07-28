@@ -2,7 +2,7 @@ import fp from "fastify-plugin";
 import S from "fluent-json-schema";
 import cloudinary from "../../../config/cloudinary.js";
 import { PassThrough } from "stream";
-
+import ObjectId from "@fastify/mongodb"
 
 
 const categorySchema = {
@@ -39,7 +39,7 @@ const addCategorySchema = {
       ),
     response: {
       201: S.object()
-        .prop("_id", S.string())
+        .prop("_id", S.string().format('uuid'))
         .prop("category", S.string())
         .prop("image", S.string())
         .prop(
@@ -171,13 +171,14 @@ async function categoriesRoutes(fastify) {
         const { category, description, image } = request.body; // Destructure image from the request body
         
         fastify.log.info(`Updating category with ID: ${id}`);
-
+        console.log(id)
         // Validate ID format
-        if (!ObjectId.isValid(id)) {
-          fastify.log.warn(`Invalid ID format: ${id}`);
-          reply.code(400).send({ error: "Invalid ID format" });
-          return;
-        }
+        // if (ObjectId.isValid(id)) {
+        //   fastify.log.warn(`Invalid ID format: ${id}`);
+        //   reply.code(400).send({ error: "Invalid ID format" });
+        //   return;
+        // } 
+        // how to verify/validate id ที่ corrected?
 
         const categoriesCollection = fastify.mongo.client
           .db("sample_sign")

@@ -12,9 +12,10 @@ const Login = () => {
       <div className="h-0.5 bg-secondary-content w-full"></div>
       <div className="flex-grow flex items-center justify-center w-2/3 place-self-center my-20">
         <div className="p-4 flex flex-col justify-center item-center">
-          <div className="flex flex-col gap-1 mb-4">
+          <div className="flex flex-col gap-2 mb-4">
             {/* email */}
             <h1 className="text-primary-content text-center">เข้าสู่ระบบ</h1>
+            <div className="divider"></div>
             <span className="label-text">อีเมล</span>
             <label className="input input-bordered flex items-center gap-2">
               <IoMdMail />
@@ -37,7 +38,7 @@ const Login = () => {
               />
             </label>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-3">
             {/*login*/}
             <Link to="/setup-form">
               <button className="btn btn-wide btn-secondary text-secondary-content ">
@@ -49,9 +50,9 @@ const Login = () => {
             </div>
             {/*signin*/}
             <Link to="/sign-in" className="place-self-center">
-              <button className="btn btn-neutral text-success-content">
+              <div className="flex-grow flex items-center justify-center text-primary-content">
                 สร้างบัญชี
-              </button>
+              </div>
             </Link>
           </div>
         </div>

@@ -1,5 +1,6 @@
 // src/components/Drawer.jsx
-import { VscThreeBars } from "react-icons/vsc";
+import { VscThreeBars } from "react-icons/vsc"
+import { Link } from "react-router-dom"
 
 const Drawer = () => {
   return (
@@ -7,7 +8,7 @@ const Drawer = () => {
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         <label htmlFor="my-drawer" className="btn btn-primary drawer-button">
-          <VscThreeBars className="size-6"/>
+          <VscThreeBars className="size-6" />
         </label>
       </div>
       <div className="drawer-side">
@@ -18,7 +19,9 @@ const Drawer = () => {
         ></label>
         <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
           <li>
-            <a>ลิสต์คำศัพท์</a>
+            <Link to="/category">
+              <a>ลิสต์คำศัพท์</a>
+            </Link>
           </li>
           <li>
             <a></a>
@@ -26,7 +29,7 @@ const Drawer = () => {
         </ul>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Drawer;
+export default Drawer

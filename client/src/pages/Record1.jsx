@@ -4,6 +4,8 @@ import Navbar3 from "../components/Navbar3"
 import PathConstants from "../routes/pathConstants"
 import RecordButton from "../components/RecordBtn"
 import { VscSettings } from "react-icons/vsc"
+// import { calibrate } from "../services/recordServices" 
+
 // Uncomment the imports for the recording services
 // import {
 //   startRecording,
@@ -57,7 +59,7 @@ const Record = () => {
   }
 
   return (
-    <div className="w-screen h-screen flex flex-col justify-between bg-primary">
+    <div className="w-screen h-screen">
       <Navbar3 title={`บันทึกท่าคำศัพท์: ${vocabularyad}`} />
 
       {/* <div class="grid grid-cols-2 gap-2">
@@ -66,8 +68,8 @@ const Record = () => {
       </div> */}
 
       {/* <h1 className="text-primary-content text-center">บันทึกท่าคำศัพท์</h1> */}
-      <div className="flex flex-col items-center justify-center flex-grow">
-        <div className="grid grid-cols-2 gap-10 w-full p-6">
+      <div className="flex flex-col items-center justify-center flex-grow "> {/* + c*/} 
+        <div className="grid grid-cols-2 gap-10 w-full p-6"> {/* flex gap-x-5 items-center *}
           {/* clip 3D */}
           <div className="item1">
             <video ref={vdo_3d} controls className="w-full h-auto">
@@ -88,39 +90,31 @@ const Record = () => {
           </div>
         </div>
 
+        {/* <div className="flex flex-col items-center justify-center"> */}
         <div className="flex gap-x-5 m-5">
           <button
             className={`btn ${isRecording ? "btn-disabled" : "btn-primary-content"} text-primary-content`}
             onClick={handleCalibrate}
-            disabled={isRecording}
+            disabled={isCalibrating}
           >
-            ปรับท่า​ (Calibrate)
+            <VscSettings />
+            ปรับท่า​
           </button>
-          {!isRecording ? (
-            <button
-              className="btn bg-confirm text-white"
-              onClick={handleStartRecording}
-            >
-              เริ่มการบันทึก (Start Recording)
-            </button>
-          ) : (
-            <>
-              <button
-                className="btn btn-active btn-error text-error-content"
-                onClick={handleStopRecording}
-              >
-                สิ้นสุดการบันทึก (Stop Recording)
-              </button>
-              <Link to={PathConstants.DONE}></Link>
-            </>
-          )}
+          </div>
+          <div className="flex-1 text-center">
+          <RecordButton
+            isRecording={isRecording}
+            handleStartRecording={handleStartRecording}
+            handleStopRecording={handleStopRecording}
+          />
+        </div>
         </div>
         <div className="bg-primary-content text-primary text-sm py-2 text-center absolute bottom-0 inset-x-0">
           <p>เลขที่พอร์ตปัจจุบัน (Port): 14053</p>
           <p>เลขที่ไอพีปัจจุบัน (IP Address): 172.20.10.3</p>
         </div>
       </div>
-    </div>
+    // </div>
   )
 }
 

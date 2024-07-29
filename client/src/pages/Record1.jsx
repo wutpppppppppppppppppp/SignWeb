@@ -72,13 +72,12 @@ const Record = () => {
   }
   const vdo3D = {
     // function to play video in louise view
-    ปลาช่อน: "",
-    สวัสดี:
-      "https://res.cloudinary.com/dein37xju/video/upload/v1722163357/louise%E0%B8%AA%E0%B8%A7%E0%B8%B1%E0%B8%AA%E0%B8%94%E0%B8%B5_ozntlf.mov",
-    ก้น: "",
-    พ่อ: "",
-    สีฟ้า: "",
-    100: "",
+    "ปลาช่อน" : "https://res.cloudinary.com/dein37xju/video/upload/v1722243341/pjswe5saazzdvvjvhn9o.mov"
+    ,"สวัสดี" : "https://res.cloudinary.com/dein37xju/video/upload/v1722243341/pjswe5saazzdvvjvhn9o.mov"
+    ,"ก้น" : ""
+    ,"พ่อ" : ""
+    ,"สีฟ้า" : ""
+    ,"100" : ""
   }
 
   return (

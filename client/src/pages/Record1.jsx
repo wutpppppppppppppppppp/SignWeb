@@ -117,7 +117,7 @@ const Record = () => {
         </div>
         <div className="bg-primary-content text-primary text-sm py-2 text-center justify-self-end self-stretch">
           <p>เลขที่พอร์ตปัจจุบัน (Port): 14053</p>
-          <p>เลขที่ไอพีปัจจุบัน (IP Address): 172.20.10.3</p>
+          <p>เลขที่ไอพีปัจจุบัน (IP Address): 127.0.0.1</p>
         </div>
       </div>
     </div>

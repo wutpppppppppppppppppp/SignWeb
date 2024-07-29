@@ -32,3 +32,9 @@ h2 {
 h3 {
   @apply text-3xl font-semibold;
 }
+
+.video-player {
+  width: 100%;
+  max-width: 450px; /* Adjust as needed */
+  height: auto;
+}

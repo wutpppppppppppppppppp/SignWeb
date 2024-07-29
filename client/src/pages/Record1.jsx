@@ -5,7 +5,7 @@ import PathConstants from "../routes/pathConstants"
 import RecordButton from "../components/RecordBtn"
 import { VscSettings } from "react-icons/vsc"
 import axios from "../../node_modules/axios/index"
-// import { calibrate } from "../services/recordServices" 
+// import { calibrate } from "../services/recordServices";
 
 // Uncomment the imports for the recording services
 // import {
@@ -58,60 +58,47 @@ const Record = () => {
       vdo_cam.current.pause()
     } //pause the vdo then go to the stop record
   }
-  const vdoSrc ={
+  const vdoSrc = {
     // function to play video in user view
-    "ปลาช่อน" : "https://res.cloudinary.com/dein37xju/video/upload/v1722157789/%E0%B8%9B%E0%B8%A5%E0%B8%B2%E0%B8%8A%E0%B9%88%E0%B8%AD%E0%B8%99_rci4dc.mov"
-    ,"สวัสดี" : "https://res.cloudinary.com/dein37xju/video/upload/v1722157790/%E0%B8%AA%E0%B8%A7%E0%B8%B1%E0%B8%AA%E0%B8%94%E0%B8%B5_wouilq.mov"
-    ,"ก้น" : "https://res.cloudinary.com/dein37xju/video/upload/v1722157787/%E0%B8%81%E0%B9%89%E0%B8%99_rbnyqj.mov"
-    ,"พ่อ" : "https://res.cloudinary.com/dein37xju/video/upload/v1722157606/dad_uxpzti.mov"
-    ,"สีฟ้า" : "https://res.cloudinary.com/dein37xju/video/upload/v1722157606/blue_gctsdr.mov"
-    ,"100" : "https://res.cloudinary.com/dein37xju/video/upload/v1722157604/100_iznlve.mov"
+    ปลาช่อน:
+      "https://res.cloudinary.com/dein37xju/video/upload/v1722157789/%E0%B8%9B%E0%B8%A5%E0%B8%B2%E0%B8%8A%E0%B9%88%E0%B8%AD%E0%B8%99_rci4dc.mov",
+    สวัสดี:
+      "https://res.cloudinary.com/dein37xju/video/upload/v1722157790/%E0%B8%AA%E0%B8%A7%E0%B8%B1%E0%B8%AA%E0%B8%94%E0%B8%B5_wouilq.mov",
+    ก้น: "https://res.cloudinary.com/dein37xju/video/upload/v1722157787/%E0%B8%81%E0%B9%89%E0%B8%99_rbnyqj.mov",
+    พ่อ: "https://res.cloudinary.com/dein37xju/video/upload/v1722157606/dad_uxpzti.mov",
+    สีฟ้า:
+      "https://res.cloudinary.com/dein37xju/video/upload/v1722157606/blue_gctsdr.mov",
+    100: "https://res.cloudinary.com/dein37xju/video/upload/v1722157604/100_iznlve.mov",
   }
-  const vdo3D ={
+  const vdo3D = {
     // function to play video in louise view
-    "ปลาช่อน" : ""
-    ,"สวัสดี" : "https://res.cloudinary.com/dein37xju/video/upload/v1722163357/louise%E0%B8%AA%E0%B8%A7%E0%B8%B1%E0%B8%AA%E0%B8%94%E0%B8%B5_ozntlf.mov"
-    ,"ก้น" : ""
-    ,"พ่อ" : ""
-    ,"สีฟ้า" : ""
-    ,"100" : ""
+    ปลาช่อน: "",
+    สวัสดี:
+      "https://res.cloudinary.com/dein37xju/video/upload/v1722163357/louise%E0%B8%AA%E0%B8%A7%E0%B8%B1%E0%B8%AA%E0%B8%94%E0%B8%B5_ozntlf.mov",
+    ก้น: "",
+    พ่อ: "",
+    สีฟ้า: "",
+    100: "",
   }
+
   return (
-    <div className="w-screen h-screen">
+    <div className="h-screen flex flex-col">
       <Navbar3 title={`บันทึกท่าคำศัพท์: ${vocabularyad}`} />
-
-      {/* <div class="grid grid-cols-2 gap-2">
-        <div class="col-start-1"></div>
-        <div class="grid grid-cols-subgrid gap-4 col-span-3"></div>
-      </div> */}
-
-      {/* <h1 className="text-primary-content text-center">บันทึกท่าคำศัพท์</h1> */}
-      <div className="flex flex-col items-center justify-center flex-grow ">
-        {" "}
-        {/* + c*/}
-        <div className="grid grid-cols-2 gap-10 w-full max-w-7xl p-6">
-          {" "}
-          {/* flex gap-x-5 items-center *}
+      <div className="flex flex-col items-center justify-center flex-grow pt-8">
+        <div className="grid grid-cols-2 gap-10 w-full max-w-7xl">
           {/* clip 3D */}
-          <div className="item1">
-            <video ref={vdo_3d} controls className="w-full h-auto ">
-              <source
-                src={vdoSrc[vocabularyad]}  
-                type="video/mp4"
-              />
+          <div className="flex justify-center">
+            <video ref={vdo_3d} controls className="video-player shadow-2xl">
+              <source src={vdoSrc[vocabularyad]} type="video/mp4" />
             </video>
           </div>
           {/* clip from camera */}
-          <div className="item2">
-            <video ref={vdo_cam} controls className="w-full h-auto">
-              <source
-                 src={vdo3D[vocabularyad]}
-                type="video/mp4"
-              />
+          <div className="flex justify-center">
+            <video ref={vdo_cam} controls className="video-player shadow-2xl">
+              <source src={vdo3D[vocabularyad]} type="video/mp4" />
             </video>
           </div>
         </div>
-        {/* <div className="flex flex-col items-center justify-center"> */}
         <div className="flex gap-x-5 m-5">
           <button
             className={`btn ${isRecording ? "btn-disabled" : "btn-primary-content"} text-primary-content`}
@@ -122,20 +109,19 @@ const Record = () => {
             ปรับท่า​
           </button>
         </div>
-        <div className="flex-1 text-center">
+        <div className="flex-1 text-center mb-4">
           <RecordButton
             isRecording={isRecording}
             handleStartRecording={handleStartRecording}
             handleStopRecording={handleStopRecording}
           />
         </div>
-        </div>
-        <div className="bg-primary-content text-primary text-sm py-2 text-center">
+        <div className="bg-primary-content text-primary text-sm py-2 text-center justify-self-end self-stretch">
           <p>เลขที่พอร์ตปัจจุบัน (Port): 14053</p>
           <p>เลขที่ไอพีปัจจุบัน (IP Address): 172.20.10.3</p>
         </div>
       </div>
-    // </div>
+    </div>
   )
 }
 

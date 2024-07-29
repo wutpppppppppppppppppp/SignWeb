@@ -57,7 +57,7 @@ const Categoryad = () => {
               return isPlaceholder(category.image) ? (
                 <div key={index}>{card}</div>
               ) : (
-                <Link key={index} to={`/category/${category.category}`}>
+                <Link key={index} to={`/categoryad/${category.category}`}>
                   {card}
                 </Link>
               )

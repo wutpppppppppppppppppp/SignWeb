@@ -4,6 +4,7 @@ import api from "../hooks/api"
 import CatCard from "../components/CatCard"
 import Pagination from "../components/Pagination"
 import Navbar from "../components/Navbar"
+import { FaPencil } from "react-icons/fa6"
 
 const itemsPerPage = 15
 
@@ -72,9 +73,12 @@ const Categoryad = () => {
           onPageChange={handlePageChange}
           currentPage={currentPage}
         />
-        <div className="bg-primary-content text-primary text-sm py-2 text-center w-full">
-          <p>เลขที่พอร์ตปัจจุบัน (Port): 14053</p>
-          <p>เลขที่ไอพีปัจจุบัน (IP Address): 127.0.0.1</p>
+        <div className="bg-primary-content text-primary text-sm py-2 w-full flex justify-center">
+          <div className="text-center">
+            <p>เลขที่พอร์ตปัจจุบัน (Port): 14053</p>
+            <p>เลขที่ไอพีปัจจุบัน (IP Address): 127.0.0.1</p>
+          </div>
+          <FaPencil className="self-end h-full ml-4" />
         </div>
       </div>
     </div>

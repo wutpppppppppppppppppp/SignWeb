@@ -39,7 +39,7 @@ const SearchBox = ({ placeholder }) => {
   const handleSelect = (suggestion) => {
     setInputValue(suggestion.name)
 
-    const isRecordingPage = location.pathname.includes("/record")
+    const isRecordingPage = location.pathname.includes("/categoryad")
 
     if (suggestion.type === "category") {
       navigate(`/category/${suggestion.name}`)

@@ -78,7 +78,9 @@ const Categoryad = () => {
             <p>เลขที่พอร์ตปัจจุบัน (Port): 14053</p>
             <p>เลขที่ไอพีปัจจุบัน (IP Address): 127.0.0.1</p>
           </div>
-          <FaPencil className="self-end h-full ml-4" />
+          <Link to="/setup-form">
+            <FaPencil className="self-end h-full ml-4" />
+          </Link>
         </div>
       </div>
     </div>

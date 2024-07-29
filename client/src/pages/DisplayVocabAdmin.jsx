@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate, Link } from "react-router-dom"
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
 import api from "../hooks/api"
 import Navbar3 from "../components/Navbar3"
 import Model from "../components/Model"
 import PathConstants from "../routes/pathConstants.js"
+import { FaPencil } from "react-icons/fa6"
 
 const DisplayVocabAdmin = () => {
   const { categoryad, vocabularyad } = useParams()
@@ -138,9 +139,14 @@ const DisplayVocabAdmin = () => {
           </div>
         </div>
       </div>
-      <div className="bg-primary-content text-primary text-sm py-2 text-center">
-        <p>เลขที่พอร์ตปัจจุบัน (Port): 14053</p>
-        <p>เลขที่ไอพีปัจจุบัน (IP Address): 127.0.0.1</p>
+      <div className="bg-primary-content text-primary text-sm py-2 w-full flex justify-center">
+        <div className="text-center">
+          <p>เลขที่พอร์ตปัจจุบัน (Port): 14053</p>
+          <p>เลขที่ไอพีปัจจุบัน (IP Address): 127.0.0.1</p>
+        </div>
+        <Link to="/setup-form">
+          <FaPencil className="self-end h-full ml-4" />
+        </Link>
       </div>
     </div>
   )

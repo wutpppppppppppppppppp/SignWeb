@@ -5,6 +5,7 @@ import PathConstants from "../routes/pathConstants"
 import RecordButton from "../components/RecordBtn"
 import { VscSettings } from "react-icons/vsc"
 import axios from "../../node_modules/axios/index"
+import { FaPencil } from "react-icons/fa6"
 // import { calibrate } from "../services/recordServices";
 
 // Uncomment the imports for the recording services
@@ -68,16 +69,21 @@ const Record = () => {
     พ่อ: "https://res.cloudinary.com/dein37xju/video/upload/v1722253104/dad.mov",
     สีฟ้า:
       "https://res.cloudinary.com/dein37xju/video/upload/v1722254419/mshd9w9bq1cqlbgsxgdc.mov",
-    หนึ่่งร้อย: "https://res.cloudinary.com/dein37xju/video/upload/v1722254128/cfsww6wnjiowoecm9hpn.mov",
+    หนึ่่งร้อย:
+      "https://res.cloudinary.com/dein37xju/video/upload/v1722254128/cfsww6wnjiowoecm9hpn.mov",
   }
   const vdo3D = {
     // function to play video in louise view
-    "ปลาช่อน" : "https://res.cloudinary.com/dein37xju/video/upload/v1722243341/pjswe5saazzdvvjvhn9o.mov"
-    ,"สวัสดี" : "https://res.cloudinary.com/dein37xju/video/upload/v1722243341/pjswe5saazzdvvjvhn9o.mov"
-    ,"ก้น" : "https://res.cloudinary.com/dein37xju/video/upload/v1722254886/joee8magbfodkopv8bqk.mov"
-    ,"พ่อ" : "https://res.cloudinary.com/dein37xju/video/upload/v1722253104/vg26hia3ra3u2yjkf3lh.mov"
-    ,"สีฟ้า" : "https://res.cloudinary.com/dein37xju/video/upload/v1722254422/yxvon8g1d49a4zbaexam.mov"
-    ,"หนึ่่งร้อย" : "https://res.cloudinary.com/dein37xju/video/upload/v1722253893/bj2i6vtnchgibs7blatb.mov"
+    ปลาช่อน:
+      "https://res.cloudinary.com/dein37xju/video/upload/v1722243341/pjswe5saazzdvvjvhn9o.mov",
+    สวัสดี:
+      "https://res.cloudinary.com/dein37xju/video/upload/v1722243341/pjswe5saazzdvvjvhn9o.mov",
+    ก้น: "https://res.cloudinary.com/dein37xju/video/upload/v1722254886/joee8magbfodkopv8bqk.mov",
+    พ่อ: "https://res.cloudinary.com/dein37xju/video/upload/v1722253104/vg26hia3ra3u2yjkf3lh.mov",
+    สีฟ้า:
+      "https://res.cloudinary.com/dein37xju/video/upload/v1722254422/yxvon8g1d49a4zbaexam.mov",
+    หนึ่่งร้อย:
+      "https://res.cloudinary.com/dein37xju/video/upload/v1722253893/bj2i6vtnchgibs7blatb.mov",
   }
 
   return (
@@ -115,9 +121,14 @@ const Record = () => {
             handleStopRecording={handleStopRecording}
           />
         </div>
-        <div className="bg-primary-content text-primary text-sm py-2 text-center justify-self-end self-stretch">
-          <p>เลขที่พอร์ตปัจจุบัน (Port): 14053</p>
-          <p>เลขที่ไอพีปัจจุบัน (IP Address): 127.0.0.1</p>
+        <div className="bg-primary-content text-primary text-sm py-2 w-full flex justify-center">
+          <div className="text-center">
+            <p>เลขที่พอร์ตปัจจุบัน (Port): 14053</p>
+            <p>เลขที่ไอพีปัจจุบัน (IP Address): 127.0.0.1</p>
+          </div>
+          <Link to="/setup-form">
+            <FaPencil className="self-end h-full ml-4" />
+          </Link>
         </div>
       </div>
     </div>

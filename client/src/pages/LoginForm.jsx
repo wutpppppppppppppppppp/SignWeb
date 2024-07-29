@@ -49,7 +49,7 @@ const Login = () => {
               ลืมรหัสผ่านใช่หรือไม่?
             </div>
             {/*signin*/}
-            <Link to="/sign-in" className="place-self-center mt-1">
+            <Link to="/categoryad" className="place-self-center mt-1">
               <div className="flex-grow flex items-center justify-center text-primary-content hover:text-info">
                 สร้างบัญชี
               </div>

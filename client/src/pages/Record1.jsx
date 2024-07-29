@@ -64,20 +64,20 @@ const Record = () => {
       "https://res.cloudinary.com/dein37xju/video/upload/v1722157789/%E0%B8%9B%E0%B8%A5%E0%B8%B2%E0%B8%8A%E0%B9%88%E0%B8%AD%E0%B8%99_rci4dc.mov",
     สวัสดี:
       "https://res.cloudinary.com/dein37xju/video/upload/v1722157790/%E0%B8%AA%E0%B8%A7%E0%B8%B1%E0%B8%AA%E0%B8%94%E0%B8%B5_wouilq.mov",
-    ก้น: "https://res.cloudinary.com/dein37xju/video/upload/v1722157787/%E0%B8%81%E0%B9%89%E0%B8%99_rbnyqj.mov",
-    พ่อ: "https://res.cloudinary.com/dein37xju/video/upload/v1722157606/dad_uxpzti.mov",
+    ก้น: "https://res.cloudinary.com/dein37xju/video/upload/v1722254897/ajgidwj5kjcib1hkbf6t.mov",
+    พ่อ: "https://res.cloudinary.com/dein37xju/video/upload/v1722253104/dad.mov",
     สีฟ้า:
-      "https://res.cloudinary.com/dein37xju/video/upload/v1722157606/blue_gctsdr.mov",
-    100: "https://res.cloudinary.com/dein37xju/video/upload/v1722157604/100_iznlve.mov",
+      "https://res.cloudinary.com/dein37xju/video/upload/v1722254419/mshd9w9bq1cqlbgsxgdc.mov",
+    หนึ่่งร้อย: "https://res.cloudinary.com/dein37xju/video/upload/v1722254128/cfsww6wnjiowoecm9hpn.mov",
   }
   const vdo3D = {
     // function to play video in louise view
     "ปลาช่อน" : "https://res.cloudinary.com/dein37xju/video/upload/v1722243341/pjswe5saazzdvvjvhn9o.mov"
     ,"สวัสดี" : "https://res.cloudinary.com/dein37xju/video/upload/v1722243341/pjswe5saazzdvvjvhn9o.mov"
-    ,"ก้น" : ""
-    ,"พ่อ" : ""
-    ,"สีฟ้า" : ""
-    ,"100" : ""
+    ,"ก้น" : "https://res.cloudinary.com/dein37xju/video/upload/v1722254886/joee8magbfodkopv8bqk.mov"
+    ,"พ่อ" : "https://res.cloudinary.com/dein37xju/video/upload/v1722253104/vg26hia3ra3u2yjkf3lh.mov"
+    ,"สีฟ้า" : "https://res.cloudinary.com/dein37xju/video/upload/v1722254422/yxvon8g1d49a4zbaexam.mov"
+    ,"หนึ่่งร้อย" : "https://res.cloudinary.com/dein37xju/video/upload/v1722253893/bj2i6vtnchgibs7blatb.mov"
   }
 
   return (
